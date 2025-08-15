@@ -4,7 +4,7 @@ import { CardWrapper } from "./card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { registerSchema } from "@/schemas";
+import { newPasswordSchema } from "@/schemas";
 import {
   Form,
   FormControl,
@@ -19,74 +19,39 @@ import FormError from "../FormError";
 import { useMutation } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import FormSuccess from "../FormSuccess";
+import { useSearchParams } from "next/navigation";
 
-export const RegisterForm = () => {
+export const NewPasswordForm = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const t = useTRPC();
   const {
-    mutate: register,
+    mutate: newPassword,
     isPending,
     error,
     data,
-  } = useMutation(t.user.register.mutationOptions());
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+  } = useMutation(t.user.newPassword.mutationOptions());
+  const form = useForm<z.infer<typeof newPasswordSchema>>({
+    resolver: zodResolver(newPasswordSchema),
     defaultValues: {
-      email: "",
       password: "",
       confirmPassword: "",
-      name: "",
+      token: token ?? "",
     },
     mode: "onBlur",
   });
-  const onSubmit = (data: z.infer<typeof registerSchema>) => {
-    register(data);
+  const onSubmit = (data: z.infer<typeof newPasswordSchema>) => {
+    newPassword(data);
   };
   return (
     <CardWrapper
-      headerLabel="Create an account"
-      backButtonLabel="Already have an account?"
+      headerLabel="Reset your password"
+      backButtonLabel="Back to login"
       backButtonLink="/auth/login"
-      showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="space-y-4">
-          <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="John Doe"
-                      type="text"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="mail@example.com"
-                      type="email"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="password"
@@ -126,14 +91,14 @@ export const RegisterForm = () => {
               )}
             />
           </div>
-          <FormSuccess message={data?.message ?? ""} />
           <FormError message={error?.message ?? ""} />
+          <FormSuccess message={data?.message ?? ""} />
           <Button
             type="submit"
             className="w-full cursor-pointer"
             disabled={isPending}
           >
-            {isPending ? "Registering..." : "Register"}
+            {isPending ? "Resetting..." : "Reset password"}
           </Button>
         </form>
       </Form>

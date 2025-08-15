@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { CardWrapper } from "./card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,17 +20,31 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { DEFAULT_REDIRECT_URL } from "@/routes";
 import { useTRPC } from "@/trpc/client";
+import FormSuccess from "../FormSuccess";
+import Link from "next/link";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "../ui/input-otp";
 
 export const LoginForm = () => {
   const t = useTRPC();
   const router = useRouter();
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const {
     mutate: login,
     isPending,
     error,
+    data,
   } = useMutation(
     t.user.login.mutationOptions({
-      onSuccess: () => {
+      onSuccess: (data) => {
+        if (data?.verifyEmail || data?.twoFactorEnabled) {
+          setTwoFactorEnabled(data?.twoFactorEnabled ?? false);
+          return;
+        }
         router.push(DEFAULT_REDIRECT_URL);
       },
     })
@@ -40,6 +54,7 @@ export const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
+      twoFactorToken: "",
     },
     mode: "onBlur",
   });
@@ -48,7 +63,7 @@ export const LoginForm = () => {
   };
   return (
     <CardWrapper
-      headerLabel="Welcome back"
+      headerLabel="Sign in"
       backButtonLabel="Don't have an account?"
       backButtonLink="/auth/register"
       showSocial
@@ -56,51 +71,94 @@ export const LoginForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="mail@example.com"
-                      type="email"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="********"
-                      type="password"
-                      showPasswordToggle
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {twoFactorEnabled ? (
+              <div className="w-full flex flex-col">
+                <FormField
+                  control={form.control}
+                  name="twoFactorToken"
+                  render={({ field }) => (
+                    <FormItem className="">
+                      <FormLabel className="text-center text-lg font-bold">
+                        Enter 2FA code
+                      </FormLabel>
+                      <FormControl>
+                        <InputOTP maxLength={6} {...field} disabled={isPending}>
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                            <InputOTPSeparator />
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            ) : (
+              <>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="mail@example.com"
+                          type="email"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="********"
+                          type="password"
+                          showPasswordToggle
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button variant="link" className="w-full text-center" asChild>
+                  <Link href="/auth/reset">Forgot password?</Link>
+                </Button>
+              </>
+            )}
           </div>
+
           <FormError message={error?.message ?? ""} />
+          <FormSuccess message={data?.message ?? ""} />
           <Button
             type="submit"
             className="w-full cursor-pointer"
             disabled={isPending}
           >
-            {isPending ? "Logging in..." : "Login"}
+            {isPending && !twoFactorEnabled
+              ? "Logging in..."
+              : isPending && twoFactorEnabled
+              ? "Verifying..."
+              : twoFactorEnabled
+              ? "Verify"
+              : "Login"}
           </Button>
         </form>
       </Form>
