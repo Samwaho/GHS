@@ -162,4 +162,12 @@ export const publicRouter = createTRPCRouter({
       // Filter out inactive services
       return branchServices.filter(bs => bs.service.status === 'ACTIVE');
     }),
+
+  // Gallery
+  getGalleryItems: baseProcedure.query(async () => {
+    return await prisma.gallery.findMany({
+      where: { isActive: true },
+      orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    });
+  }),
 });

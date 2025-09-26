@@ -37,6 +37,15 @@ const branchServiceSchema = z.object({
   isAvailable: z.boolean().default(true),
 });
 
+const gallerySchema = z.object({
+  title: z.string().min(1),
+  description: z.string().optional(),
+  imageUrl: z.string().url(),
+  imageUuid: z.string().optional(),
+  order: z.number().default(0),
+  isActive: z.boolean().default(true),
+});
+
 export const adminRouter = createTRPCRouter({
   // Categories
   getCategories: adminProcedure.query(async () => {
@@ -210,8 +219,8 @@ export const adminRouter = createTRPCRouter({
   }),
 
   updateUserRole: adminProcedure
-    .input(z.object({ 
-      id: z.string(), 
+    .input(z.object({
+      id: z.string(),
       role: z.enum(["ADMIN", "USER"])
     }))
     .mutation(async ({ input }) => {
@@ -219,5 +228,45 @@ export const adminRouter = createTRPCRouter({
         where: { id: input.id },
         data: { role: input.role },
       });
+    }),
+
+  // Gallery Management
+  getGalleryItems: adminProcedure.query(async () => {
+    return await prisma.gallery.findMany({
+      orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    });
+  }),
+
+  createGalleryItem: adminProcedure
+    .input(gallerySchema)
+    .mutation(async ({ input }) => {
+      return await prisma.gallery.create({ data: input });
+    }),
+
+  updateGalleryItem: adminProcedure
+    .input(z.object({ id: z.string(), data: gallerySchema.partial() }))
+    .mutation(async ({ input }) => {
+      return await prisma.gallery.update({
+        where: { id: input.id },
+        data: input.data,
+      });
+    }),
+
+  deleteGalleryItem: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
+      return await prisma.gallery.delete({ where: { id: input.id } });
+    }),
+
+  reorderGalleryItems: adminProcedure
+    .input(z.array(z.object({ id: z.string(), order: z.number() })))
+    .mutation(async ({ input }) => {
+      const updatePromises = input.map(item =>
+        prisma.gallery.update({
+          where: { id: item.id },
+          data: { order: item.order },
+        })
+      );
+      return await Promise.all(updatePromises);
     }),
 });

@@ -235,6 +235,18 @@ exports.Prisma.BookingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GalleryScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  imageUuid: 'imageUuid',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -277,7 +289,8 @@ exports.Prisma.ModelName = {
   Branch: 'Branch',
   Service: 'Service',
   BranchService: 'BranchService',
-  Booking: 'Booking'
+  Booking: 'Booking',
+  Gallery: 'Gallery'
 };
 
 /**
