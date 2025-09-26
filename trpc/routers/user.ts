@@ -22,6 +22,16 @@ import {
 } from "@/lib/mail";
 import z from "zod";
 
+// Helper function to generate unique voucher codes
+function generateVoucherCode(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 8; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
 export const userRouter = createTRPCRouter({
   // Register a new user
   register: baseProcedure.input(registerSchema).mutation(async ({ input }) => {
@@ -277,7 +287,8 @@ export const userRouter = createTRPCRouter({
       scheduledAt: z.string(), // ISO date string
       notes: z.string().optional(),
       attachmentUrl: z.string().optional(),
-      attachmentUuid: z.string().optional()
+      attachmentUuid: z.string().optional(),
+      giftVoucherCode: z.string().optional()
     }))
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user?.id;
@@ -298,14 +309,59 @@ export const userRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Service not available at this branch' });
       }
 
-      return await prisma.booking.create({
+      let finalPrice = branchService.price;
+      let giftVoucher = null;
+      let voucherUsageAmount = 0;
+
+      // Handle gift voucher if provided
+      if (input.giftVoucherCode) {
+        giftVoucher = await prisma.giftVoucher.findUnique({
+          where: { code: input.giftVoucherCode },
+          include: { template: { include: { service: true } } }
+        });
+
+        if (!giftVoucher) {
+          throw new TRPCError({ code: 'NOT_FOUND', message: 'Gift voucher not found' });
+        }
+
+        if (giftVoucher.status !== 'ACTIVE') {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher is not active' });
+        }
+
+        if (giftVoucher.expiresAt < new Date()) {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has expired' });
+        }
+
+        if (giftVoucher.remainingValue <= 0) {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has no remaining value' });
+        }
+
+        // Check if voucher is service-specific
+        if (giftVoucher.template.type === 'SERVICE_SPECIFIC' && giftVoucher.template.serviceId !== input.serviceId) {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher is not valid for this service' });
+        }
+
+        // Calculate discount
+        if (giftVoucher.template.type === 'FIXED_AMOUNT') {
+          voucherUsageAmount = Math.min(giftVoucher.remainingValue, finalPrice);
+        } else if (giftVoucher.template.type === 'PERCENTAGE') {
+          voucherUsageAmount = Math.min(giftVoucher.remainingValue, (finalPrice * giftVoucher.template.value) / 100);
+        } else if (giftVoucher.template.type === 'SERVICE_SPECIFIC') {
+          voucherUsageAmount = Math.min(giftVoucher.remainingValue, finalPrice);
+        }
+
+        finalPrice = Math.max(0, finalPrice - voucherUsageAmount);
+      }
+
+      // Create the booking
+      const booking = await prisma.booking.create({
         data: {
           userId,
           serviceId: input.serviceId,
           branchId: input.branchId,
           branchServiceId: branchService.id,
           scheduledAt: new Date(input.scheduledAt),
-          totalPrice: branchService.price,
+          totalPrice: finalPrice,
           notes: input.notes,
           attachmentUrl: input.attachmentUrl,
           attachmentUuid: input.attachmentUuid,
@@ -321,5 +377,197 @@ export const userRouter = createTRPCRouter({
           branchService: true
         }
       });
+
+      // Record gift voucher usage if applicable
+      if (giftVoucher && voucherUsageAmount > 0) {
+        await prisma.giftVoucherUsage.create({
+          data: {
+            voucherId: giftVoucher.id,
+            bookingId: booking.id,
+            amountUsed: voucherUsageAmount,
+            notes: `Used for booking ${booking.id}`
+          }
+        });
+
+        // Update voucher remaining value
+        const newRemainingValue = giftVoucher.remainingValue - voucherUsageAmount;
+        await prisma.giftVoucher.update({
+          where: { id: giftVoucher.id },
+          data: {
+            remainingValue: newRemainingValue,
+            status: newRemainingValue <= 0 ? 'USED' : 'ACTIVE',
+            usedAt: newRemainingValue <= 0 ? new Date() : undefined
+          }
+        });
+      }
+
+      return booking;
+    }),
+
+  // Gift Voucher Procedures
+  getAvailableGiftVoucherTemplates: baseProcedure.query(async () => {
+    return await prisma.giftVoucherTemplate.findMany({
+      where: {
+        isActive: true,
+        OR: [
+          { maxUsageCount: null },
+          { currentUsageCount: { lt: prisma.giftVoucherTemplate.fields.maxUsageCount } }
+        ]
+      },
+      include: {
+        service: { select: { title: true, basePrice: true } }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+  }),
+
+  purchaseGiftVoucher: protectedProcedure
+    .input(z.object({
+      templateId: z.string(),
+      recipientEmail: z.string().email().optional(),
+      recipientName: z.string().optional(),
+      message: z.string().optional(),
+      purchasePrice: z.number().min(0)
+    }))
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session.user?.id;
+      if (!userId) {
+        throw new TRPCError({ code: 'UNAUTHORIZED', message: 'User not found' });
+      }
+
+      // Get the template
+      const template = await prisma.giftVoucherTemplate.findUnique({
+        where: { id: input.templateId },
+        include: { service: true }
+      });
+
+      if (!template || !template.isActive) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Gift voucher template not found or inactive' });
+      }
+
+      // Check usage limit
+      if (template.maxUsageCount && template.currentUsageCount >= template.maxUsageCount) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher template has reached maximum usage limit' });
+      }
+
+      // Find recipient user if email provided
+      let recipientId = null;
+      if (input.recipientEmail) {
+        const recipient = await prisma.user.findUnique({
+          where: { email: input.recipientEmail }
+        });
+        recipientId = recipient?.id || null;
+      }
+
+      // Generate unique voucher code
+      let voucherCode;
+      let isUnique = false;
+      while (!isUnique) {
+        voucherCode = generateVoucherCode();
+        const existing = await prisma.giftVoucher.findUnique({
+          where: { code: voucherCode }
+        });
+        if (!existing) isUnique = true;
+      }
+
+      // Calculate voucher value
+      let voucherValue = input.purchasePrice;
+      if (template.type === 'FIXED_AMOUNT') {
+        voucherValue = template.value;
+      } else if (template.type === 'SERVICE_SPECIFIC' && template.service) {
+        voucherValue = template.service.basePrice;
+      }
+
+      // Create the gift voucher
+      const voucher = await prisma.giftVoucher.create({
+        data: {
+          code: voucherCode!,
+          templateId: input.templateId,
+          purchasedById: userId,
+          recipientId,
+          recipientEmail: input.recipientEmail,
+          recipientName: input.recipientName,
+          originalValue: voucherValue,
+          remainingValue: voucherValue,
+          purchasePrice: input.purchasePrice,
+          expiresAt: new Date(Date.now() + template.validityDays * 24 * 60 * 60 * 1000),
+          message: input.message
+        },
+        include: {
+          template: { include: { service: true } },
+          purchasedBy: { select: { name: true, email: true } },
+          recipient: { select: { name: true, email: true } }
+        }
+      });
+
+      // Update template usage count
+      await prisma.giftVoucherTemplate.update({
+        where: { id: input.templateId },
+        data: { currentUsageCount: { increment: 1 } }
+      });
+
+      return voucher;
+    }),
+
+  getMyGiftVouchers: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user?.id;
+    if (!userId) {
+      throw new TRPCError({ code: 'UNAUTHORIZED', message: 'User not found' });
+    }
+
+    return await prisma.giftVoucher.findMany({
+      where: {
+        OR: [
+          { purchasedById: userId },
+          { recipientId: userId }
+        ]
+      },
+      include: {
+        template: { include: { service: true } },
+        purchasedBy: { select: { name: true, email: true } },
+        recipient: { select: { name: true, email: true } },
+        usages: {
+          include: {
+            booking: {
+              include: {
+                service: { select: { title: true } },
+                branch: { select: { name: true } }
+              }
+            }
+          },
+          orderBy: { usedAt: 'desc' }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+  }),
+
+  validateGiftVoucher: protectedProcedure
+    .input(z.object({ code: z.string() }))
+    .query(async ({ input }) => {
+      const voucher = await prisma.giftVoucher.findUnique({
+        where: { code: input.code },
+        include: {
+          template: { include: { service: true } }
+        }
+      });
+
+      if (!voucher) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Gift voucher not found' });
+      }
+
+      if (voucher.status !== 'ACTIVE') {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher is not active' });
+      }
+
+      if (voucher.expiresAt < new Date()) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has expired' });
+      }
+
+      if (voucher.remainingValue <= 0) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has no remaining value' });
+      }
+
+      return voucher;
     }),
 });

@@ -31,6 +31,19 @@ enum ServiceStatus {
   INACTIVE
 }
 
+enum GiftVoucherStatus {
+  ACTIVE
+  USED
+  EXPIRED
+  CANCELLED
+}
+
+enum GiftVoucherType {
+  FIXED_AMOUNT    // Fixed monetary value
+  PERCENTAGE      // Percentage discount
+  SERVICE_SPECIFIC // Specific service voucher
+}
+
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -39,17 +52,22 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  role          Role            @default(USER) 
+  role          Role            @default(USER)
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   isTwoFactorEnabled Boolean    @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-  
+
   // User bookings
   bookings      Booking[]
-  
+
   // Admin created services
   createdServices Service[]      @relation("ServiceCreator")
+
+  // Gift vouchers
+  purchasedGiftVouchers GiftVoucher[] @relation("GiftVoucherPurchaser")
+  receivedGiftVouchers  GiftVoucher[] @relation("GiftVoucherRecipient")
+  createdGiftVoucherTemplates GiftVoucherTemplate[] @relation("GiftVoucherTemplateCreator")
 }
 
 model Account {
@@ -156,14 +174,15 @@ model Service {
   isPopular   Boolean       @default(false)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  
+
   // Relations
   category       Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   branchServices BranchService[]
   bookings       Booking[]
   createdBy      User            @relation("ServiceCreator", fields: [createdById], references: [id])
   createdById    String
-  
+  giftVoucherTemplates GiftVoucherTemplate[]
+
   @@map("services")
 }
 
@@ -208,6 +227,7 @@ model Booking {
   service       Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   branch        Branch        @relation(fields: [branchId], references: [id], onDelete: Cascade)
   branchService BranchService @relation(fields: [branchServiceId], references: [id], onDelete: Cascade)
+  giftVoucherUsages GiftVoucherUsage[]
 
   @@map("bookings")
 }
@@ -225,4 +245,74 @@ model Gallery {
   updatedAt   DateTime  @updatedAt
 
   @@map("gallery")
+}
+
+// Gift Voucher Templates (Admin creates these)
+model GiftVoucherTemplate {
+  id          String           @id @default(cuid())
+  name        String           // e.g., "Spa Day Package", "50% Off Massage"
+  description String?
+  type        GiftVoucherType  // FIXED_AMOUNT, PERCENTAGE, SERVICE_SPECIFIC
+  value       Float            // Amount or percentage value
+  serviceId   String?          // For SERVICE_SPECIFIC type
+  isActive    Boolean          @default(true)
+  validityDays Int             @default(365) // How many days the voucher is valid
+  maxUsageCount Int?           // Max times this template can be used (null = unlimited)
+  currentUsageCount Int        @default(0)
+  imageUrl    String?          // Optional voucher image
+  imageUuid   String?          // Uploadcare image UUID
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  // Relations
+  service     Service?         @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  createdBy   User             @relation("GiftVoucherTemplateCreator", fields: [createdById], references: [id])
+  createdById String
+  giftVouchers GiftVoucher[]
+
+  @@map("gift_voucher_templates")
+}
+
+// Individual Gift Vouchers (Purchased by users)
+model GiftVoucher {
+  id              String            @id @default(cuid())
+  code            String            @unique // Unique voucher code
+  templateId      String
+  purchasedById   String            // Who bought the voucher
+  recipientId     String?           // Who received the voucher (can be same as purchaser)
+  recipientEmail  String?           // Email of recipient if not a registered user
+  recipientName   String?           // Name of recipient
+  status          GiftVoucherStatus @default(ACTIVE)
+  originalValue   Float             // Original value of the voucher
+  remainingValue  Float             // Remaining value (for partial usage)
+  purchasePrice   Float             // What was paid for this voucher
+  expiresAt       DateTime          // When the voucher expires
+  usedAt          DateTime?         // When the voucher was fully used
+  message         String?           // Personal message from purchaser
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  // Relations
+  template        GiftVoucherTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  purchasedBy     User              @relation("GiftVoucherPurchaser", fields: [purchasedById], references: [id])
+  recipient       User?             @relation("GiftVoucherRecipient", fields: [recipientId], references: [id])
+  usages          GiftVoucherUsage[]
+
+  @@map("gift_vouchers")
+}
+
+// Track voucher usage
+model GiftVoucherUsage {
+  id            String      @id @default(cuid())
+  voucherId     String
+  bookingId     String?     // If used for a booking
+  amountUsed    Float       // Amount deducted from voucher
+  usedAt        DateTime    @default(now())
+  notes         String?     // Additional notes about usage
+
+  // Relations
+  voucher       GiftVoucher @relation(fields: [voucherId], references: [id], onDelete: Cascade)
+  booking       Booking?    @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+
+  @@map("gift_voucher_usages")
 }

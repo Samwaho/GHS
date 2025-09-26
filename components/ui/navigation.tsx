@@ -5,7 +5,7 @@ import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Menu, X, User, LogOut, Calendar, Settings } from 'lucide-react';
+import { Menu, X, User, LogOut, Calendar, Settings, Gift } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -49,6 +49,9 @@ export function Navigation() {
             <Link href="/gallery" className="text-gray-700 hover:text-amber-700 transition-colors">
               Gallery
             </Link>
+            <Link href="/gift-vouchers" className="text-gray-700 hover:text-amber-700 transition-colors">
+              Gift Vouchers
+            </Link>
             <Link href="/about" className="text-gray-700 hover:text-amber-700 transition-colors">
               About
             </Link>
@@ -69,6 +72,12 @@ export function Navigation() {
                     <Link href="/bookings" className="flex items-center">
                       <Calendar className="h-4 w-4 mr-2" />
                       My Bookings
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/my-gift-vouchers" className="flex items-center">
+                      <Gift className="h-4 w-4 mr-2" />
+                      My Gift Vouchers
                     </Link>
                   </DropdownMenuItem>
                   {session.user?.role === 'ADMIN' && (

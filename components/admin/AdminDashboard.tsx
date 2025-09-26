@@ -8,6 +8,7 @@ import BranchServicesManager from './BranchServicesManager';
 import BookingsManager from './BookingsManager';
 import UsersManager from './UsersManager';
 import GalleryManager from './GalleryManager';
+import GiftVouchersManager from './GiftVouchersManager';
 
 export default function AdminDashboard() {
   return (
@@ -18,7 +19,7 @@ export default function AdminDashboard() {
       </div>
 
       <Tabs defaultValue="categories" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-7">
+        <TabsList className="grid w-full grid-cols-8">
           <TabsTrigger value="categories">Categories</TabsTrigger>
           <TabsTrigger value="services">Services</TabsTrigger>
           <TabsTrigger value="branches">Branches</TabsTrigger>
@@ -26,6 +27,7 @@ export default function AdminDashboard() {
           <TabsTrigger value="bookings">Bookings</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
           <TabsTrigger value="gallery">Gallery</TabsTrigger>
+          <TabsTrigger value="gift-vouchers">Gift Vouchers</TabsTrigger>
         </TabsList>
 
         <TabsContent value="categories">
@@ -101,6 +103,17 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <GalleryManager />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="gift-vouchers">
+          <Card>
+            <CardHeader>
+              <CardTitle>Gift Vouchers Management</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <GiftVouchersManager />
             </CardContent>
           </Card>
         </TabsContent>

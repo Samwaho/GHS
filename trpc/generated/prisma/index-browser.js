@@ -249,6 +249,52 @@ exports.Prisma.GalleryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GiftVoucherTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  value: 'value',
+  serviceId: 'serviceId',
+  isActive: 'isActive',
+  validityDays: 'validityDays',
+  maxUsageCount: 'maxUsageCount',
+  currentUsageCount: 'currentUsageCount',
+  imageUrl: 'imageUrl',
+  imageUuid: 'imageUuid',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById'
+};
+
+exports.Prisma.GiftVoucherScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  templateId: 'templateId',
+  purchasedById: 'purchasedById',
+  recipientId: 'recipientId',
+  recipientEmail: 'recipientEmail',
+  recipientName: 'recipientName',
+  status: 'status',
+  originalValue: 'originalValue',
+  remainingValue: 'remainingValue',
+  purchasePrice: 'purchasePrice',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GiftVoucherUsageScalarFieldEnum = {
+  id: 'id',
+  voucherId: 'voucherId',
+  bookingId: 'bookingId',
+  amountUsed: 'amountUsed',
+  usedAt: 'usedAt',
+  notes: 'notes'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -280,6 +326,19 @@ exports.BookingStatus = exports.$Enums.BookingStatus = {
   COMPLETED: 'COMPLETED'
 };
 
+exports.GiftVoucherType = exports.$Enums.GiftVoucherType = {
+  FIXED_AMOUNT: 'FIXED_AMOUNT',
+  PERCENTAGE: 'PERCENTAGE',
+  SERVICE_SPECIFIC: 'SERVICE_SPECIFIC'
+};
+
+exports.GiftVoucherStatus = exports.$Enums.GiftVoucherStatus = {
+  ACTIVE: 'ACTIVE',
+  USED: 'USED',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
@@ -292,7 +351,10 @@ exports.Prisma.ModelName = {
   Service: 'Service',
   BranchService: 'BranchService',
   Booking: 'Booking',
-  Gallery: 'Gallery'
+  Gallery: 'Gallery',
+  GiftVoucherTemplate: 'GiftVoucherTemplate',
+  GiftVoucher: 'GiftVoucher',
+  GiftVoucherUsage: 'GiftVoucherUsage'
 };
 
 /**

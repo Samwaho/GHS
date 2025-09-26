@@ -7,10 +7,11 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar, Clock, MapPin, DollarSign } from 'lucide-react';
+import { Calendar, Clock, MapPin, DollarSign, Gift } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, addDays } from 'date-fns';
 import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
@@ -43,19 +44,19 @@ export default function BookingModal({
   const [notes, setNotes] = useState('');
   const [attachmentUrl, setAttachmentUrl] = useState('');
   const [attachmentUuid, setAttachmentUuid] = useState('');
-  
+  const [giftVoucherCode, setGiftVoucherCode] = useState('');
+
   const t = useTRPC();
   const { data: branches } = useQuery(t.public.getBranches.queryOptions());
-  const branchServicesOptions = t.public.getBranchServices.queryOptions({ branchId: selectedBranch });
   const { data: branchServices } = useQuery({
-    ...branchServicesOptions,
+    ...t.public.getBranchServices.queryOptions({ branchId: selectedBranch }),
     enabled: !!selectedBranch,
   });
 
   const createBookingMutation = useMutation(t.user.createBooking.mutationOptions());
   
-  const branchesList = branches ?? [];
-  const currentService = branchServices?.find((bs) => bs.service.id === serviceId);
+  const branchesList = (branches as any[]) ?? [];
+  const currentService = (branchServices as any[])?.find((bs: any) => bs.service.id === serviceId);
   
   // Generate next 30 days for date selection
   const availableDates = Array.from({ length: 30 }, (_, i) => {
@@ -70,6 +71,8 @@ export default function BookingModal({
     setAttachmentUrl(result.cdnUrl);
     setAttachmentUuid(result.uuid);
   };
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +97,8 @@ export default function BookingModal({
         scheduledAt,
         notes: notes || undefined,
         attachmentUrl: attachmentUrl || undefined,
-        attachmentUuid: attachmentUuid || undefined
+        attachmentUuid: attachmentUuid || undefined,
+        giftVoucherCode: giftVoucherCode || undefined
       });
       
       toast.success('Booking created successfully!');
@@ -107,6 +111,7 @@ export default function BookingModal({
       setNotes('');
       setAttachmentUrl('');
       setAttachmentUuid('');
+      setGiftVoucherCode('');
     } catch {
       toast.error('Failed to create booking');
     }
@@ -121,6 +126,7 @@ export default function BookingModal({
     setNotes('');
     setAttachmentUrl('');
     setAttachmentUuid('');
+    setGiftVoucherCode('');
   };
 
   return (
@@ -140,7 +146,7 @@ export default function BookingModal({
                 <SelectValue placeholder="Choose a location" />
               </SelectTrigger>
               <SelectContent>
-                {branchesList.map((branch) => (
+                {branchesList.map((branch: any) => (
                   <SelectItem key={branch.id} value={branch.id}>
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-2" />
@@ -164,8 +170,24 @@ export default function BookingModal({
                   <span>{serviceDuration} minutes</span>
                 </div>
               </div>
+
             </div>
           )}
+
+          {/* Gift Voucher Section */}
+          <div className="space-y-2">
+            <Label htmlFor="giftVoucher" className="flex items-center gap-2">
+              <Gift className="h-4 w-4" />
+              Gift Voucher Code (Optional)
+            </Label>
+            <Input
+              id="giftVoucher"
+              type="text"
+              value={giftVoucherCode}
+              onChange={(e) => setGiftVoucherCode(e.target.value)}
+              placeholder="Enter gift voucher code"
+            />
+          </div>
 
           <div className="space-y-2">
             <Label htmlFor="date">Select Date *</Label>

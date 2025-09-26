@@ -46,6 +46,19 @@ const gallerySchema = z.object({
   isActive: z.boolean().default(true),
 });
 
+const giftVoucherTemplateSchema = z.object({
+  name: z.string().min(1),
+  description: z.string().optional(),
+  type: z.enum(["FIXED_AMOUNT", "PERCENTAGE", "SERVICE_SPECIFIC"]),
+  value: z.number().min(0),
+  serviceId: z.string().optional(),
+  isActive: z.boolean().default(true),
+  validityDays: z.number().min(1).default(365),
+  maxUsageCount: z.number().min(1).optional(),
+  imageUrl: z.string().optional(),
+  imageUuid: z.string().optional(),
+});
+
 export const adminRouter = createTRPCRouter({
   // Categories
   getCategories: adminProcedure.query(async () => {
@@ -269,4 +282,100 @@ export const adminRouter = createTRPCRouter({
       );
       return await Promise.all(updatePromises);
     }),
+
+  // Gift Voucher Templates Management
+  getGiftVoucherTemplates: adminProcedure.query(async () => {
+    return await prisma.giftVoucherTemplate.findMany({
+      include: {
+        service: { select: { title: true } },
+        createdBy: { select: { name: true, email: true } },
+        _count: { select: { giftVouchers: true } }
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }),
+
+  createGiftVoucherTemplate: adminProcedure
+    .input(giftVoucherTemplateSchema)
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session.user?.id;
+      if (!userId) throw new TRPCError({ code: 'UNAUTHORIZED' });
+
+      // Validate service exists if SERVICE_SPECIFIC type
+      if (input.type === 'SERVICE_SPECIFIC' && !input.serviceId) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Service ID is required for service-specific vouchers' });
+      }
+
+      return await prisma.giftVoucherTemplate.create({
+        data: { ...input, createdById: userId },
+        include: {
+          service: { select: { title: true } },
+          createdBy: { select: { name: true, email: true } }
+        }
+      });
+    }),
+
+  updateGiftVoucherTemplate: adminProcedure
+    .input(z.object({ id: z.string(), data: giftVoucherTemplateSchema.partial() }))
+    .mutation(async ({ input }) => {
+      return await prisma.giftVoucherTemplate.update({
+        where: { id: input.id },
+        data: input.data,
+        include: {
+          service: { select: { title: true } },
+          createdBy: { select: { name: true, email: true } }
+        }
+      });
+    }),
+
+  deleteGiftVoucherTemplate: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
+      return await prisma.giftVoucherTemplate.delete({ where: { id: input.id } });
+    }),
+
+  // Gift Vouchers Management
+  getGiftVouchers: adminProcedure.query(async () => {
+    return await prisma.giftVoucher.findMany({
+      include: {
+        template: { select: { name: true, type: true } },
+        purchasedBy: { select: { name: true, email: true } },
+        recipient: { select: { name: true, email: true } },
+        _count: { select: { usages: true } }
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }),
+
+  updateGiftVoucherStatus: adminProcedure
+    .input(z.object({
+      id: z.string(),
+      status: z.enum(["ACTIVE", "USED", "EXPIRED", "CANCELLED"])
+    }))
+    .mutation(async ({ input }) => {
+      return await prisma.giftVoucher.update({
+        where: { id: input.id },
+        data: { status: input.status },
+      });
+    }),
+
+  getGiftVoucherUsages: adminProcedure.query(async () => {
+    return await prisma.giftVoucherUsage.findMany({
+      include: {
+        voucher: {
+          include: {
+            template: { select: { name: true } },
+            purchasedBy: { select: { name: true, email: true } }
+          }
+        },
+        booking: {
+          include: {
+            service: { select: { title: true } },
+            user: { select: { name: true, email: true } }
+          }
+        }
+      },
+      orderBy: { usedAt: 'desc' },
+    });
+  }),
 });

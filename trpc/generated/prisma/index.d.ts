@@ -73,6 +73,21 @@ export type Booking = $Result.DefaultSelection<Prisma.$BookingPayload>
  * 
  */
 export type Gallery = $Result.DefaultSelection<Prisma.$GalleryPayload>
+/**
+ * Model GiftVoucherTemplate
+ * 
+ */
+export type GiftVoucherTemplate = $Result.DefaultSelection<Prisma.$GiftVoucherTemplatePayload>
+/**
+ * Model GiftVoucher
+ * 
+ */
+export type GiftVoucher = $Result.DefaultSelection<Prisma.$GiftVoucherPayload>
+/**
+ * Model GiftVoucherUsage
+ * 
+ */
+export type GiftVoucherUsage = $Result.DefaultSelection<Prisma.$GiftVoucherUsagePayload>
 
 /**
  * Enums
@@ -103,6 +118,25 @@ export const ServiceStatus: {
 
 export type ServiceStatus = (typeof ServiceStatus)[keyof typeof ServiceStatus]
 
+
+export const GiftVoucherStatus: {
+  ACTIVE: 'ACTIVE',
+  USED: 'USED',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type GiftVoucherStatus = (typeof GiftVoucherStatus)[keyof typeof GiftVoucherStatus]
+
+
+export const GiftVoucherType: {
+  FIXED_AMOUNT: 'FIXED_AMOUNT',
+  PERCENTAGE: 'PERCENTAGE',
+  SERVICE_SPECIFIC: 'SERVICE_SPECIFIC'
+};
+
+export type GiftVoucherType = (typeof GiftVoucherType)[keyof typeof GiftVoucherType]
+
 }
 
 export type Role = $Enums.Role
@@ -116,6 +150,14 @@ export const BookingStatus: typeof $Enums.BookingStatus
 export type ServiceStatus = $Enums.ServiceStatus
 
 export const ServiceStatus: typeof $Enums.ServiceStatus
+
+export type GiftVoucherStatus = $Enums.GiftVoucherStatus
+
+export const GiftVoucherStatus: typeof $Enums.GiftVoucherStatus
+
+export type GiftVoucherType = $Enums.GiftVoucherType
+
+export const GiftVoucherType: typeof $Enums.GiftVoucherType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -361,6 +403,36 @@ export class PrismaClient<
     * ```
     */
   get gallery(): Prisma.GalleryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.giftVoucherTemplate`: Exposes CRUD operations for the **GiftVoucherTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GiftVoucherTemplates
+    * const giftVoucherTemplates = await prisma.giftVoucherTemplate.findMany()
+    * ```
+    */
+  get giftVoucherTemplate(): Prisma.GiftVoucherTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.giftVoucher`: Exposes CRUD operations for the **GiftVoucher** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GiftVouchers
+    * const giftVouchers = await prisma.giftVoucher.findMany()
+    * ```
+    */
+  get giftVoucher(): Prisma.GiftVoucherDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.giftVoucherUsage`: Exposes CRUD operations for the **GiftVoucherUsage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GiftVoucherUsages
+    * const giftVoucherUsages = await prisma.giftVoucherUsage.findMany()
+    * ```
+    */
+  get giftVoucherUsage(): Prisma.GiftVoucherUsageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -812,7 +884,10 @@ export namespace Prisma {
     Service: 'Service',
     BranchService: 'BranchService',
     Booking: 'Booking',
-    Gallery: 'Gallery'
+    Gallery: 'Gallery',
+    GiftVoucherTemplate: 'GiftVoucherTemplate',
+    GiftVoucher: 'GiftVoucher',
+    GiftVoucherUsage: 'GiftVoucherUsage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -831,7 +906,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "verificationToken" | "passwordResetToken" | "twoFactorToken" | "twoFactorConfirmation" | "category" | "branch" | "service" | "branchService" | "booking" | "gallery"
+      modelProps: "user" | "account" | "verificationToken" | "passwordResetToken" | "twoFactorToken" | "twoFactorConfirmation" | "category" | "branch" | "service" | "branchService" | "booking" | "gallery" | "giftVoucherTemplate" | "giftVoucher" | "giftVoucherUsage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1723,6 +1798,228 @@ export namespace Prisma {
           }
         }
       }
+      GiftVoucherTemplate: {
+        payload: Prisma.$GiftVoucherTemplatePayload<ExtArgs>
+        fields: Prisma.GiftVoucherTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GiftVoucherTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GiftVoucherTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.GiftVoucherTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GiftVoucherTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.GiftVoucherTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.GiftVoucherTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.GiftVoucherTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GiftVoucherTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.GiftVoucherTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>
+          }
+          update: {
+            args: Prisma.GiftVoucherTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.GiftVoucherTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GiftVoucherTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GiftVoucherTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.GiftVoucherTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.GiftVoucherTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGiftVoucherTemplate>
+          }
+          groupBy: {
+            args: Prisma.GiftVoucherTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GiftVoucherTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GiftVoucherTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<GiftVoucherTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      GiftVoucher: {
+        payload: Prisma.$GiftVoucherPayload<ExtArgs>
+        fields: Prisma.GiftVoucherFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GiftVoucherFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GiftVoucherFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>
+          }
+          findFirst: {
+            args: Prisma.GiftVoucherFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GiftVoucherFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>
+          }
+          findMany: {
+            args: Prisma.GiftVoucherFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>[]
+          }
+          create: {
+            args: Prisma.GiftVoucherCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>
+          }
+          createMany: {
+            args: Prisma.GiftVoucherCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GiftVoucherCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>[]
+          }
+          delete: {
+            args: Prisma.GiftVoucherDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>
+          }
+          update: {
+            args: Prisma.GiftVoucherUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>
+          }
+          deleteMany: {
+            args: Prisma.GiftVoucherDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GiftVoucherUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GiftVoucherUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>[]
+          }
+          upsert: {
+            args: Prisma.GiftVoucherUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherPayload>
+          }
+          aggregate: {
+            args: Prisma.GiftVoucherAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGiftVoucher>
+          }
+          groupBy: {
+            args: Prisma.GiftVoucherGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GiftVoucherGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GiftVoucherCountArgs<ExtArgs>
+            result: $Utils.Optional<GiftVoucherCountAggregateOutputType> | number
+          }
+        }
+      }
+      GiftVoucherUsage: {
+        payload: Prisma.$GiftVoucherUsagePayload<ExtArgs>
+        fields: Prisma.GiftVoucherUsageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GiftVoucherUsageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GiftVoucherUsageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>
+          }
+          findFirst: {
+            args: Prisma.GiftVoucherUsageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GiftVoucherUsageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>
+          }
+          findMany: {
+            args: Prisma.GiftVoucherUsageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>[]
+          }
+          create: {
+            args: Prisma.GiftVoucherUsageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>
+          }
+          createMany: {
+            args: Prisma.GiftVoucherUsageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GiftVoucherUsageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>[]
+          }
+          delete: {
+            args: Prisma.GiftVoucherUsageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>
+          }
+          update: {
+            args: Prisma.GiftVoucherUsageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>
+          }
+          deleteMany: {
+            args: Prisma.GiftVoucherUsageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GiftVoucherUsageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GiftVoucherUsageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>[]
+          }
+          upsert: {
+            args: Prisma.GiftVoucherUsageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftVoucherUsagePayload>
+          }
+          aggregate: {
+            args: Prisma.GiftVoucherUsageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGiftVoucherUsage>
+          }
+          groupBy: {
+            args: Prisma.GiftVoucherUsageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GiftVoucherUsageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GiftVoucherUsageCountArgs<ExtArgs>
+            result: $Utils.Optional<GiftVoucherUsageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1827,6 +2124,9 @@ export namespace Prisma {
     branchService?: BranchServiceOmit
     booking?: BookingOmit
     gallery?: GalleryOmit
+    giftVoucherTemplate?: GiftVoucherTemplateOmit
+    giftVoucher?: GiftVoucherOmit
+    giftVoucherUsage?: GiftVoucherUsageOmit
   }
 
   /* Types for Logging */
@@ -1929,12 +2229,18 @@ export namespace Prisma {
     accounts: number
     bookings: number
     createdServices: number
+    purchasedGiftVouchers: number
+    receivedGiftVouchers: number
+    createdGiftVoucherTemplates: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     bookings?: boolean | UserCountOutputTypeCountBookingsArgs
     createdServices?: boolean | UserCountOutputTypeCountCreatedServicesArgs
+    purchasedGiftVouchers?: boolean | UserCountOutputTypeCountPurchasedGiftVouchersArgs
+    receivedGiftVouchers?: boolean | UserCountOutputTypeCountReceivedGiftVouchersArgs
+    createdGiftVoucherTemplates?: boolean | UserCountOutputTypeCountCreatedGiftVoucherTemplatesArgs
   }
 
   // Custom InputTypes
@@ -1967,6 +2273,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCreatedServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ServiceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPurchasedGiftVouchersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReceivedGiftVouchersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedGiftVoucherTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherTemplateWhereInput
   }
 
 
@@ -2048,11 +2375,13 @@ export namespace Prisma {
   export type ServiceCountOutputType = {
     branchServices: number
     bookings: number
+    giftVoucherTemplates: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     branchServices?: boolean | ServiceCountOutputTypeCountBranchServicesArgs
     bookings?: boolean | ServiceCountOutputTypeCountBookingsArgs
+    giftVoucherTemplates?: boolean | ServiceCountOutputTypeCountGiftVoucherTemplatesArgs
   }
 
   // Custom InputTypes
@@ -2078,6 +2407,13 @@ export namespace Prisma {
    */
   export type ServiceCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BookingWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountGiftVoucherTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherTemplateWhereInput
   }
 
 
@@ -2109,6 +2445,99 @@ export namespace Prisma {
    */
   export type BranchServiceCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BookingWhereInput
+  }
+
+
+  /**
+   * Count Type BookingCountOutputType
+   */
+
+  export type BookingCountOutputType = {
+    giftVoucherUsages: number
+  }
+
+  export type BookingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    giftVoucherUsages?: boolean | BookingCountOutputTypeCountGiftVoucherUsagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BookingCountOutputType without action
+   */
+  export type BookingCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingCountOutputType
+     */
+    select?: BookingCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BookingCountOutputType without action
+   */
+  export type BookingCountOutputTypeCountGiftVoucherUsagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherUsageWhereInput
+  }
+
+
+  /**
+   * Count Type GiftVoucherTemplateCountOutputType
+   */
+
+  export type GiftVoucherTemplateCountOutputType = {
+    giftVouchers: number
+  }
+
+  export type GiftVoucherTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    giftVouchers?: boolean | GiftVoucherTemplateCountOutputTypeCountGiftVouchersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GiftVoucherTemplateCountOutputType without action
+   */
+  export type GiftVoucherTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplateCountOutputType
+     */
+    select?: GiftVoucherTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucherTemplateCountOutputType without action
+   */
+  export type GiftVoucherTemplateCountOutputTypeCountGiftVouchersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherWhereInput
+  }
+
+
+  /**
+   * Count Type GiftVoucherCountOutputType
+   */
+
+  export type GiftVoucherCountOutputType = {
+    usages: number
+  }
+
+  export type GiftVoucherCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usages?: boolean | GiftVoucherCountOutputTypeCountUsagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GiftVoucherCountOutputType without action
+   */
+  export type GiftVoucherCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherCountOutputType
+     */
+    select?: GiftVoucherCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucherCountOutputType without action
+   */
+  export type GiftVoucherCountOutputTypeCountUsagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherUsageWhereInput
   }
 
 
@@ -2324,6 +2753,9 @@ export namespace Prisma {
     twoFactorConfirmation?: boolean | User$twoFactorConfirmationArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     createdServices?: boolean | User$createdServicesArgs<ExtArgs>
+    purchasedGiftVouchers?: boolean | User$purchasedGiftVouchersArgs<ExtArgs>
+    receivedGiftVouchers?: boolean | User$receivedGiftVouchersArgs<ExtArgs>
+    createdGiftVoucherTemplates?: boolean | User$createdGiftVoucherTemplatesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2372,6 +2804,9 @@ export namespace Prisma {
     twoFactorConfirmation?: boolean | User$twoFactorConfirmationArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     createdServices?: boolean | User$createdServicesArgs<ExtArgs>
+    purchasedGiftVouchers?: boolean | User$purchasedGiftVouchersArgs<ExtArgs>
+    receivedGiftVouchers?: boolean | User$receivedGiftVouchersArgs<ExtArgs>
+    createdGiftVoucherTemplates?: boolean | User$createdGiftVoucherTemplatesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2384,6 +2819,9 @@ export namespace Prisma {
       twoFactorConfirmation: Prisma.$TwoFactorConfirmationPayload<ExtArgs> | null
       bookings: Prisma.$BookingPayload<ExtArgs>[]
       createdServices: Prisma.$ServicePayload<ExtArgs>[]
+      purchasedGiftVouchers: Prisma.$GiftVoucherPayload<ExtArgs>[]
+      receivedGiftVouchers: Prisma.$GiftVoucherPayload<ExtArgs>[]
+      createdGiftVoucherTemplates: Prisma.$GiftVoucherTemplatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2794,6 +3232,9 @@ export namespace Prisma {
     twoFactorConfirmation<T extends User$twoFactorConfirmationArgs<ExtArgs> = {}>(args?: Subset<T, User$twoFactorConfirmationArgs<ExtArgs>>): Prisma__TwoFactorConfirmationClient<$Result.GetResult<Prisma.$TwoFactorConfirmationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdServices<T extends User$createdServicesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    purchasedGiftVouchers<T extends User$purchasedGiftVouchersArgs<ExtArgs> = {}>(args?: Subset<T, User$purchasedGiftVouchersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receivedGiftVouchers<T extends User$receivedGiftVouchersArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedGiftVouchersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdGiftVoucherTemplates<T extends User$createdGiftVoucherTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdGiftVoucherTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3309,6 +3750,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
+   * User.purchasedGiftVouchers
+   */
+  export type User$purchasedGiftVouchersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    where?: GiftVoucherWhereInput
+    orderBy?: GiftVoucherOrderByWithRelationInput | GiftVoucherOrderByWithRelationInput[]
+    cursor?: GiftVoucherWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftVoucherScalarFieldEnum | GiftVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * User.receivedGiftVouchers
+   */
+  export type User$receivedGiftVouchersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    where?: GiftVoucherWhereInput
+    orderBy?: GiftVoucherOrderByWithRelationInput | GiftVoucherOrderByWithRelationInput[]
+    cursor?: GiftVoucherWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftVoucherScalarFieldEnum | GiftVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdGiftVoucherTemplates
+   */
+  export type User$createdGiftVoucherTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    where?: GiftVoucherTemplateWhereInput
+    orderBy?: GiftVoucherTemplateOrderByWithRelationInput | GiftVoucherTemplateOrderByWithRelationInput[]
+    cursor?: GiftVoucherTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftVoucherTemplateScalarFieldEnum | GiftVoucherTemplateScalarFieldEnum[]
   }
 
   /**
@@ -10973,6 +11486,7 @@ export namespace Prisma {
     branchServices?: boolean | Service$branchServicesArgs<ExtArgs>
     bookings?: boolean | Service$bookingsArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    giftVoucherTemplates?: boolean | Service$giftVoucherTemplatesArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -11031,6 +11545,7 @@ export namespace Prisma {
     branchServices?: boolean | Service$branchServicesArgs<ExtArgs>
     bookings?: boolean | Service$bookingsArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    giftVoucherTemplates?: boolean | Service$giftVoucherTemplatesArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11049,6 +11564,7 @@ export namespace Prisma {
       branchServices: Prisma.$BranchServicePayload<ExtArgs>[]
       bookings: Prisma.$BookingPayload<ExtArgs>[]
       createdBy: Prisma.$UserPayload<ExtArgs>
+      giftVoucherTemplates: Prisma.$GiftVoucherTemplatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11461,6 +11977,7 @@ export namespace Prisma {
     branchServices<T extends Service$branchServicesArgs<ExtArgs> = {}>(args?: Subset<T, Service$branchServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BranchServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookings<T extends Service$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, Service$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    giftVoucherTemplates<T extends Service$giftVoucherTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Service$giftVoucherTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11943,6 +12460,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Service.giftVoucherTemplates
+   */
+  export type Service$giftVoucherTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    where?: GiftVoucherTemplateWhereInput
+    orderBy?: GiftVoucherTemplateOrderByWithRelationInput | GiftVoucherTemplateOrderByWithRelationInput[]
+    cursor?: GiftVoucherTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftVoucherTemplateScalarFieldEnum | GiftVoucherTemplateScalarFieldEnum[]
   }
 
   /**
@@ -13394,6 +13935,8 @@ export namespace Prisma {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     branchService?: boolean | BranchServiceDefaultArgs<ExtArgs>
+    giftVoucherUsages?: boolean | Booking$giftVoucherUsagesArgs<ExtArgs>
+    _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
 
   export type BookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13461,6 +14004,8 @@ export namespace Prisma {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     branchService?: boolean | BranchServiceDefaultArgs<ExtArgs>
+    giftVoucherUsages?: boolean | Booking$giftVoucherUsagesArgs<ExtArgs>
+    _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BookingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13482,6 +14027,7 @@ export namespace Prisma {
       service: Prisma.$ServicePayload<ExtArgs>
       branch: Prisma.$BranchPayload<ExtArgs>
       branchService: Prisma.$BranchServicePayload<ExtArgs>
+      giftVoucherUsages: Prisma.$GiftVoucherUsagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13896,6 +14442,7 @@ export namespace Prisma {
     service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     branchService<T extends BranchServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchServiceDefaultArgs<ExtArgs>>): Prisma__BranchServiceClient<$Result.GetResult<Prisma.$BranchServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    giftVoucherUsages<T extends Booking$giftVoucherUsagesArgs<ExtArgs> = {}>(args?: Subset<T, Booking$giftVoucherUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14332,6 +14879,30 @@ export namespace Prisma {
      * Limit how many Bookings to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Booking.giftVoucherUsages
+   */
+  export type Booking$giftVoucherUsagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    where?: GiftVoucherUsageWhereInput
+    orderBy?: GiftVoucherUsageOrderByWithRelationInput | GiftVoucherUsageOrderByWithRelationInput[]
+    cursor?: GiftVoucherUsageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftVoucherUsageScalarFieldEnum | GiftVoucherUsageScalarFieldEnum[]
   }
 
   /**
@@ -15435,6 +16006,3737 @@ export namespace Prisma {
 
 
   /**
+   * Model GiftVoucherTemplate
+   */
+
+  export type AggregateGiftVoucherTemplate = {
+    _count: GiftVoucherTemplateCountAggregateOutputType | null
+    _avg: GiftVoucherTemplateAvgAggregateOutputType | null
+    _sum: GiftVoucherTemplateSumAggregateOutputType | null
+    _min: GiftVoucherTemplateMinAggregateOutputType | null
+    _max: GiftVoucherTemplateMaxAggregateOutputType | null
+  }
+
+  export type GiftVoucherTemplateAvgAggregateOutputType = {
+    value: number | null
+    validityDays: number | null
+    maxUsageCount: number | null
+    currentUsageCount: number | null
+  }
+
+  export type GiftVoucherTemplateSumAggregateOutputType = {
+    value: number | null
+    validityDays: number | null
+    maxUsageCount: number | null
+    currentUsageCount: number | null
+  }
+
+  export type GiftVoucherTemplateMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    type: $Enums.GiftVoucherType | null
+    value: number | null
+    serviceId: string | null
+    isActive: boolean | null
+    validityDays: number | null
+    maxUsageCount: number | null
+    currentUsageCount: number | null
+    imageUrl: string | null
+    imageUuid: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+  }
+
+  export type GiftVoucherTemplateMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    type: $Enums.GiftVoucherType | null
+    value: number | null
+    serviceId: string | null
+    isActive: boolean | null
+    validityDays: number | null
+    maxUsageCount: number | null
+    currentUsageCount: number | null
+    imageUrl: string | null
+    imageUuid: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+  }
+
+  export type GiftVoucherTemplateCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    type: number
+    value: number
+    serviceId: number
+    isActive: number
+    validityDays: number
+    maxUsageCount: number
+    currentUsageCount: number
+    imageUrl: number
+    imageUuid: number
+    createdAt: number
+    updatedAt: number
+    createdById: number
+    _all: number
+  }
+
+
+  export type GiftVoucherTemplateAvgAggregateInputType = {
+    value?: true
+    validityDays?: true
+    maxUsageCount?: true
+    currentUsageCount?: true
+  }
+
+  export type GiftVoucherTemplateSumAggregateInputType = {
+    value?: true
+    validityDays?: true
+    maxUsageCount?: true
+    currentUsageCount?: true
+  }
+
+  export type GiftVoucherTemplateMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    type?: true
+    value?: true
+    serviceId?: true
+    isActive?: true
+    validityDays?: true
+    maxUsageCount?: true
+    currentUsageCount?: true
+    imageUrl?: true
+    imageUuid?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+  }
+
+  export type GiftVoucherTemplateMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    type?: true
+    value?: true
+    serviceId?: true
+    isActive?: true
+    validityDays?: true
+    maxUsageCount?: true
+    currentUsageCount?: true
+    imageUrl?: true
+    imageUuid?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+  }
+
+  export type GiftVoucherTemplateCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    type?: true
+    value?: true
+    serviceId?: true
+    isActive?: true
+    validityDays?: true
+    maxUsageCount?: true
+    currentUsageCount?: true
+    imageUrl?: true
+    imageUuid?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+    _all?: true
+  }
+
+  export type GiftVoucherTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftVoucherTemplate to aggregate.
+     */
+    where?: GiftVoucherTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherTemplates to fetch.
+     */
+    orderBy?: GiftVoucherTemplateOrderByWithRelationInput | GiftVoucherTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GiftVoucherTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GiftVoucherTemplates
+    **/
+    _count?: true | GiftVoucherTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GiftVoucherTemplateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GiftVoucherTemplateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GiftVoucherTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GiftVoucherTemplateMaxAggregateInputType
+  }
+
+  export type GetGiftVoucherTemplateAggregateType<T extends GiftVoucherTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateGiftVoucherTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGiftVoucherTemplate[P]>
+      : GetScalarType<T[P], AggregateGiftVoucherTemplate[P]>
+  }
+
+
+
+
+  export type GiftVoucherTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherTemplateWhereInput
+    orderBy?: GiftVoucherTemplateOrderByWithAggregationInput | GiftVoucherTemplateOrderByWithAggregationInput[]
+    by: GiftVoucherTemplateScalarFieldEnum[] | GiftVoucherTemplateScalarFieldEnum
+    having?: GiftVoucherTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GiftVoucherTemplateCountAggregateInputType | true
+    _avg?: GiftVoucherTemplateAvgAggregateInputType
+    _sum?: GiftVoucherTemplateSumAggregateInputType
+    _min?: GiftVoucherTemplateMinAggregateInputType
+    _max?: GiftVoucherTemplateMaxAggregateInputType
+  }
+
+  export type GiftVoucherTemplateGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    serviceId: string | null
+    isActive: boolean
+    validityDays: number
+    maxUsageCount: number | null
+    currentUsageCount: number
+    imageUrl: string | null
+    imageUuid: string | null
+    createdAt: Date
+    updatedAt: Date
+    createdById: string
+    _count: GiftVoucherTemplateCountAggregateOutputType | null
+    _avg: GiftVoucherTemplateAvgAggregateOutputType | null
+    _sum: GiftVoucherTemplateSumAggregateOutputType | null
+    _min: GiftVoucherTemplateMinAggregateOutputType | null
+    _max: GiftVoucherTemplateMaxAggregateOutputType | null
+  }
+
+  type GetGiftVoucherTemplateGroupByPayload<T extends GiftVoucherTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GiftVoucherTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GiftVoucherTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GiftVoucherTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], GiftVoucherTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GiftVoucherTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
+    serviceId?: boolean
+    isActive?: boolean
+    validityDays?: boolean
+    maxUsageCount?: boolean
+    currentUsageCount?: boolean
+    imageUrl?: boolean
+    imageUuid?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    service?: boolean | GiftVoucherTemplate$serviceArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    giftVouchers?: boolean | GiftVoucherTemplate$giftVouchersArgs<ExtArgs>
+    _count?: boolean | GiftVoucherTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucherTemplate"]>
+
+  export type GiftVoucherTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
+    serviceId?: boolean
+    isActive?: boolean
+    validityDays?: boolean
+    maxUsageCount?: boolean
+    currentUsageCount?: boolean
+    imageUrl?: boolean
+    imageUuid?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    service?: boolean | GiftVoucherTemplate$serviceArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucherTemplate"]>
+
+  export type GiftVoucherTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
+    serviceId?: boolean
+    isActive?: boolean
+    validityDays?: boolean
+    maxUsageCount?: boolean
+    currentUsageCount?: boolean
+    imageUrl?: boolean
+    imageUuid?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    service?: boolean | GiftVoucherTemplate$serviceArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucherTemplate"]>
+
+  export type GiftVoucherTemplateSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
+    serviceId?: boolean
+    isActive?: boolean
+    validityDays?: boolean
+    maxUsageCount?: boolean
+    currentUsageCount?: boolean
+    imageUrl?: boolean
+    imageUuid?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+  }
+
+  export type GiftVoucherTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "type" | "value" | "serviceId" | "isActive" | "validityDays" | "maxUsageCount" | "currentUsageCount" | "imageUrl" | "imageUuid" | "createdAt" | "updatedAt" | "createdById", ExtArgs["result"]["giftVoucherTemplate"]>
+  export type GiftVoucherTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | GiftVoucherTemplate$serviceArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    giftVouchers?: boolean | GiftVoucherTemplate$giftVouchersArgs<ExtArgs>
+    _count?: boolean | GiftVoucherTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GiftVoucherTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | GiftVoucherTemplate$serviceArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GiftVoucherTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | GiftVoucherTemplate$serviceArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $GiftVoucherTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GiftVoucherTemplate"
+    objects: {
+      service: Prisma.$ServicePayload<ExtArgs> | null
+      createdBy: Prisma.$UserPayload<ExtArgs>
+      giftVouchers: Prisma.$GiftVoucherPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      type: $Enums.GiftVoucherType
+      value: number
+      serviceId: string | null
+      isActive: boolean
+      validityDays: number
+      maxUsageCount: number | null
+      currentUsageCount: number
+      imageUrl: string | null
+      imageUuid: string | null
+      createdAt: Date
+      updatedAt: Date
+      createdById: string
+    }, ExtArgs["result"]["giftVoucherTemplate"]>
+    composites: {}
+  }
+
+  type GiftVoucherTemplateGetPayload<S extends boolean | null | undefined | GiftVoucherTemplateDefaultArgs> = $Result.GetResult<Prisma.$GiftVoucherTemplatePayload, S>
+
+  type GiftVoucherTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GiftVoucherTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GiftVoucherTemplateCountAggregateInputType | true
+    }
+
+  export interface GiftVoucherTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GiftVoucherTemplate'], meta: { name: 'GiftVoucherTemplate' } }
+    /**
+     * Find zero or one GiftVoucherTemplate that matches the filter.
+     * @param {GiftVoucherTemplateFindUniqueArgs} args - Arguments to find a GiftVoucherTemplate
+     * @example
+     * // Get one GiftVoucherTemplate
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GiftVoucherTemplateFindUniqueArgs>(args: SelectSubset<T, GiftVoucherTemplateFindUniqueArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GiftVoucherTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GiftVoucherTemplateFindUniqueOrThrowArgs} args - Arguments to find a GiftVoucherTemplate
+     * @example
+     * // Get one GiftVoucherTemplate
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GiftVoucherTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, GiftVoucherTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftVoucherTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherTemplateFindFirstArgs} args - Arguments to find a GiftVoucherTemplate
+     * @example
+     * // Get one GiftVoucherTemplate
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GiftVoucherTemplateFindFirstArgs>(args?: SelectSubset<T, GiftVoucherTemplateFindFirstArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftVoucherTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherTemplateFindFirstOrThrowArgs} args - Arguments to find a GiftVoucherTemplate
+     * @example
+     * // Get one GiftVoucherTemplate
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GiftVoucherTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, GiftVoucherTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GiftVoucherTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GiftVoucherTemplates
+     * const giftVoucherTemplates = await prisma.giftVoucherTemplate.findMany()
+     * 
+     * // Get first 10 GiftVoucherTemplates
+     * const giftVoucherTemplates = await prisma.giftVoucherTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const giftVoucherTemplateWithIdOnly = await prisma.giftVoucherTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GiftVoucherTemplateFindManyArgs>(args?: SelectSubset<T, GiftVoucherTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GiftVoucherTemplate.
+     * @param {GiftVoucherTemplateCreateArgs} args - Arguments to create a GiftVoucherTemplate.
+     * @example
+     * // Create one GiftVoucherTemplate
+     * const GiftVoucherTemplate = await prisma.giftVoucherTemplate.create({
+     *   data: {
+     *     // ... data to create a GiftVoucherTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends GiftVoucherTemplateCreateArgs>(args: SelectSubset<T, GiftVoucherTemplateCreateArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GiftVoucherTemplates.
+     * @param {GiftVoucherTemplateCreateManyArgs} args - Arguments to create many GiftVoucherTemplates.
+     * @example
+     * // Create many GiftVoucherTemplates
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GiftVoucherTemplateCreateManyArgs>(args?: SelectSubset<T, GiftVoucherTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GiftVoucherTemplates and returns the data saved in the database.
+     * @param {GiftVoucherTemplateCreateManyAndReturnArgs} args - Arguments to create many GiftVoucherTemplates.
+     * @example
+     * // Create many GiftVoucherTemplates
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GiftVoucherTemplates and only return the `id`
+     * const giftVoucherTemplateWithIdOnly = await prisma.giftVoucherTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GiftVoucherTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, GiftVoucherTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GiftVoucherTemplate.
+     * @param {GiftVoucherTemplateDeleteArgs} args - Arguments to delete one GiftVoucherTemplate.
+     * @example
+     * // Delete one GiftVoucherTemplate
+     * const GiftVoucherTemplate = await prisma.giftVoucherTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one GiftVoucherTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GiftVoucherTemplateDeleteArgs>(args: SelectSubset<T, GiftVoucherTemplateDeleteArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GiftVoucherTemplate.
+     * @param {GiftVoucherTemplateUpdateArgs} args - Arguments to update one GiftVoucherTemplate.
+     * @example
+     * // Update one GiftVoucherTemplate
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GiftVoucherTemplateUpdateArgs>(args: SelectSubset<T, GiftVoucherTemplateUpdateArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GiftVoucherTemplates.
+     * @param {GiftVoucherTemplateDeleteManyArgs} args - Arguments to filter GiftVoucherTemplates to delete.
+     * @example
+     * // Delete a few GiftVoucherTemplates
+     * const { count } = await prisma.giftVoucherTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GiftVoucherTemplateDeleteManyArgs>(args?: SelectSubset<T, GiftVoucherTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftVoucherTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GiftVoucherTemplates
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GiftVoucherTemplateUpdateManyArgs>(args: SelectSubset<T, GiftVoucherTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftVoucherTemplates and returns the data updated in the database.
+     * @param {GiftVoucherTemplateUpdateManyAndReturnArgs} args - Arguments to update many GiftVoucherTemplates.
+     * @example
+     * // Update many GiftVoucherTemplates
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GiftVoucherTemplates and only return the `id`
+     * const giftVoucherTemplateWithIdOnly = await prisma.giftVoucherTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GiftVoucherTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, GiftVoucherTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GiftVoucherTemplate.
+     * @param {GiftVoucherTemplateUpsertArgs} args - Arguments to update or create a GiftVoucherTemplate.
+     * @example
+     * // Update or create a GiftVoucherTemplate
+     * const giftVoucherTemplate = await prisma.giftVoucherTemplate.upsert({
+     *   create: {
+     *     // ... data to create a GiftVoucherTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GiftVoucherTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GiftVoucherTemplateUpsertArgs>(args: SelectSubset<T, GiftVoucherTemplateUpsertArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GiftVoucherTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherTemplateCountArgs} args - Arguments to filter GiftVoucherTemplates to count.
+     * @example
+     * // Count the number of GiftVoucherTemplates
+     * const count = await prisma.giftVoucherTemplate.count({
+     *   where: {
+     *     // ... the filter for the GiftVoucherTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends GiftVoucherTemplateCountArgs>(
+      args?: Subset<T, GiftVoucherTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GiftVoucherTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GiftVoucherTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GiftVoucherTemplateAggregateArgs>(args: Subset<T, GiftVoucherTemplateAggregateArgs>): Prisma.PrismaPromise<GetGiftVoucherTemplateAggregateType<T>>
+
+    /**
+     * Group by GiftVoucherTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GiftVoucherTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GiftVoucherTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: GiftVoucherTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GiftVoucherTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGiftVoucherTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GiftVoucherTemplate model
+   */
+  readonly fields: GiftVoucherTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GiftVoucherTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GiftVoucherTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    service<T extends GiftVoucherTemplate$serviceArgs<ExtArgs> = {}>(args?: Subset<T, GiftVoucherTemplate$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    giftVouchers<T extends GiftVoucherTemplate$giftVouchersArgs<ExtArgs> = {}>(args?: Subset<T, GiftVoucherTemplate$giftVouchersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GiftVoucherTemplate model
+   */
+  interface GiftVoucherTemplateFieldRefs {
+    readonly id: FieldRef<"GiftVoucherTemplate", 'String'>
+    readonly name: FieldRef<"GiftVoucherTemplate", 'String'>
+    readonly description: FieldRef<"GiftVoucherTemplate", 'String'>
+    readonly type: FieldRef<"GiftVoucherTemplate", 'GiftVoucherType'>
+    readonly value: FieldRef<"GiftVoucherTemplate", 'Float'>
+    readonly serviceId: FieldRef<"GiftVoucherTemplate", 'String'>
+    readonly isActive: FieldRef<"GiftVoucherTemplate", 'Boolean'>
+    readonly validityDays: FieldRef<"GiftVoucherTemplate", 'Int'>
+    readonly maxUsageCount: FieldRef<"GiftVoucherTemplate", 'Int'>
+    readonly currentUsageCount: FieldRef<"GiftVoucherTemplate", 'Int'>
+    readonly imageUrl: FieldRef<"GiftVoucherTemplate", 'String'>
+    readonly imageUuid: FieldRef<"GiftVoucherTemplate", 'String'>
+    readonly createdAt: FieldRef<"GiftVoucherTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"GiftVoucherTemplate", 'DateTime'>
+    readonly createdById: FieldRef<"GiftVoucherTemplate", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GiftVoucherTemplate findUnique
+   */
+  export type GiftVoucherTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherTemplate to fetch.
+     */
+    where: GiftVoucherTemplateWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherTemplate findUniqueOrThrow
+   */
+  export type GiftVoucherTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherTemplate to fetch.
+     */
+    where: GiftVoucherTemplateWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherTemplate findFirst
+   */
+  export type GiftVoucherTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherTemplate to fetch.
+     */
+    where?: GiftVoucherTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherTemplates to fetch.
+     */
+    orderBy?: GiftVoucherTemplateOrderByWithRelationInput | GiftVoucherTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftVoucherTemplates.
+     */
+    cursor?: GiftVoucherTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftVoucherTemplates.
+     */
+    distinct?: GiftVoucherTemplateScalarFieldEnum | GiftVoucherTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucherTemplate findFirstOrThrow
+   */
+  export type GiftVoucherTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherTemplate to fetch.
+     */
+    where?: GiftVoucherTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherTemplates to fetch.
+     */
+    orderBy?: GiftVoucherTemplateOrderByWithRelationInput | GiftVoucherTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftVoucherTemplates.
+     */
+    cursor?: GiftVoucherTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftVoucherTemplates.
+     */
+    distinct?: GiftVoucherTemplateScalarFieldEnum | GiftVoucherTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucherTemplate findMany
+   */
+  export type GiftVoucherTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherTemplates to fetch.
+     */
+    where?: GiftVoucherTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherTemplates to fetch.
+     */
+    orderBy?: GiftVoucherTemplateOrderByWithRelationInput | GiftVoucherTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GiftVoucherTemplates.
+     */
+    cursor?: GiftVoucherTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherTemplates.
+     */
+    skip?: number
+    distinct?: GiftVoucherTemplateScalarFieldEnum | GiftVoucherTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucherTemplate create
+   */
+  export type GiftVoucherTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GiftVoucherTemplate.
+     */
+    data: XOR<GiftVoucherTemplateCreateInput, GiftVoucherTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * GiftVoucherTemplate createMany
+   */
+  export type GiftVoucherTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GiftVoucherTemplates.
+     */
+    data: GiftVoucherTemplateCreateManyInput | GiftVoucherTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GiftVoucherTemplate createManyAndReturn
+   */
+  export type GiftVoucherTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many GiftVoucherTemplates.
+     */
+    data: GiftVoucherTemplateCreateManyInput | GiftVoucherTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucherTemplate update
+   */
+  export type GiftVoucherTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GiftVoucherTemplate.
+     */
+    data: XOR<GiftVoucherTemplateUpdateInput, GiftVoucherTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which GiftVoucherTemplate to update.
+     */
+    where: GiftVoucherTemplateWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherTemplate updateMany
+   */
+  export type GiftVoucherTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GiftVoucherTemplates.
+     */
+    data: XOR<GiftVoucherTemplateUpdateManyMutationInput, GiftVoucherTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftVoucherTemplates to update
+     */
+    where?: GiftVoucherTemplateWhereInput
+    /**
+     * Limit how many GiftVoucherTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftVoucherTemplate updateManyAndReturn
+   */
+  export type GiftVoucherTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update GiftVoucherTemplates.
+     */
+    data: XOR<GiftVoucherTemplateUpdateManyMutationInput, GiftVoucherTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftVoucherTemplates to update
+     */
+    where?: GiftVoucherTemplateWhereInput
+    /**
+     * Limit how many GiftVoucherTemplates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucherTemplate upsert
+   */
+  export type GiftVoucherTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GiftVoucherTemplate to update in case it exists.
+     */
+    where: GiftVoucherTemplateWhereUniqueInput
+    /**
+     * In case the GiftVoucherTemplate found by the `where` argument doesn't exist, create a new GiftVoucherTemplate with this data.
+     */
+    create: XOR<GiftVoucherTemplateCreateInput, GiftVoucherTemplateUncheckedCreateInput>
+    /**
+     * In case the GiftVoucherTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GiftVoucherTemplateUpdateInput, GiftVoucherTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * GiftVoucherTemplate delete
+   */
+  export type GiftVoucherTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which GiftVoucherTemplate to delete.
+     */
+    where: GiftVoucherTemplateWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherTemplate deleteMany
+   */
+  export type GiftVoucherTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftVoucherTemplates to delete
+     */
+    where?: GiftVoucherTemplateWhereInput
+    /**
+     * Limit how many GiftVoucherTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftVoucherTemplate.service
+   */
+  export type GiftVoucherTemplate$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+  }
+
+  /**
+   * GiftVoucherTemplate.giftVouchers
+   */
+  export type GiftVoucherTemplate$giftVouchersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    where?: GiftVoucherWhereInput
+    orderBy?: GiftVoucherOrderByWithRelationInput | GiftVoucherOrderByWithRelationInput[]
+    cursor?: GiftVoucherWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftVoucherScalarFieldEnum | GiftVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucherTemplate without action
+   */
+  export type GiftVoucherTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherTemplate
+     */
+    select?: GiftVoucherTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherTemplate
+     */
+    omit?: GiftVoucherTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GiftVoucher
+   */
+
+  export type AggregateGiftVoucher = {
+    _count: GiftVoucherCountAggregateOutputType | null
+    _avg: GiftVoucherAvgAggregateOutputType | null
+    _sum: GiftVoucherSumAggregateOutputType | null
+    _min: GiftVoucherMinAggregateOutputType | null
+    _max: GiftVoucherMaxAggregateOutputType | null
+  }
+
+  export type GiftVoucherAvgAggregateOutputType = {
+    originalValue: number | null
+    remainingValue: number | null
+    purchasePrice: number | null
+  }
+
+  export type GiftVoucherSumAggregateOutputType = {
+    originalValue: number | null
+    remainingValue: number | null
+    purchasePrice: number | null
+  }
+
+  export type GiftVoucherMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    templateId: string | null
+    purchasedById: string | null
+    recipientId: string | null
+    recipientEmail: string | null
+    recipientName: string | null
+    status: $Enums.GiftVoucherStatus | null
+    originalValue: number | null
+    remainingValue: number | null
+    purchasePrice: number | null
+    expiresAt: Date | null
+    usedAt: Date | null
+    message: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GiftVoucherMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    templateId: string | null
+    purchasedById: string | null
+    recipientId: string | null
+    recipientEmail: string | null
+    recipientName: string | null
+    status: $Enums.GiftVoucherStatus | null
+    originalValue: number | null
+    remainingValue: number | null
+    purchasePrice: number | null
+    expiresAt: Date | null
+    usedAt: Date | null
+    message: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GiftVoucherCountAggregateOutputType = {
+    id: number
+    code: number
+    templateId: number
+    purchasedById: number
+    recipientId: number
+    recipientEmail: number
+    recipientName: number
+    status: number
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: number
+    usedAt: number
+    message: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type GiftVoucherAvgAggregateInputType = {
+    originalValue?: true
+    remainingValue?: true
+    purchasePrice?: true
+  }
+
+  export type GiftVoucherSumAggregateInputType = {
+    originalValue?: true
+    remainingValue?: true
+    purchasePrice?: true
+  }
+
+  export type GiftVoucherMinAggregateInputType = {
+    id?: true
+    code?: true
+    templateId?: true
+    purchasedById?: true
+    recipientId?: true
+    recipientEmail?: true
+    recipientName?: true
+    status?: true
+    originalValue?: true
+    remainingValue?: true
+    purchasePrice?: true
+    expiresAt?: true
+    usedAt?: true
+    message?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GiftVoucherMaxAggregateInputType = {
+    id?: true
+    code?: true
+    templateId?: true
+    purchasedById?: true
+    recipientId?: true
+    recipientEmail?: true
+    recipientName?: true
+    status?: true
+    originalValue?: true
+    remainingValue?: true
+    purchasePrice?: true
+    expiresAt?: true
+    usedAt?: true
+    message?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GiftVoucherCountAggregateInputType = {
+    id?: true
+    code?: true
+    templateId?: true
+    purchasedById?: true
+    recipientId?: true
+    recipientEmail?: true
+    recipientName?: true
+    status?: true
+    originalValue?: true
+    remainingValue?: true
+    purchasePrice?: true
+    expiresAt?: true
+    usedAt?: true
+    message?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type GiftVoucherAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftVoucher to aggregate.
+     */
+    where?: GiftVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVouchers to fetch.
+     */
+    orderBy?: GiftVoucherOrderByWithRelationInput | GiftVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GiftVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVouchers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVouchers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GiftVouchers
+    **/
+    _count?: true | GiftVoucherCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GiftVoucherAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GiftVoucherSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GiftVoucherMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GiftVoucherMaxAggregateInputType
+  }
+
+  export type GetGiftVoucherAggregateType<T extends GiftVoucherAggregateArgs> = {
+        [P in keyof T & keyof AggregateGiftVoucher]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGiftVoucher[P]>
+      : GetScalarType<T[P], AggregateGiftVoucher[P]>
+  }
+
+
+
+
+  export type GiftVoucherGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherWhereInput
+    orderBy?: GiftVoucherOrderByWithAggregationInput | GiftVoucherOrderByWithAggregationInput[]
+    by: GiftVoucherScalarFieldEnum[] | GiftVoucherScalarFieldEnum
+    having?: GiftVoucherScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GiftVoucherCountAggregateInputType | true
+    _avg?: GiftVoucherAvgAggregateInputType
+    _sum?: GiftVoucherSumAggregateInputType
+    _min?: GiftVoucherMinAggregateInputType
+    _max?: GiftVoucherMaxAggregateInputType
+  }
+
+  export type GiftVoucherGroupByOutputType = {
+    id: string
+    code: string
+    templateId: string
+    purchasedById: string
+    recipientId: string | null
+    recipientEmail: string | null
+    recipientName: string | null
+    status: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date
+    usedAt: Date | null
+    message: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: GiftVoucherCountAggregateOutputType | null
+    _avg: GiftVoucherAvgAggregateOutputType | null
+    _sum: GiftVoucherSumAggregateOutputType | null
+    _min: GiftVoucherMinAggregateOutputType | null
+    _max: GiftVoucherMaxAggregateOutputType | null
+  }
+
+  type GetGiftVoucherGroupByPayload<T extends GiftVoucherGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GiftVoucherGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GiftVoucherGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GiftVoucherGroupByOutputType[P]>
+            : GetScalarType<T[P], GiftVoucherGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GiftVoucherSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    templateId?: boolean
+    purchasedById?: boolean
+    recipientId?: boolean
+    recipientEmail?: boolean
+    recipientName?: boolean
+    status?: boolean
+    originalValue?: boolean
+    remainingValue?: boolean
+    purchasePrice?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    message?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    template?: boolean | GiftVoucherTemplateDefaultArgs<ExtArgs>
+    purchasedBy?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | GiftVoucher$recipientArgs<ExtArgs>
+    usages?: boolean | GiftVoucher$usagesArgs<ExtArgs>
+    _count?: boolean | GiftVoucherCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucher"]>
+
+  export type GiftVoucherSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    templateId?: boolean
+    purchasedById?: boolean
+    recipientId?: boolean
+    recipientEmail?: boolean
+    recipientName?: boolean
+    status?: boolean
+    originalValue?: boolean
+    remainingValue?: boolean
+    purchasePrice?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    message?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    template?: boolean | GiftVoucherTemplateDefaultArgs<ExtArgs>
+    purchasedBy?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | GiftVoucher$recipientArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucher"]>
+
+  export type GiftVoucherSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    templateId?: boolean
+    purchasedById?: boolean
+    recipientId?: boolean
+    recipientEmail?: boolean
+    recipientName?: boolean
+    status?: boolean
+    originalValue?: boolean
+    remainingValue?: boolean
+    purchasePrice?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    message?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    template?: boolean | GiftVoucherTemplateDefaultArgs<ExtArgs>
+    purchasedBy?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | GiftVoucher$recipientArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucher"]>
+
+  export type GiftVoucherSelectScalar = {
+    id?: boolean
+    code?: boolean
+    templateId?: boolean
+    purchasedById?: boolean
+    recipientId?: boolean
+    recipientEmail?: boolean
+    recipientName?: boolean
+    status?: boolean
+    originalValue?: boolean
+    remainingValue?: boolean
+    purchasePrice?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    message?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type GiftVoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "templateId" | "purchasedById" | "recipientId" | "recipientEmail" | "recipientName" | "status" | "originalValue" | "remainingValue" | "purchasePrice" | "expiresAt" | "usedAt" | "message" | "createdAt" | "updatedAt", ExtArgs["result"]["giftVoucher"]>
+  export type GiftVoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | GiftVoucherTemplateDefaultArgs<ExtArgs>
+    purchasedBy?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | GiftVoucher$recipientArgs<ExtArgs>
+    usages?: boolean | GiftVoucher$usagesArgs<ExtArgs>
+    _count?: boolean | GiftVoucherCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GiftVoucherIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | GiftVoucherTemplateDefaultArgs<ExtArgs>
+    purchasedBy?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | GiftVoucher$recipientArgs<ExtArgs>
+  }
+  export type GiftVoucherIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | GiftVoucherTemplateDefaultArgs<ExtArgs>
+    purchasedBy?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | GiftVoucher$recipientArgs<ExtArgs>
+  }
+
+  export type $GiftVoucherPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GiftVoucher"
+    objects: {
+      template: Prisma.$GiftVoucherTemplatePayload<ExtArgs>
+      purchasedBy: Prisma.$UserPayload<ExtArgs>
+      recipient: Prisma.$UserPayload<ExtArgs> | null
+      usages: Prisma.$GiftVoucherUsagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      templateId: string
+      purchasedById: string
+      recipientId: string | null
+      recipientEmail: string | null
+      recipientName: string | null
+      status: $Enums.GiftVoucherStatus
+      originalValue: number
+      remainingValue: number
+      purchasePrice: number
+      expiresAt: Date
+      usedAt: Date | null
+      message: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["giftVoucher"]>
+    composites: {}
+  }
+
+  type GiftVoucherGetPayload<S extends boolean | null | undefined | GiftVoucherDefaultArgs> = $Result.GetResult<Prisma.$GiftVoucherPayload, S>
+
+  type GiftVoucherCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GiftVoucherFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GiftVoucherCountAggregateInputType | true
+    }
+
+  export interface GiftVoucherDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GiftVoucher'], meta: { name: 'GiftVoucher' } }
+    /**
+     * Find zero or one GiftVoucher that matches the filter.
+     * @param {GiftVoucherFindUniqueArgs} args - Arguments to find a GiftVoucher
+     * @example
+     * // Get one GiftVoucher
+     * const giftVoucher = await prisma.giftVoucher.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GiftVoucherFindUniqueArgs>(args: SelectSubset<T, GiftVoucherFindUniqueArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GiftVoucher that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GiftVoucherFindUniqueOrThrowArgs} args - Arguments to find a GiftVoucher
+     * @example
+     * // Get one GiftVoucher
+     * const giftVoucher = await prisma.giftVoucher.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GiftVoucherFindUniqueOrThrowArgs>(args: SelectSubset<T, GiftVoucherFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftVoucher that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherFindFirstArgs} args - Arguments to find a GiftVoucher
+     * @example
+     * // Get one GiftVoucher
+     * const giftVoucher = await prisma.giftVoucher.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GiftVoucherFindFirstArgs>(args?: SelectSubset<T, GiftVoucherFindFirstArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftVoucher that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherFindFirstOrThrowArgs} args - Arguments to find a GiftVoucher
+     * @example
+     * // Get one GiftVoucher
+     * const giftVoucher = await prisma.giftVoucher.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GiftVoucherFindFirstOrThrowArgs>(args?: SelectSubset<T, GiftVoucherFindFirstOrThrowArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GiftVouchers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GiftVouchers
+     * const giftVouchers = await prisma.giftVoucher.findMany()
+     * 
+     * // Get first 10 GiftVouchers
+     * const giftVouchers = await prisma.giftVoucher.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const giftVoucherWithIdOnly = await prisma.giftVoucher.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GiftVoucherFindManyArgs>(args?: SelectSubset<T, GiftVoucherFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GiftVoucher.
+     * @param {GiftVoucherCreateArgs} args - Arguments to create a GiftVoucher.
+     * @example
+     * // Create one GiftVoucher
+     * const GiftVoucher = await prisma.giftVoucher.create({
+     *   data: {
+     *     // ... data to create a GiftVoucher
+     *   }
+     * })
+     * 
+     */
+    create<T extends GiftVoucherCreateArgs>(args: SelectSubset<T, GiftVoucherCreateArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GiftVouchers.
+     * @param {GiftVoucherCreateManyArgs} args - Arguments to create many GiftVouchers.
+     * @example
+     * // Create many GiftVouchers
+     * const giftVoucher = await prisma.giftVoucher.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GiftVoucherCreateManyArgs>(args?: SelectSubset<T, GiftVoucherCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GiftVouchers and returns the data saved in the database.
+     * @param {GiftVoucherCreateManyAndReturnArgs} args - Arguments to create many GiftVouchers.
+     * @example
+     * // Create many GiftVouchers
+     * const giftVoucher = await prisma.giftVoucher.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GiftVouchers and only return the `id`
+     * const giftVoucherWithIdOnly = await prisma.giftVoucher.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GiftVoucherCreateManyAndReturnArgs>(args?: SelectSubset<T, GiftVoucherCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GiftVoucher.
+     * @param {GiftVoucherDeleteArgs} args - Arguments to delete one GiftVoucher.
+     * @example
+     * // Delete one GiftVoucher
+     * const GiftVoucher = await prisma.giftVoucher.delete({
+     *   where: {
+     *     // ... filter to delete one GiftVoucher
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GiftVoucherDeleteArgs>(args: SelectSubset<T, GiftVoucherDeleteArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GiftVoucher.
+     * @param {GiftVoucherUpdateArgs} args - Arguments to update one GiftVoucher.
+     * @example
+     * // Update one GiftVoucher
+     * const giftVoucher = await prisma.giftVoucher.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GiftVoucherUpdateArgs>(args: SelectSubset<T, GiftVoucherUpdateArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GiftVouchers.
+     * @param {GiftVoucherDeleteManyArgs} args - Arguments to filter GiftVouchers to delete.
+     * @example
+     * // Delete a few GiftVouchers
+     * const { count } = await prisma.giftVoucher.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GiftVoucherDeleteManyArgs>(args?: SelectSubset<T, GiftVoucherDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftVouchers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GiftVouchers
+     * const giftVoucher = await prisma.giftVoucher.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GiftVoucherUpdateManyArgs>(args: SelectSubset<T, GiftVoucherUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftVouchers and returns the data updated in the database.
+     * @param {GiftVoucherUpdateManyAndReturnArgs} args - Arguments to update many GiftVouchers.
+     * @example
+     * // Update many GiftVouchers
+     * const giftVoucher = await prisma.giftVoucher.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GiftVouchers and only return the `id`
+     * const giftVoucherWithIdOnly = await prisma.giftVoucher.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GiftVoucherUpdateManyAndReturnArgs>(args: SelectSubset<T, GiftVoucherUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GiftVoucher.
+     * @param {GiftVoucherUpsertArgs} args - Arguments to update or create a GiftVoucher.
+     * @example
+     * // Update or create a GiftVoucher
+     * const giftVoucher = await prisma.giftVoucher.upsert({
+     *   create: {
+     *     // ... data to create a GiftVoucher
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GiftVoucher we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GiftVoucherUpsertArgs>(args: SelectSubset<T, GiftVoucherUpsertArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GiftVouchers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherCountArgs} args - Arguments to filter GiftVouchers to count.
+     * @example
+     * // Count the number of GiftVouchers
+     * const count = await prisma.giftVoucher.count({
+     *   where: {
+     *     // ... the filter for the GiftVouchers we want to count
+     *   }
+     * })
+    **/
+    count<T extends GiftVoucherCountArgs>(
+      args?: Subset<T, GiftVoucherCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GiftVoucherCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GiftVoucher.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GiftVoucherAggregateArgs>(args: Subset<T, GiftVoucherAggregateArgs>): Prisma.PrismaPromise<GetGiftVoucherAggregateType<T>>
+
+    /**
+     * Group by GiftVoucher.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GiftVoucherGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GiftVoucherGroupByArgs['orderBy'] }
+        : { orderBy?: GiftVoucherGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GiftVoucherGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGiftVoucherGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GiftVoucher model
+   */
+  readonly fields: GiftVoucherFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GiftVoucher.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GiftVoucherClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    template<T extends GiftVoucherTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GiftVoucherTemplateDefaultArgs<ExtArgs>>): Prisma__GiftVoucherTemplateClient<$Result.GetResult<Prisma.$GiftVoucherTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    purchasedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    recipient<T extends GiftVoucher$recipientArgs<ExtArgs> = {}>(args?: Subset<T, GiftVoucher$recipientArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    usages<T extends GiftVoucher$usagesArgs<ExtArgs> = {}>(args?: Subset<T, GiftVoucher$usagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GiftVoucher model
+   */
+  interface GiftVoucherFieldRefs {
+    readonly id: FieldRef<"GiftVoucher", 'String'>
+    readonly code: FieldRef<"GiftVoucher", 'String'>
+    readonly templateId: FieldRef<"GiftVoucher", 'String'>
+    readonly purchasedById: FieldRef<"GiftVoucher", 'String'>
+    readonly recipientId: FieldRef<"GiftVoucher", 'String'>
+    readonly recipientEmail: FieldRef<"GiftVoucher", 'String'>
+    readonly recipientName: FieldRef<"GiftVoucher", 'String'>
+    readonly status: FieldRef<"GiftVoucher", 'GiftVoucherStatus'>
+    readonly originalValue: FieldRef<"GiftVoucher", 'Float'>
+    readonly remainingValue: FieldRef<"GiftVoucher", 'Float'>
+    readonly purchasePrice: FieldRef<"GiftVoucher", 'Float'>
+    readonly expiresAt: FieldRef<"GiftVoucher", 'DateTime'>
+    readonly usedAt: FieldRef<"GiftVoucher", 'DateTime'>
+    readonly message: FieldRef<"GiftVoucher", 'String'>
+    readonly createdAt: FieldRef<"GiftVoucher", 'DateTime'>
+    readonly updatedAt: FieldRef<"GiftVoucher", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GiftVoucher findUnique
+   */
+  export type GiftVoucherFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucher to fetch.
+     */
+    where: GiftVoucherWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucher findUniqueOrThrow
+   */
+  export type GiftVoucherFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucher to fetch.
+     */
+    where: GiftVoucherWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucher findFirst
+   */
+  export type GiftVoucherFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucher to fetch.
+     */
+    where?: GiftVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVouchers to fetch.
+     */
+    orderBy?: GiftVoucherOrderByWithRelationInput | GiftVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftVouchers.
+     */
+    cursor?: GiftVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVouchers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVouchers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftVouchers.
+     */
+    distinct?: GiftVoucherScalarFieldEnum | GiftVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucher findFirstOrThrow
+   */
+  export type GiftVoucherFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucher to fetch.
+     */
+    where?: GiftVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVouchers to fetch.
+     */
+    orderBy?: GiftVoucherOrderByWithRelationInput | GiftVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftVouchers.
+     */
+    cursor?: GiftVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVouchers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVouchers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftVouchers.
+     */
+    distinct?: GiftVoucherScalarFieldEnum | GiftVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucher findMany
+   */
+  export type GiftVoucherFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVouchers to fetch.
+     */
+    where?: GiftVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVouchers to fetch.
+     */
+    orderBy?: GiftVoucherOrderByWithRelationInput | GiftVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GiftVouchers.
+     */
+    cursor?: GiftVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVouchers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVouchers.
+     */
+    skip?: number
+    distinct?: GiftVoucherScalarFieldEnum | GiftVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucher create
+   */
+  export type GiftVoucherCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GiftVoucher.
+     */
+    data: XOR<GiftVoucherCreateInput, GiftVoucherUncheckedCreateInput>
+  }
+
+  /**
+   * GiftVoucher createMany
+   */
+  export type GiftVoucherCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GiftVouchers.
+     */
+    data: GiftVoucherCreateManyInput | GiftVoucherCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GiftVoucher createManyAndReturn
+   */
+  export type GiftVoucherCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * The data used to create many GiftVouchers.
+     */
+    data: GiftVoucherCreateManyInput | GiftVoucherCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucher update
+   */
+  export type GiftVoucherUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GiftVoucher.
+     */
+    data: XOR<GiftVoucherUpdateInput, GiftVoucherUncheckedUpdateInput>
+    /**
+     * Choose, which GiftVoucher to update.
+     */
+    where: GiftVoucherWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucher updateMany
+   */
+  export type GiftVoucherUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GiftVouchers.
+     */
+    data: XOR<GiftVoucherUpdateManyMutationInput, GiftVoucherUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftVouchers to update
+     */
+    where?: GiftVoucherWhereInput
+    /**
+     * Limit how many GiftVouchers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftVoucher updateManyAndReturn
+   */
+  export type GiftVoucherUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * The data used to update GiftVouchers.
+     */
+    data: XOR<GiftVoucherUpdateManyMutationInput, GiftVoucherUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftVouchers to update
+     */
+    where?: GiftVoucherWhereInput
+    /**
+     * Limit how many GiftVouchers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucher upsert
+   */
+  export type GiftVoucherUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GiftVoucher to update in case it exists.
+     */
+    where: GiftVoucherWhereUniqueInput
+    /**
+     * In case the GiftVoucher found by the `where` argument doesn't exist, create a new GiftVoucher with this data.
+     */
+    create: XOR<GiftVoucherCreateInput, GiftVoucherUncheckedCreateInput>
+    /**
+     * In case the GiftVoucher was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GiftVoucherUpdateInput, GiftVoucherUncheckedUpdateInput>
+  }
+
+  /**
+   * GiftVoucher delete
+   */
+  export type GiftVoucherDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+    /**
+     * Filter which GiftVoucher to delete.
+     */
+    where: GiftVoucherWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucher deleteMany
+   */
+  export type GiftVoucherDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftVouchers to delete
+     */
+    where?: GiftVoucherWhereInput
+    /**
+     * Limit how many GiftVouchers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftVoucher.recipient
+   */
+  export type GiftVoucher$recipientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * GiftVoucher.usages
+   */
+  export type GiftVoucher$usagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    where?: GiftVoucherUsageWhereInput
+    orderBy?: GiftVoucherUsageOrderByWithRelationInput | GiftVoucherUsageOrderByWithRelationInput[]
+    cursor?: GiftVoucherUsageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftVoucherUsageScalarFieldEnum | GiftVoucherUsageScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucher without action
+   */
+  export type GiftVoucherDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucher
+     */
+    select?: GiftVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucher
+     */
+    omit?: GiftVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GiftVoucherUsage
+   */
+
+  export type AggregateGiftVoucherUsage = {
+    _count: GiftVoucherUsageCountAggregateOutputType | null
+    _avg: GiftVoucherUsageAvgAggregateOutputType | null
+    _sum: GiftVoucherUsageSumAggregateOutputType | null
+    _min: GiftVoucherUsageMinAggregateOutputType | null
+    _max: GiftVoucherUsageMaxAggregateOutputType | null
+  }
+
+  export type GiftVoucherUsageAvgAggregateOutputType = {
+    amountUsed: number | null
+  }
+
+  export type GiftVoucherUsageSumAggregateOutputType = {
+    amountUsed: number | null
+  }
+
+  export type GiftVoucherUsageMinAggregateOutputType = {
+    id: string | null
+    voucherId: string | null
+    bookingId: string | null
+    amountUsed: number | null
+    usedAt: Date | null
+    notes: string | null
+  }
+
+  export type GiftVoucherUsageMaxAggregateOutputType = {
+    id: string | null
+    voucherId: string | null
+    bookingId: string | null
+    amountUsed: number | null
+    usedAt: Date | null
+    notes: string | null
+  }
+
+  export type GiftVoucherUsageCountAggregateOutputType = {
+    id: number
+    voucherId: number
+    bookingId: number
+    amountUsed: number
+    usedAt: number
+    notes: number
+    _all: number
+  }
+
+
+  export type GiftVoucherUsageAvgAggregateInputType = {
+    amountUsed?: true
+  }
+
+  export type GiftVoucherUsageSumAggregateInputType = {
+    amountUsed?: true
+  }
+
+  export type GiftVoucherUsageMinAggregateInputType = {
+    id?: true
+    voucherId?: true
+    bookingId?: true
+    amountUsed?: true
+    usedAt?: true
+    notes?: true
+  }
+
+  export type GiftVoucherUsageMaxAggregateInputType = {
+    id?: true
+    voucherId?: true
+    bookingId?: true
+    amountUsed?: true
+    usedAt?: true
+    notes?: true
+  }
+
+  export type GiftVoucherUsageCountAggregateInputType = {
+    id?: true
+    voucherId?: true
+    bookingId?: true
+    amountUsed?: true
+    usedAt?: true
+    notes?: true
+    _all?: true
+  }
+
+  export type GiftVoucherUsageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftVoucherUsage to aggregate.
+     */
+    where?: GiftVoucherUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherUsages to fetch.
+     */
+    orderBy?: GiftVoucherUsageOrderByWithRelationInput | GiftVoucherUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GiftVoucherUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GiftVoucherUsages
+    **/
+    _count?: true | GiftVoucherUsageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GiftVoucherUsageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GiftVoucherUsageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GiftVoucherUsageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GiftVoucherUsageMaxAggregateInputType
+  }
+
+  export type GetGiftVoucherUsageAggregateType<T extends GiftVoucherUsageAggregateArgs> = {
+        [P in keyof T & keyof AggregateGiftVoucherUsage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGiftVoucherUsage[P]>
+      : GetScalarType<T[P], AggregateGiftVoucherUsage[P]>
+  }
+
+
+
+
+  export type GiftVoucherUsageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftVoucherUsageWhereInput
+    orderBy?: GiftVoucherUsageOrderByWithAggregationInput | GiftVoucherUsageOrderByWithAggregationInput[]
+    by: GiftVoucherUsageScalarFieldEnum[] | GiftVoucherUsageScalarFieldEnum
+    having?: GiftVoucherUsageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GiftVoucherUsageCountAggregateInputType | true
+    _avg?: GiftVoucherUsageAvgAggregateInputType
+    _sum?: GiftVoucherUsageSumAggregateInputType
+    _min?: GiftVoucherUsageMinAggregateInputType
+    _max?: GiftVoucherUsageMaxAggregateInputType
+  }
+
+  export type GiftVoucherUsageGroupByOutputType = {
+    id: string
+    voucherId: string
+    bookingId: string | null
+    amountUsed: number
+    usedAt: Date
+    notes: string | null
+    _count: GiftVoucherUsageCountAggregateOutputType | null
+    _avg: GiftVoucherUsageAvgAggregateOutputType | null
+    _sum: GiftVoucherUsageSumAggregateOutputType | null
+    _min: GiftVoucherUsageMinAggregateOutputType | null
+    _max: GiftVoucherUsageMaxAggregateOutputType | null
+  }
+
+  type GetGiftVoucherUsageGroupByPayload<T extends GiftVoucherUsageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GiftVoucherUsageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GiftVoucherUsageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GiftVoucherUsageGroupByOutputType[P]>
+            : GetScalarType<T[P], GiftVoucherUsageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GiftVoucherUsageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    voucherId?: boolean
+    bookingId?: boolean
+    amountUsed?: boolean
+    usedAt?: boolean
+    notes?: boolean
+    voucher?: boolean | GiftVoucherDefaultArgs<ExtArgs>
+    booking?: boolean | GiftVoucherUsage$bookingArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucherUsage"]>
+
+  export type GiftVoucherUsageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    voucherId?: boolean
+    bookingId?: boolean
+    amountUsed?: boolean
+    usedAt?: boolean
+    notes?: boolean
+    voucher?: boolean | GiftVoucherDefaultArgs<ExtArgs>
+    booking?: boolean | GiftVoucherUsage$bookingArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucherUsage"]>
+
+  export type GiftVoucherUsageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    voucherId?: boolean
+    bookingId?: boolean
+    amountUsed?: boolean
+    usedAt?: boolean
+    notes?: boolean
+    voucher?: boolean | GiftVoucherDefaultArgs<ExtArgs>
+    booking?: boolean | GiftVoucherUsage$bookingArgs<ExtArgs>
+  }, ExtArgs["result"]["giftVoucherUsage"]>
+
+  export type GiftVoucherUsageSelectScalar = {
+    id?: boolean
+    voucherId?: boolean
+    bookingId?: boolean
+    amountUsed?: boolean
+    usedAt?: boolean
+    notes?: boolean
+  }
+
+  export type GiftVoucherUsageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "voucherId" | "bookingId" | "amountUsed" | "usedAt" | "notes", ExtArgs["result"]["giftVoucherUsage"]>
+  export type GiftVoucherUsageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    voucher?: boolean | GiftVoucherDefaultArgs<ExtArgs>
+    booking?: boolean | GiftVoucherUsage$bookingArgs<ExtArgs>
+  }
+  export type GiftVoucherUsageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    voucher?: boolean | GiftVoucherDefaultArgs<ExtArgs>
+    booking?: boolean | GiftVoucherUsage$bookingArgs<ExtArgs>
+  }
+  export type GiftVoucherUsageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    voucher?: boolean | GiftVoucherDefaultArgs<ExtArgs>
+    booking?: boolean | GiftVoucherUsage$bookingArgs<ExtArgs>
+  }
+
+  export type $GiftVoucherUsagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GiftVoucherUsage"
+    objects: {
+      voucher: Prisma.$GiftVoucherPayload<ExtArgs>
+      booking: Prisma.$BookingPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      voucherId: string
+      bookingId: string | null
+      amountUsed: number
+      usedAt: Date
+      notes: string | null
+    }, ExtArgs["result"]["giftVoucherUsage"]>
+    composites: {}
+  }
+
+  type GiftVoucherUsageGetPayload<S extends boolean | null | undefined | GiftVoucherUsageDefaultArgs> = $Result.GetResult<Prisma.$GiftVoucherUsagePayload, S>
+
+  type GiftVoucherUsageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GiftVoucherUsageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GiftVoucherUsageCountAggregateInputType | true
+    }
+
+  export interface GiftVoucherUsageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GiftVoucherUsage'], meta: { name: 'GiftVoucherUsage' } }
+    /**
+     * Find zero or one GiftVoucherUsage that matches the filter.
+     * @param {GiftVoucherUsageFindUniqueArgs} args - Arguments to find a GiftVoucherUsage
+     * @example
+     * // Get one GiftVoucherUsage
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GiftVoucherUsageFindUniqueArgs>(args: SelectSubset<T, GiftVoucherUsageFindUniqueArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GiftVoucherUsage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GiftVoucherUsageFindUniqueOrThrowArgs} args - Arguments to find a GiftVoucherUsage
+     * @example
+     * // Get one GiftVoucherUsage
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GiftVoucherUsageFindUniqueOrThrowArgs>(args: SelectSubset<T, GiftVoucherUsageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftVoucherUsage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUsageFindFirstArgs} args - Arguments to find a GiftVoucherUsage
+     * @example
+     * // Get one GiftVoucherUsage
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GiftVoucherUsageFindFirstArgs>(args?: SelectSubset<T, GiftVoucherUsageFindFirstArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftVoucherUsage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUsageFindFirstOrThrowArgs} args - Arguments to find a GiftVoucherUsage
+     * @example
+     * // Get one GiftVoucherUsage
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GiftVoucherUsageFindFirstOrThrowArgs>(args?: SelectSubset<T, GiftVoucherUsageFindFirstOrThrowArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GiftVoucherUsages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUsageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GiftVoucherUsages
+     * const giftVoucherUsages = await prisma.giftVoucherUsage.findMany()
+     * 
+     * // Get first 10 GiftVoucherUsages
+     * const giftVoucherUsages = await prisma.giftVoucherUsage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const giftVoucherUsageWithIdOnly = await prisma.giftVoucherUsage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GiftVoucherUsageFindManyArgs>(args?: SelectSubset<T, GiftVoucherUsageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GiftVoucherUsage.
+     * @param {GiftVoucherUsageCreateArgs} args - Arguments to create a GiftVoucherUsage.
+     * @example
+     * // Create one GiftVoucherUsage
+     * const GiftVoucherUsage = await prisma.giftVoucherUsage.create({
+     *   data: {
+     *     // ... data to create a GiftVoucherUsage
+     *   }
+     * })
+     * 
+     */
+    create<T extends GiftVoucherUsageCreateArgs>(args: SelectSubset<T, GiftVoucherUsageCreateArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GiftVoucherUsages.
+     * @param {GiftVoucherUsageCreateManyArgs} args - Arguments to create many GiftVoucherUsages.
+     * @example
+     * // Create many GiftVoucherUsages
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GiftVoucherUsageCreateManyArgs>(args?: SelectSubset<T, GiftVoucherUsageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GiftVoucherUsages and returns the data saved in the database.
+     * @param {GiftVoucherUsageCreateManyAndReturnArgs} args - Arguments to create many GiftVoucherUsages.
+     * @example
+     * // Create many GiftVoucherUsages
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GiftVoucherUsages and only return the `id`
+     * const giftVoucherUsageWithIdOnly = await prisma.giftVoucherUsage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GiftVoucherUsageCreateManyAndReturnArgs>(args?: SelectSubset<T, GiftVoucherUsageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GiftVoucherUsage.
+     * @param {GiftVoucherUsageDeleteArgs} args - Arguments to delete one GiftVoucherUsage.
+     * @example
+     * // Delete one GiftVoucherUsage
+     * const GiftVoucherUsage = await prisma.giftVoucherUsage.delete({
+     *   where: {
+     *     // ... filter to delete one GiftVoucherUsage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GiftVoucherUsageDeleteArgs>(args: SelectSubset<T, GiftVoucherUsageDeleteArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GiftVoucherUsage.
+     * @param {GiftVoucherUsageUpdateArgs} args - Arguments to update one GiftVoucherUsage.
+     * @example
+     * // Update one GiftVoucherUsage
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GiftVoucherUsageUpdateArgs>(args: SelectSubset<T, GiftVoucherUsageUpdateArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GiftVoucherUsages.
+     * @param {GiftVoucherUsageDeleteManyArgs} args - Arguments to filter GiftVoucherUsages to delete.
+     * @example
+     * // Delete a few GiftVoucherUsages
+     * const { count } = await prisma.giftVoucherUsage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GiftVoucherUsageDeleteManyArgs>(args?: SelectSubset<T, GiftVoucherUsageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftVoucherUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUsageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GiftVoucherUsages
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GiftVoucherUsageUpdateManyArgs>(args: SelectSubset<T, GiftVoucherUsageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftVoucherUsages and returns the data updated in the database.
+     * @param {GiftVoucherUsageUpdateManyAndReturnArgs} args - Arguments to update many GiftVoucherUsages.
+     * @example
+     * // Update many GiftVoucherUsages
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GiftVoucherUsages and only return the `id`
+     * const giftVoucherUsageWithIdOnly = await prisma.giftVoucherUsage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GiftVoucherUsageUpdateManyAndReturnArgs>(args: SelectSubset<T, GiftVoucherUsageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GiftVoucherUsage.
+     * @param {GiftVoucherUsageUpsertArgs} args - Arguments to update or create a GiftVoucherUsage.
+     * @example
+     * // Update or create a GiftVoucherUsage
+     * const giftVoucherUsage = await prisma.giftVoucherUsage.upsert({
+     *   create: {
+     *     // ... data to create a GiftVoucherUsage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GiftVoucherUsage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GiftVoucherUsageUpsertArgs>(args: SelectSubset<T, GiftVoucherUsageUpsertArgs<ExtArgs>>): Prisma__GiftVoucherUsageClient<$Result.GetResult<Prisma.$GiftVoucherUsagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GiftVoucherUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUsageCountArgs} args - Arguments to filter GiftVoucherUsages to count.
+     * @example
+     * // Count the number of GiftVoucherUsages
+     * const count = await prisma.giftVoucherUsage.count({
+     *   where: {
+     *     // ... the filter for the GiftVoucherUsages we want to count
+     *   }
+     * })
+    **/
+    count<T extends GiftVoucherUsageCountArgs>(
+      args?: Subset<T, GiftVoucherUsageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GiftVoucherUsageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GiftVoucherUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUsageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GiftVoucherUsageAggregateArgs>(args: Subset<T, GiftVoucherUsageAggregateArgs>): Prisma.PrismaPromise<GetGiftVoucherUsageAggregateType<T>>
+
+    /**
+     * Group by GiftVoucherUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftVoucherUsageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GiftVoucherUsageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GiftVoucherUsageGroupByArgs['orderBy'] }
+        : { orderBy?: GiftVoucherUsageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GiftVoucherUsageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGiftVoucherUsageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GiftVoucherUsage model
+   */
+  readonly fields: GiftVoucherUsageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GiftVoucherUsage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GiftVoucherUsageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    voucher<T extends GiftVoucherDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GiftVoucherDefaultArgs<ExtArgs>>): Prisma__GiftVoucherClient<$Result.GetResult<Prisma.$GiftVoucherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    booking<T extends GiftVoucherUsage$bookingArgs<ExtArgs> = {}>(args?: Subset<T, GiftVoucherUsage$bookingArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GiftVoucherUsage model
+   */
+  interface GiftVoucherUsageFieldRefs {
+    readonly id: FieldRef<"GiftVoucherUsage", 'String'>
+    readonly voucherId: FieldRef<"GiftVoucherUsage", 'String'>
+    readonly bookingId: FieldRef<"GiftVoucherUsage", 'String'>
+    readonly amountUsed: FieldRef<"GiftVoucherUsage", 'Float'>
+    readonly usedAt: FieldRef<"GiftVoucherUsage", 'DateTime'>
+    readonly notes: FieldRef<"GiftVoucherUsage", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GiftVoucherUsage findUnique
+   */
+  export type GiftVoucherUsageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherUsage to fetch.
+     */
+    where: GiftVoucherUsageWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherUsage findUniqueOrThrow
+   */
+  export type GiftVoucherUsageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherUsage to fetch.
+     */
+    where: GiftVoucherUsageWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherUsage findFirst
+   */
+  export type GiftVoucherUsageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherUsage to fetch.
+     */
+    where?: GiftVoucherUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherUsages to fetch.
+     */
+    orderBy?: GiftVoucherUsageOrderByWithRelationInput | GiftVoucherUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftVoucherUsages.
+     */
+    cursor?: GiftVoucherUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftVoucherUsages.
+     */
+    distinct?: GiftVoucherUsageScalarFieldEnum | GiftVoucherUsageScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucherUsage findFirstOrThrow
+   */
+  export type GiftVoucherUsageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherUsage to fetch.
+     */
+    where?: GiftVoucherUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherUsages to fetch.
+     */
+    orderBy?: GiftVoucherUsageOrderByWithRelationInput | GiftVoucherUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftVoucherUsages.
+     */
+    cursor?: GiftVoucherUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftVoucherUsages.
+     */
+    distinct?: GiftVoucherUsageScalarFieldEnum | GiftVoucherUsageScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucherUsage findMany
+   */
+  export type GiftVoucherUsageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftVoucherUsages to fetch.
+     */
+    where?: GiftVoucherUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftVoucherUsages to fetch.
+     */
+    orderBy?: GiftVoucherUsageOrderByWithRelationInput | GiftVoucherUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GiftVoucherUsages.
+     */
+    cursor?: GiftVoucherUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftVoucherUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftVoucherUsages.
+     */
+    skip?: number
+    distinct?: GiftVoucherUsageScalarFieldEnum | GiftVoucherUsageScalarFieldEnum[]
+  }
+
+  /**
+   * GiftVoucherUsage create
+   */
+  export type GiftVoucherUsageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GiftVoucherUsage.
+     */
+    data: XOR<GiftVoucherUsageCreateInput, GiftVoucherUsageUncheckedCreateInput>
+  }
+
+  /**
+   * GiftVoucherUsage createMany
+   */
+  export type GiftVoucherUsageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GiftVoucherUsages.
+     */
+    data: GiftVoucherUsageCreateManyInput | GiftVoucherUsageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GiftVoucherUsage createManyAndReturn
+   */
+  export type GiftVoucherUsageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * The data used to create many GiftVoucherUsages.
+     */
+    data: GiftVoucherUsageCreateManyInput | GiftVoucherUsageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucherUsage update
+   */
+  export type GiftVoucherUsageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GiftVoucherUsage.
+     */
+    data: XOR<GiftVoucherUsageUpdateInput, GiftVoucherUsageUncheckedUpdateInput>
+    /**
+     * Choose, which GiftVoucherUsage to update.
+     */
+    where: GiftVoucherUsageWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherUsage updateMany
+   */
+  export type GiftVoucherUsageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GiftVoucherUsages.
+     */
+    data: XOR<GiftVoucherUsageUpdateManyMutationInput, GiftVoucherUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftVoucherUsages to update
+     */
+    where?: GiftVoucherUsageWhereInput
+    /**
+     * Limit how many GiftVoucherUsages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftVoucherUsage updateManyAndReturn
+   */
+  export type GiftVoucherUsageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * The data used to update GiftVoucherUsages.
+     */
+    data: XOR<GiftVoucherUsageUpdateManyMutationInput, GiftVoucherUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftVoucherUsages to update
+     */
+    where?: GiftVoucherUsageWhereInput
+    /**
+     * Limit how many GiftVoucherUsages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftVoucherUsage upsert
+   */
+  export type GiftVoucherUsageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GiftVoucherUsage to update in case it exists.
+     */
+    where: GiftVoucherUsageWhereUniqueInput
+    /**
+     * In case the GiftVoucherUsage found by the `where` argument doesn't exist, create a new GiftVoucherUsage with this data.
+     */
+    create: XOR<GiftVoucherUsageCreateInput, GiftVoucherUsageUncheckedCreateInput>
+    /**
+     * In case the GiftVoucherUsage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GiftVoucherUsageUpdateInput, GiftVoucherUsageUncheckedUpdateInput>
+  }
+
+  /**
+   * GiftVoucherUsage delete
+   */
+  export type GiftVoucherUsageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+    /**
+     * Filter which GiftVoucherUsage to delete.
+     */
+    where: GiftVoucherUsageWhereUniqueInput
+  }
+
+  /**
+   * GiftVoucherUsage deleteMany
+   */
+  export type GiftVoucherUsageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftVoucherUsages to delete
+     */
+    where?: GiftVoucherUsageWhereInput
+    /**
+     * Limit how many GiftVoucherUsages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftVoucherUsage.booking
+   */
+  export type GiftVoucherUsage$bookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+  }
+
+  /**
+   * GiftVoucherUsage without action
+   */
+  export type GiftVoucherUsageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftVoucherUsage
+     */
+    select?: GiftVoucherUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftVoucherUsage
+     */
+    omit?: GiftVoucherUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftVoucherUsageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15613,6 +19915,61 @@ export namespace Prisma {
   export type GalleryScalarFieldEnum = (typeof GalleryScalarFieldEnum)[keyof typeof GalleryScalarFieldEnum]
 
 
+  export const GiftVoucherTemplateScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    type: 'type',
+    value: 'value',
+    serviceId: 'serviceId',
+    isActive: 'isActive',
+    validityDays: 'validityDays',
+    maxUsageCount: 'maxUsageCount',
+    currentUsageCount: 'currentUsageCount',
+    imageUrl: 'imageUrl',
+    imageUuid: 'imageUuid',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    createdById: 'createdById'
+  };
+
+  export type GiftVoucherTemplateScalarFieldEnum = (typeof GiftVoucherTemplateScalarFieldEnum)[keyof typeof GiftVoucherTemplateScalarFieldEnum]
+
+
+  export const GiftVoucherScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    templateId: 'templateId',
+    purchasedById: 'purchasedById',
+    recipientId: 'recipientId',
+    recipientEmail: 'recipientEmail',
+    recipientName: 'recipientName',
+    status: 'status',
+    originalValue: 'originalValue',
+    remainingValue: 'remainingValue',
+    purchasePrice: 'purchasePrice',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    message: 'message',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type GiftVoucherScalarFieldEnum = (typeof GiftVoucherScalarFieldEnum)[keyof typeof GiftVoucherScalarFieldEnum]
+
+
+  export const GiftVoucherUsageScalarFieldEnum: {
+    id: 'id',
+    voucherId: 'voucherId',
+    bookingId: 'bookingId',
+    amountUsed: 'amountUsed',
+    usedAt: 'usedAt',
+    notes: 'notes'
+  };
+
+  export type GiftVoucherUsageScalarFieldEnum = (typeof GiftVoucherUsageScalarFieldEnum)[keyof typeof GiftVoucherUsageScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -15745,6 +20102,34 @@ export namespace Prisma {
    */
   export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'GiftVoucherType'
+   */
+  export type EnumGiftVoucherTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GiftVoucherType'>
+    
+
+
+  /**
+   * Reference to a field of type 'GiftVoucherType[]'
+   */
+  export type ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GiftVoucherType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'GiftVoucherStatus'
+   */
+  export type EnumGiftVoucherStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GiftVoucherStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'GiftVoucherStatus[]'
+   */
+  export type ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GiftVoucherStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -15768,6 +20153,9 @@ export namespace Prisma {
     twoFactorConfirmation?: XOR<TwoFactorConfirmationNullableScalarRelationFilter, TwoFactorConfirmationWhereInput> | null
     bookings?: BookingListRelationFilter
     createdServices?: ServiceListRelationFilter
+    purchasedGiftVouchers?: GiftVoucherListRelationFilter
+    receivedGiftVouchers?: GiftVoucherListRelationFilter
+    createdGiftVoucherTemplates?: GiftVoucherTemplateListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15785,6 +20173,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationOrderByWithRelationInput
     bookings?: BookingOrderByRelationAggregateInput
     createdServices?: ServiceOrderByRelationAggregateInput
+    purchasedGiftVouchers?: GiftVoucherOrderByRelationAggregateInput
+    receivedGiftVouchers?: GiftVoucherOrderByRelationAggregateInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15805,6 +20196,9 @@ export namespace Prisma {
     twoFactorConfirmation?: XOR<TwoFactorConfirmationNullableScalarRelationFilter, TwoFactorConfirmationWhereInput> | null
     bookings?: BookingListRelationFilter
     createdServices?: ServiceListRelationFilter
+    purchasedGiftVouchers?: GiftVoucherListRelationFilter
+    receivedGiftVouchers?: GiftVoucherListRelationFilter
+    createdGiftVoucherTemplates?: GiftVoucherTemplateListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -16274,6 +20668,7 @@ export namespace Prisma {
     branchServices?: BranchServiceListRelationFilter
     bookings?: BookingListRelationFilter
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    giftVoucherTemplates?: GiftVoucherTemplateListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -16293,6 +20688,7 @@ export namespace Prisma {
     branchServices?: BranchServiceOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
     createdBy?: UserOrderByWithRelationInput
+    giftVoucherTemplates?: GiftVoucherTemplateOrderByRelationAggregateInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -16315,6 +20711,7 @@ export namespace Prisma {
     branchServices?: BranchServiceListRelationFilter
     bookings?: BookingListRelationFilter
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    giftVoucherTemplates?: GiftVoucherTemplateListRelationFilter
   }, "id">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -16451,6 +20848,7 @@ export namespace Prisma {
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     branchService?: XOR<BranchServiceScalarRelationFilter, BranchServiceWhereInput>
+    giftVoucherUsages?: GiftVoucherUsageListRelationFilter
   }
 
   export type BookingOrderByWithRelationInput = {
@@ -16472,6 +20870,7 @@ export namespace Prisma {
     service?: ServiceOrderByWithRelationInput
     branch?: BranchOrderByWithRelationInput
     branchService?: BranchServiceOrderByWithRelationInput
+    giftVoucherUsages?: GiftVoucherUsageOrderByRelationAggregateInput
   }
 
   export type BookingWhereUniqueInput = Prisma.AtLeast<{
@@ -16496,6 +20895,7 @@ export namespace Prisma {
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     branchService?: XOR<BranchServiceScalarRelationFilter, BranchServiceWhereInput>
+    giftVoucherUsages?: GiftVoucherUsageListRelationFilter
   }, "id">
 
   export type BookingOrderByWithAggregationInput = {
@@ -16614,6 +21014,305 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Gallery"> | Date | string
   }
 
+  export type GiftVoucherTemplateWhereInput = {
+    AND?: GiftVoucherTemplateWhereInput | GiftVoucherTemplateWhereInput[]
+    OR?: GiftVoucherTemplateWhereInput[]
+    NOT?: GiftVoucherTemplateWhereInput | GiftVoucherTemplateWhereInput[]
+    id?: StringFilter<"GiftVoucherTemplate"> | string
+    name?: StringFilter<"GiftVoucherTemplate"> | string
+    description?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    type?: EnumGiftVoucherTypeFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
+    value?: FloatFilter<"GiftVoucherTemplate"> | number
+    serviceId?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    isActive?: BoolFilter<"GiftVoucherTemplate"> | boolean
+    validityDays?: IntFilter<"GiftVoucherTemplate"> | number
+    maxUsageCount?: IntNullableFilter<"GiftVoucherTemplate"> | number | null
+    currentUsageCount?: IntFilter<"GiftVoucherTemplate"> | number
+    imageUrl?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    imageUuid?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    createdAt?: DateTimeFilter<"GiftVoucherTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"GiftVoucherTemplate"> | Date | string
+    createdById?: StringFilter<"GiftVoucherTemplate"> | string
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    giftVouchers?: GiftVoucherListRelationFilter
+  }
+
+  export type GiftVoucherTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    serviceId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    validityDays?: SortOrder
+    maxUsageCount?: SortOrderInput | SortOrder
+    currentUsageCount?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageUuid?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    service?: ServiceOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
+    giftVouchers?: GiftVoucherOrderByRelationAggregateInput
+  }
+
+  export type GiftVoucherTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GiftVoucherTemplateWhereInput | GiftVoucherTemplateWhereInput[]
+    OR?: GiftVoucherTemplateWhereInput[]
+    NOT?: GiftVoucherTemplateWhereInput | GiftVoucherTemplateWhereInput[]
+    name?: StringFilter<"GiftVoucherTemplate"> | string
+    description?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    type?: EnumGiftVoucherTypeFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
+    value?: FloatFilter<"GiftVoucherTemplate"> | number
+    serviceId?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    isActive?: BoolFilter<"GiftVoucherTemplate"> | boolean
+    validityDays?: IntFilter<"GiftVoucherTemplate"> | number
+    maxUsageCount?: IntNullableFilter<"GiftVoucherTemplate"> | number | null
+    currentUsageCount?: IntFilter<"GiftVoucherTemplate"> | number
+    imageUrl?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    imageUuid?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    createdAt?: DateTimeFilter<"GiftVoucherTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"GiftVoucherTemplate"> | Date | string
+    createdById?: StringFilter<"GiftVoucherTemplate"> | string
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    giftVouchers?: GiftVoucherListRelationFilter
+  }, "id">
+
+  export type GiftVoucherTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    serviceId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    validityDays?: SortOrder
+    maxUsageCount?: SortOrderInput | SortOrder
+    currentUsageCount?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageUuid?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    _count?: GiftVoucherTemplateCountOrderByAggregateInput
+    _avg?: GiftVoucherTemplateAvgOrderByAggregateInput
+    _max?: GiftVoucherTemplateMaxOrderByAggregateInput
+    _min?: GiftVoucherTemplateMinOrderByAggregateInput
+    _sum?: GiftVoucherTemplateSumOrderByAggregateInput
+  }
+
+  export type GiftVoucherTemplateScalarWhereWithAggregatesInput = {
+    AND?: GiftVoucherTemplateScalarWhereWithAggregatesInput | GiftVoucherTemplateScalarWhereWithAggregatesInput[]
+    OR?: GiftVoucherTemplateScalarWhereWithAggregatesInput[]
+    NOT?: GiftVoucherTemplateScalarWhereWithAggregatesInput | GiftVoucherTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GiftVoucherTemplate"> | string
+    name?: StringWithAggregatesFilter<"GiftVoucherTemplate"> | string
+    description?: StringNullableWithAggregatesFilter<"GiftVoucherTemplate"> | string | null
+    type?: EnumGiftVoucherTypeWithAggregatesFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
+    value?: FloatWithAggregatesFilter<"GiftVoucherTemplate"> | number
+    serviceId?: StringNullableWithAggregatesFilter<"GiftVoucherTemplate"> | string | null
+    isActive?: BoolWithAggregatesFilter<"GiftVoucherTemplate"> | boolean
+    validityDays?: IntWithAggregatesFilter<"GiftVoucherTemplate"> | number
+    maxUsageCount?: IntNullableWithAggregatesFilter<"GiftVoucherTemplate"> | number | null
+    currentUsageCount?: IntWithAggregatesFilter<"GiftVoucherTemplate"> | number
+    imageUrl?: StringNullableWithAggregatesFilter<"GiftVoucherTemplate"> | string | null
+    imageUuid?: StringNullableWithAggregatesFilter<"GiftVoucherTemplate"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GiftVoucherTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"GiftVoucherTemplate"> | Date | string
+    createdById?: StringWithAggregatesFilter<"GiftVoucherTemplate"> | string
+  }
+
+  export type GiftVoucherWhereInput = {
+    AND?: GiftVoucherWhereInput | GiftVoucherWhereInput[]
+    OR?: GiftVoucherWhereInput[]
+    NOT?: GiftVoucherWhereInput | GiftVoucherWhereInput[]
+    id?: StringFilter<"GiftVoucher"> | string
+    code?: StringFilter<"GiftVoucher"> | string
+    templateId?: StringFilter<"GiftVoucher"> | string
+    purchasedById?: StringFilter<"GiftVoucher"> | string
+    recipientId?: StringNullableFilter<"GiftVoucher"> | string | null
+    recipientEmail?: StringNullableFilter<"GiftVoucher"> | string | null
+    recipientName?: StringNullableFilter<"GiftVoucher"> | string | null
+    status?: EnumGiftVoucherStatusFilter<"GiftVoucher"> | $Enums.GiftVoucherStatus
+    originalValue?: FloatFilter<"GiftVoucher"> | number
+    remainingValue?: FloatFilter<"GiftVoucher"> | number
+    purchasePrice?: FloatFilter<"GiftVoucher"> | number
+    expiresAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    usedAt?: DateTimeNullableFilter<"GiftVoucher"> | Date | string | null
+    message?: StringNullableFilter<"GiftVoucher"> | string | null
+    createdAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    template?: XOR<GiftVoucherTemplateScalarRelationFilter, GiftVoucherTemplateWhereInput>
+    purchasedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    usages?: GiftVoucherUsageListRelationFilter
+  }
+
+  export type GiftVoucherOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    templateId?: SortOrder
+    purchasedById?: SortOrder
+    recipientId?: SortOrderInput | SortOrder
+    recipientEmail?: SortOrderInput | SortOrder
+    recipientName?: SortOrderInput | SortOrder
+    status?: SortOrder
+    originalValue?: SortOrder
+    remainingValue?: SortOrder
+    purchasePrice?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    template?: GiftVoucherTemplateOrderByWithRelationInput
+    purchasedBy?: UserOrderByWithRelationInput
+    recipient?: UserOrderByWithRelationInput
+    usages?: GiftVoucherUsageOrderByRelationAggregateInput
+  }
+
+  export type GiftVoucherWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: GiftVoucherWhereInput | GiftVoucherWhereInput[]
+    OR?: GiftVoucherWhereInput[]
+    NOT?: GiftVoucherWhereInput | GiftVoucherWhereInput[]
+    templateId?: StringFilter<"GiftVoucher"> | string
+    purchasedById?: StringFilter<"GiftVoucher"> | string
+    recipientId?: StringNullableFilter<"GiftVoucher"> | string | null
+    recipientEmail?: StringNullableFilter<"GiftVoucher"> | string | null
+    recipientName?: StringNullableFilter<"GiftVoucher"> | string | null
+    status?: EnumGiftVoucherStatusFilter<"GiftVoucher"> | $Enums.GiftVoucherStatus
+    originalValue?: FloatFilter<"GiftVoucher"> | number
+    remainingValue?: FloatFilter<"GiftVoucher"> | number
+    purchasePrice?: FloatFilter<"GiftVoucher"> | number
+    expiresAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    usedAt?: DateTimeNullableFilter<"GiftVoucher"> | Date | string | null
+    message?: StringNullableFilter<"GiftVoucher"> | string | null
+    createdAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    template?: XOR<GiftVoucherTemplateScalarRelationFilter, GiftVoucherTemplateWhereInput>
+    purchasedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    usages?: GiftVoucherUsageListRelationFilter
+  }, "id" | "code">
+
+  export type GiftVoucherOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    templateId?: SortOrder
+    purchasedById?: SortOrder
+    recipientId?: SortOrderInput | SortOrder
+    recipientEmail?: SortOrderInput | SortOrder
+    recipientName?: SortOrderInput | SortOrder
+    status?: SortOrder
+    originalValue?: SortOrder
+    remainingValue?: SortOrder
+    purchasePrice?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: GiftVoucherCountOrderByAggregateInput
+    _avg?: GiftVoucherAvgOrderByAggregateInput
+    _max?: GiftVoucherMaxOrderByAggregateInput
+    _min?: GiftVoucherMinOrderByAggregateInput
+    _sum?: GiftVoucherSumOrderByAggregateInput
+  }
+
+  export type GiftVoucherScalarWhereWithAggregatesInput = {
+    AND?: GiftVoucherScalarWhereWithAggregatesInput | GiftVoucherScalarWhereWithAggregatesInput[]
+    OR?: GiftVoucherScalarWhereWithAggregatesInput[]
+    NOT?: GiftVoucherScalarWhereWithAggregatesInput | GiftVoucherScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GiftVoucher"> | string
+    code?: StringWithAggregatesFilter<"GiftVoucher"> | string
+    templateId?: StringWithAggregatesFilter<"GiftVoucher"> | string
+    purchasedById?: StringWithAggregatesFilter<"GiftVoucher"> | string
+    recipientId?: StringNullableWithAggregatesFilter<"GiftVoucher"> | string | null
+    recipientEmail?: StringNullableWithAggregatesFilter<"GiftVoucher"> | string | null
+    recipientName?: StringNullableWithAggregatesFilter<"GiftVoucher"> | string | null
+    status?: EnumGiftVoucherStatusWithAggregatesFilter<"GiftVoucher"> | $Enums.GiftVoucherStatus
+    originalValue?: FloatWithAggregatesFilter<"GiftVoucher"> | number
+    remainingValue?: FloatWithAggregatesFilter<"GiftVoucher"> | number
+    purchasePrice?: FloatWithAggregatesFilter<"GiftVoucher"> | number
+    expiresAt?: DateTimeWithAggregatesFilter<"GiftVoucher"> | Date | string
+    usedAt?: DateTimeNullableWithAggregatesFilter<"GiftVoucher"> | Date | string | null
+    message?: StringNullableWithAggregatesFilter<"GiftVoucher"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GiftVoucher"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"GiftVoucher"> | Date | string
+  }
+
+  export type GiftVoucherUsageWhereInput = {
+    AND?: GiftVoucherUsageWhereInput | GiftVoucherUsageWhereInput[]
+    OR?: GiftVoucherUsageWhereInput[]
+    NOT?: GiftVoucherUsageWhereInput | GiftVoucherUsageWhereInput[]
+    id?: StringFilter<"GiftVoucherUsage"> | string
+    voucherId?: StringFilter<"GiftVoucherUsage"> | string
+    bookingId?: StringNullableFilter<"GiftVoucherUsage"> | string | null
+    amountUsed?: FloatFilter<"GiftVoucherUsage"> | number
+    usedAt?: DateTimeFilter<"GiftVoucherUsage"> | Date | string
+    notes?: StringNullableFilter<"GiftVoucherUsage"> | string | null
+    voucher?: XOR<GiftVoucherScalarRelationFilter, GiftVoucherWhereInput>
+    booking?: XOR<BookingNullableScalarRelationFilter, BookingWhereInput> | null
+  }
+
+  export type GiftVoucherUsageOrderByWithRelationInput = {
+    id?: SortOrder
+    voucherId?: SortOrder
+    bookingId?: SortOrderInput | SortOrder
+    amountUsed?: SortOrder
+    usedAt?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    voucher?: GiftVoucherOrderByWithRelationInput
+    booking?: BookingOrderByWithRelationInput
+  }
+
+  export type GiftVoucherUsageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GiftVoucherUsageWhereInput | GiftVoucherUsageWhereInput[]
+    OR?: GiftVoucherUsageWhereInput[]
+    NOT?: GiftVoucherUsageWhereInput | GiftVoucherUsageWhereInput[]
+    voucherId?: StringFilter<"GiftVoucherUsage"> | string
+    bookingId?: StringNullableFilter<"GiftVoucherUsage"> | string | null
+    amountUsed?: FloatFilter<"GiftVoucherUsage"> | number
+    usedAt?: DateTimeFilter<"GiftVoucherUsage"> | Date | string
+    notes?: StringNullableFilter<"GiftVoucherUsage"> | string | null
+    voucher?: XOR<GiftVoucherScalarRelationFilter, GiftVoucherWhereInput>
+    booking?: XOR<BookingNullableScalarRelationFilter, BookingWhereInput> | null
+  }, "id">
+
+  export type GiftVoucherUsageOrderByWithAggregationInput = {
+    id?: SortOrder
+    voucherId?: SortOrder
+    bookingId?: SortOrderInput | SortOrder
+    amountUsed?: SortOrder
+    usedAt?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    _count?: GiftVoucherUsageCountOrderByAggregateInput
+    _avg?: GiftVoucherUsageAvgOrderByAggregateInput
+    _max?: GiftVoucherUsageMaxOrderByAggregateInput
+    _min?: GiftVoucherUsageMinOrderByAggregateInput
+    _sum?: GiftVoucherUsageSumOrderByAggregateInput
+  }
+
+  export type GiftVoucherUsageScalarWhereWithAggregatesInput = {
+    AND?: GiftVoucherUsageScalarWhereWithAggregatesInput | GiftVoucherUsageScalarWhereWithAggregatesInput[]
+    OR?: GiftVoucherUsageScalarWhereWithAggregatesInput[]
+    NOT?: GiftVoucherUsageScalarWhereWithAggregatesInput | GiftVoucherUsageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GiftVoucherUsage"> | string
+    voucherId?: StringWithAggregatesFilter<"GiftVoucherUsage"> | string
+    bookingId?: StringNullableWithAggregatesFilter<"GiftVoucherUsage"> | string | null
+    amountUsed?: FloatWithAggregatesFilter<"GiftVoucherUsage"> | number
+    usedAt?: DateTimeWithAggregatesFilter<"GiftVoucherUsage"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"GiftVoucherUsage"> | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -16629,6 +21328,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutUserInput
     createdServices?: ServiceCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16646,6 +21348,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
     createdServices?: ServiceUncheckedCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUpdateInput = {
@@ -16663,6 +21368,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutUserNestedInput
     createdServices?: ServiceUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16680,6 +21388,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
     createdServices?: ServiceUncheckedUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -17180,6 +21891,7 @@ export namespace Prisma {
     branchServices?: BranchServiceCreateNestedManyWithoutServiceInput
     bookings?: BookingCreateNestedManyWithoutServiceInput
     createdBy: UserCreateNestedOneWithoutCreatedServicesInput
+    giftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -17197,6 +21909,7 @@ export namespace Prisma {
     createdById: string
     branchServices?: BranchServiceUncheckedCreateNestedManyWithoutServiceInput
     bookings?: BookingUncheckedCreateNestedManyWithoutServiceInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -17214,6 +21927,7 @@ export namespace Prisma {
     branchServices?: BranchServiceUpdateManyWithoutServiceNestedInput
     bookings?: BookingUpdateManyWithoutServiceNestedInput
     createdBy?: UserUpdateOneRequiredWithoutCreatedServicesNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -17231,6 +21945,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     branchServices?: BranchServiceUncheckedUpdateManyWithoutServiceNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutServiceNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -17363,6 +22078,7 @@ export namespace Prisma {
     service: ServiceCreateNestedOneWithoutBookingsInput
     branch: BranchCreateNestedOneWithoutBookingsInput
     branchService: BranchServiceCreateNestedOneWithoutBookingsInput
+    giftVoucherUsages?: GiftVoucherUsageCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateInput = {
@@ -17380,6 +22096,7 @@ export namespace Prisma {
     attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUpdateInput = {
@@ -17397,6 +22114,7 @@ export namespace Prisma {
     service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
     branch?: BranchUpdateOneRequiredWithoutBookingsNestedInput
     branchService?: BranchServiceUpdateOneRequiredWithoutBookingsNestedInput
+    giftVoucherUsages?: GiftVoucherUsageUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateInput = {
@@ -17414,6 +22132,7 @@ export namespace Prisma {
     attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingCreateManyInput = {
@@ -17547,6 +22266,329 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GiftVoucherTemplateCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    service?: ServiceCreateNestedOneWithoutGiftVoucherTemplatesInput
+    createdBy: UserCreateNestedOneWithoutCreatedGiftVoucherTemplatesInput
+    giftVouchers?: GiftVoucherCreateNestedManyWithoutTemplateInput
+  }
+
+  export type GiftVoucherTemplateUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    serviceId?: string | null
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    giftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type GiftVoucherTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: ServiceUpdateOneWithoutGiftVoucherTemplatesNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedGiftVoucherTemplatesNestedInput
+    giftVouchers?: GiftVoucherUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    giftVouchers?: GiftVoucherUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type GiftVoucherTemplateCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    serviceId?: string | null
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type GiftVoucherTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GiftVoucherCreateInput = {
+    id?: string
+    code: string
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    template: GiftVoucherTemplateCreateNestedOneWithoutGiftVouchersInput
+    purchasedBy: UserCreateNestedOneWithoutPurchasedGiftVouchersInput
+    recipient?: UserCreateNestedOneWithoutReceivedGiftVouchersInput
+    usages?: GiftVoucherUsageCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherUncheckedCreateInput = {
+    id?: string
+    code: string
+    templateId: string
+    purchasedById: string
+    recipientId?: string | null
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: GiftVoucherTemplateUpdateOneRequiredWithoutGiftVouchersNestedInput
+    purchasedBy?: UserUpdateOneRequiredWithoutPurchasedGiftVouchersNestedInput
+    recipient?: UserUpdateOneWithoutReceivedGiftVouchersNestedInput
+    usages?: GiftVoucherUsageUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    purchasedById?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usages?: GiftVoucherUsageUncheckedUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherCreateManyInput = {
+    id?: string
+    code: string
+    templateId: string
+    purchasedById: string
+    recipientId?: string | null
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GiftVoucherUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    purchasedById?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherUsageCreateInput = {
+    id?: string
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+    voucher: GiftVoucherCreateNestedOneWithoutUsagesInput
+    booking?: BookingCreateNestedOneWithoutGiftVoucherUsagesInput
+  }
+
+  export type GiftVoucherUsageUncheckedCreateInput = {
+    id?: string
+    voucherId: string
+    bookingId?: string | null
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type GiftVoucherUsageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    voucher?: GiftVoucherUpdateOneRequiredWithoutUsagesNestedInput
+    booking?: BookingUpdateOneWithoutGiftVoucherUsagesNestedInput
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    voucherId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GiftVoucherUsageCreateManyInput = {
+    id?: string
+    voucherId: string
+    bookingId?: string | null
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type GiftVoucherUsageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    voucherId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17634,6 +22676,18 @@ export namespace Prisma {
     none?: ServiceWhereInput
   }
 
+  export type GiftVoucherListRelationFilter = {
+    every?: GiftVoucherWhereInput
+    some?: GiftVoucherWhereInput
+    none?: GiftVoucherWhereInput
+  }
+
+  export type GiftVoucherTemplateListRelationFilter = {
+    every?: GiftVoucherTemplateWhereInput
+    some?: GiftVoucherTemplateWhereInput
+    none?: GiftVoucherTemplateWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17648,6 +22702,14 @@ export namespace Prisma {
   }
 
   export type ServiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GiftVoucherOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GiftVoucherTemplateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18224,6 +23286,16 @@ export namespace Prisma {
     isNot?: BranchServiceWhereInput
   }
 
+  export type GiftVoucherUsageListRelationFilter = {
+    every?: GiftVoucherUsageWhereInput
+    some?: GiftVoucherUsageWhereInput
+    none?: GiftVoucherUsageWhereInput
+  }
+
+  export type GiftVoucherUsageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BookingCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -18337,6 +23409,237 @@ export namespace Prisma {
     order?: SortOrder
   }
 
+  export type EnumGiftVoucherTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherType | EnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherTypeFilter<$PrismaModel> | $Enums.GiftVoucherType
+  }
+
+  export type ServiceNullableScalarRelationFilter = {
+    is?: ServiceWhereInput | null
+    isNot?: ServiceWhereInput | null
+  }
+
+  export type GiftVoucherTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    serviceId?: SortOrder
+    isActive?: SortOrder
+    validityDays?: SortOrder
+    maxUsageCount?: SortOrder
+    currentUsageCount?: SortOrder
+    imageUrl?: SortOrder
+    imageUuid?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type GiftVoucherTemplateAvgOrderByAggregateInput = {
+    value?: SortOrder
+    validityDays?: SortOrder
+    maxUsageCount?: SortOrder
+    currentUsageCount?: SortOrder
+  }
+
+  export type GiftVoucherTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    serviceId?: SortOrder
+    isActive?: SortOrder
+    validityDays?: SortOrder
+    maxUsageCount?: SortOrder
+    currentUsageCount?: SortOrder
+    imageUrl?: SortOrder
+    imageUuid?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type GiftVoucherTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    serviceId?: SortOrder
+    isActive?: SortOrder
+    validityDays?: SortOrder
+    maxUsageCount?: SortOrder
+    currentUsageCount?: SortOrder
+    imageUrl?: SortOrder
+    imageUuid?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type GiftVoucherTemplateSumOrderByAggregateInput = {
+    value?: SortOrder
+    validityDays?: SortOrder
+    maxUsageCount?: SortOrder
+    currentUsageCount?: SortOrder
+  }
+
+  export type EnumGiftVoucherTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherType | EnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherTypeWithAggregatesFilter<$PrismaModel> | $Enums.GiftVoucherType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGiftVoucherTypeFilter<$PrismaModel>
+    _max?: NestedEnumGiftVoucherTypeFilter<$PrismaModel>
+  }
+
+  export type EnumGiftVoucherStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherStatus | EnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherStatusFilter<$PrismaModel> | $Enums.GiftVoucherStatus
+  }
+
+  export type GiftVoucherTemplateScalarRelationFilter = {
+    is?: GiftVoucherTemplateWhereInput
+    isNot?: GiftVoucherTemplateWhereInput
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type GiftVoucherCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    templateId?: SortOrder
+    purchasedById?: SortOrder
+    recipientId?: SortOrder
+    recipientEmail?: SortOrder
+    recipientName?: SortOrder
+    status?: SortOrder
+    originalValue?: SortOrder
+    remainingValue?: SortOrder
+    purchasePrice?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GiftVoucherAvgOrderByAggregateInput = {
+    originalValue?: SortOrder
+    remainingValue?: SortOrder
+    purchasePrice?: SortOrder
+  }
+
+  export type GiftVoucherMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    templateId?: SortOrder
+    purchasedById?: SortOrder
+    recipientId?: SortOrder
+    recipientEmail?: SortOrder
+    recipientName?: SortOrder
+    status?: SortOrder
+    originalValue?: SortOrder
+    remainingValue?: SortOrder
+    purchasePrice?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GiftVoucherMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    templateId?: SortOrder
+    purchasedById?: SortOrder
+    recipientId?: SortOrder
+    recipientEmail?: SortOrder
+    recipientName?: SortOrder
+    status?: SortOrder
+    originalValue?: SortOrder
+    remainingValue?: SortOrder
+    purchasePrice?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GiftVoucherSumOrderByAggregateInput = {
+    originalValue?: SortOrder
+    remainingValue?: SortOrder
+    purchasePrice?: SortOrder
+  }
+
+  export type EnumGiftVoucherStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherStatus | EnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherStatusWithAggregatesFilter<$PrismaModel> | $Enums.GiftVoucherStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGiftVoucherStatusFilter<$PrismaModel>
+    _max?: NestedEnumGiftVoucherStatusFilter<$PrismaModel>
+  }
+
+  export type GiftVoucherScalarRelationFilter = {
+    is?: GiftVoucherWhereInput
+    isNot?: GiftVoucherWhereInput
+  }
+
+  export type BookingNullableScalarRelationFilter = {
+    is?: BookingWhereInput | null
+    isNot?: BookingWhereInput | null
+  }
+
+  export type GiftVoucherUsageCountOrderByAggregateInput = {
+    id?: SortOrder
+    voucherId?: SortOrder
+    bookingId?: SortOrder
+    amountUsed?: SortOrder
+    usedAt?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type GiftVoucherUsageAvgOrderByAggregateInput = {
+    amountUsed?: SortOrder
+  }
+
+  export type GiftVoucherUsageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    voucherId?: SortOrder
+    bookingId?: SortOrder
+    amountUsed?: SortOrder
+    usedAt?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type GiftVoucherUsageMinOrderByAggregateInput = {
+    id?: SortOrder
+    voucherId?: SortOrder
+    bookingId?: SortOrder
+    amountUsed?: SortOrder
+    usedAt?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type GiftVoucherUsageSumOrderByAggregateInput = {
+    amountUsed?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -18364,6 +23667,27 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
+  export type GiftVoucherCreateNestedManyWithoutPurchasedByInput = {
+    create?: XOR<GiftVoucherCreateWithoutPurchasedByInput, GiftVoucherUncheckedCreateWithoutPurchasedByInput> | GiftVoucherCreateWithoutPurchasedByInput[] | GiftVoucherUncheckedCreateWithoutPurchasedByInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutPurchasedByInput | GiftVoucherCreateOrConnectWithoutPurchasedByInput[]
+    createMany?: GiftVoucherCreateManyPurchasedByInputEnvelope
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+  }
+
+  export type GiftVoucherCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<GiftVoucherCreateWithoutRecipientInput, GiftVoucherUncheckedCreateWithoutRecipientInput> | GiftVoucherCreateWithoutRecipientInput[] | GiftVoucherUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutRecipientInput | GiftVoucherCreateOrConnectWithoutRecipientInput[]
+    createMany?: GiftVoucherCreateManyRecipientInputEnvelope
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+  }
+
+  export type GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutCreatedByInput, GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput> | GiftVoucherTemplateCreateWithoutCreatedByInput[] | GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput | GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput[]
+    createMany?: GiftVoucherTemplateCreateManyCreatedByInputEnvelope
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -18389,6 +23713,27 @@ export namespace Prisma {
     connectOrCreate?: ServiceCreateOrConnectWithoutCreatedByInput | ServiceCreateOrConnectWithoutCreatedByInput[]
     createMany?: ServiceCreateManyCreatedByInputEnvelope
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+  }
+
+  export type GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput = {
+    create?: XOR<GiftVoucherCreateWithoutPurchasedByInput, GiftVoucherUncheckedCreateWithoutPurchasedByInput> | GiftVoucherCreateWithoutPurchasedByInput[] | GiftVoucherUncheckedCreateWithoutPurchasedByInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutPurchasedByInput | GiftVoucherCreateOrConnectWithoutPurchasedByInput[]
+    createMany?: GiftVoucherCreateManyPurchasedByInputEnvelope
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+  }
+
+  export type GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<GiftVoucherCreateWithoutRecipientInput, GiftVoucherUncheckedCreateWithoutRecipientInput> | GiftVoucherCreateWithoutRecipientInput[] | GiftVoucherUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutRecipientInput | GiftVoucherCreateOrConnectWithoutRecipientInput[]
+    createMany?: GiftVoucherCreateManyRecipientInputEnvelope
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+  }
+
+  export type GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutCreatedByInput, GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput> | GiftVoucherTemplateCreateWithoutCreatedByInput[] | GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput | GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput[]
+    createMany?: GiftVoucherTemplateCreateManyCreatedByInputEnvelope
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18467,6 +23812,48 @@ export namespace Prisma {
     deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
+  export type GiftVoucherUpdateManyWithoutPurchasedByNestedInput = {
+    create?: XOR<GiftVoucherCreateWithoutPurchasedByInput, GiftVoucherUncheckedCreateWithoutPurchasedByInput> | GiftVoucherCreateWithoutPurchasedByInput[] | GiftVoucherUncheckedCreateWithoutPurchasedByInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutPurchasedByInput | GiftVoucherCreateOrConnectWithoutPurchasedByInput[]
+    upsert?: GiftVoucherUpsertWithWhereUniqueWithoutPurchasedByInput | GiftVoucherUpsertWithWhereUniqueWithoutPurchasedByInput[]
+    createMany?: GiftVoucherCreateManyPurchasedByInputEnvelope
+    set?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    disconnect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    delete?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    update?: GiftVoucherUpdateWithWhereUniqueWithoutPurchasedByInput | GiftVoucherUpdateWithWhereUniqueWithoutPurchasedByInput[]
+    updateMany?: GiftVoucherUpdateManyWithWhereWithoutPurchasedByInput | GiftVoucherUpdateManyWithWhereWithoutPurchasedByInput[]
+    deleteMany?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+  }
+
+  export type GiftVoucherUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<GiftVoucherCreateWithoutRecipientInput, GiftVoucherUncheckedCreateWithoutRecipientInput> | GiftVoucherCreateWithoutRecipientInput[] | GiftVoucherUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutRecipientInput | GiftVoucherCreateOrConnectWithoutRecipientInput[]
+    upsert?: GiftVoucherUpsertWithWhereUniqueWithoutRecipientInput | GiftVoucherUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: GiftVoucherCreateManyRecipientInputEnvelope
+    set?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    disconnect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    delete?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    update?: GiftVoucherUpdateWithWhereUniqueWithoutRecipientInput | GiftVoucherUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: GiftVoucherUpdateManyWithWhereWithoutRecipientInput | GiftVoucherUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+  }
+
+  export type GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutCreatedByInput, GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput> | GiftVoucherTemplateCreateWithoutCreatedByInput[] | GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput | GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput[]
+    upsert?: GiftVoucherTemplateUpsertWithWhereUniqueWithoutCreatedByInput | GiftVoucherTemplateUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: GiftVoucherTemplateCreateManyCreatedByInputEnvelope
+    set?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    disconnect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    delete?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    update?: GiftVoucherTemplateUpdateWithWhereUniqueWithoutCreatedByInput | GiftVoucherTemplateUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: GiftVoucherTemplateUpdateManyWithWhereWithoutCreatedByInput | GiftVoucherTemplateUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: GiftVoucherTemplateScalarWhereInput | GiftVoucherTemplateScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -18517,6 +23904,48 @@ export namespace Prisma {
     update?: ServiceUpdateWithWhereUniqueWithoutCreatedByInput | ServiceUpdateWithWhereUniqueWithoutCreatedByInput[]
     updateMany?: ServiceUpdateManyWithWhereWithoutCreatedByInput | ServiceUpdateManyWithWhereWithoutCreatedByInput[]
     deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+  }
+
+  export type GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput = {
+    create?: XOR<GiftVoucherCreateWithoutPurchasedByInput, GiftVoucherUncheckedCreateWithoutPurchasedByInput> | GiftVoucherCreateWithoutPurchasedByInput[] | GiftVoucherUncheckedCreateWithoutPurchasedByInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutPurchasedByInput | GiftVoucherCreateOrConnectWithoutPurchasedByInput[]
+    upsert?: GiftVoucherUpsertWithWhereUniqueWithoutPurchasedByInput | GiftVoucherUpsertWithWhereUniqueWithoutPurchasedByInput[]
+    createMany?: GiftVoucherCreateManyPurchasedByInputEnvelope
+    set?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    disconnect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    delete?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    update?: GiftVoucherUpdateWithWhereUniqueWithoutPurchasedByInput | GiftVoucherUpdateWithWhereUniqueWithoutPurchasedByInput[]
+    updateMany?: GiftVoucherUpdateManyWithWhereWithoutPurchasedByInput | GiftVoucherUpdateManyWithWhereWithoutPurchasedByInput[]
+    deleteMany?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+  }
+
+  export type GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<GiftVoucherCreateWithoutRecipientInput, GiftVoucherUncheckedCreateWithoutRecipientInput> | GiftVoucherCreateWithoutRecipientInput[] | GiftVoucherUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutRecipientInput | GiftVoucherCreateOrConnectWithoutRecipientInput[]
+    upsert?: GiftVoucherUpsertWithWhereUniqueWithoutRecipientInput | GiftVoucherUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: GiftVoucherCreateManyRecipientInputEnvelope
+    set?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    disconnect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    delete?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    update?: GiftVoucherUpdateWithWhereUniqueWithoutRecipientInput | GiftVoucherUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: GiftVoucherUpdateManyWithWhereWithoutRecipientInput | GiftVoucherUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutCreatedByInput, GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput> | GiftVoucherTemplateCreateWithoutCreatedByInput[] | GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput | GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput[]
+    upsert?: GiftVoucherTemplateUpsertWithWhereUniqueWithoutCreatedByInput | GiftVoucherTemplateUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: GiftVoucherTemplateCreateManyCreatedByInputEnvelope
+    set?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    disconnect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    delete?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    update?: GiftVoucherTemplateUpdateWithWhereUniqueWithoutCreatedByInput | GiftVoucherTemplateUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: GiftVoucherTemplateUpdateManyWithWhereWithoutCreatedByInput | GiftVoucherTemplateUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: GiftVoucherTemplateScalarWhereInput | GiftVoucherTemplateScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -18707,6 +24136,13 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type GiftVoucherTemplateCreateNestedManyWithoutServiceInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutServiceInput, GiftVoucherTemplateUncheckedCreateWithoutServiceInput> | GiftVoucherTemplateCreateWithoutServiceInput[] | GiftVoucherTemplateUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutServiceInput | GiftVoucherTemplateCreateOrConnectWithoutServiceInput[]
+    createMany?: GiftVoucherTemplateCreateManyServiceInputEnvelope
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+  }
+
   export type BranchServiceUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<BranchServiceCreateWithoutServiceInput, BranchServiceUncheckedCreateWithoutServiceInput> | BranchServiceCreateWithoutServiceInput[] | BranchServiceUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: BranchServiceCreateOrConnectWithoutServiceInput | BranchServiceCreateOrConnectWithoutServiceInput[]
@@ -18719,6 +24155,13 @@ export namespace Prisma {
     connectOrCreate?: BookingCreateOrConnectWithoutServiceInput | BookingCreateOrConnectWithoutServiceInput[]
     createMany?: BookingCreateManyServiceInputEnvelope
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type GiftVoucherTemplateUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutServiceInput, GiftVoucherTemplateUncheckedCreateWithoutServiceInput> | GiftVoucherTemplateCreateWithoutServiceInput[] | GiftVoucherTemplateUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutServiceInput | GiftVoucherTemplateCreateOrConnectWithoutServiceInput[]
+    createMany?: GiftVoucherTemplateCreateManyServiceInputEnvelope
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -18785,6 +24228,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedServicesInput, UserUpdateWithoutCreatedServicesInput>, UserUncheckedUpdateWithoutCreatedServicesInput>
   }
 
+  export type GiftVoucherTemplateUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutServiceInput, GiftVoucherTemplateUncheckedCreateWithoutServiceInput> | GiftVoucherTemplateCreateWithoutServiceInput[] | GiftVoucherTemplateUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutServiceInput | GiftVoucherTemplateCreateOrConnectWithoutServiceInput[]
+    upsert?: GiftVoucherTemplateUpsertWithWhereUniqueWithoutServiceInput | GiftVoucherTemplateUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: GiftVoucherTemplateCreateManyServiceInputEnvelope
+    set?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    disconnect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    delete?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    update?: GiftVoucherTemplateUpdateWithWhereUniqueWithoutServiceInput | GiftVoucherTemplateUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: GiftVoucherTemplateUpdateManyWithWhereWithoutServiceInput | GiftVoucherTemplateUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: GiftVoucherTemplateScalarWhereInput | GiftVoucherTemplateScalarWhereInput[]
+  }
+
   export type BranchServiceUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<BranchServiceCreateWithoutServiceInput, BranchServiceUncheckedCreateWithoutServiceInput> | BranchServiceCreateWithoutServiceInput[] | BranchServiceUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: BranchServiceCreateOrConnectWithoutServiceInput | BranchServiceCreateOrConnectWithoutServiceInput[]
@@ -18811,6 +24268,20 @@ export namespace Prisma {
     update?: BookingUpdateWithWhereUniqueWithoutServiceInput | BookingUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: BookingUpdateManyWithWhereWithoutServiceInput | BookingUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutServiceInput, GiftVoucherTemplateUncheckedCreateWithoutServiceInput> | GiftVoucherTemplateCreateWithoutServiceInput[] | GiftVoucherTemplateUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutServiceInput | GiftVoucherTemplateCreateOrConnectWithoutServiceInput[]
+    upsert?: GiftVoucherTemplateUpsertWithWhereUniqueWithoutServiceInput | GiftVoucherTemplateUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: GiftVoucherTemplateCreateManyServiceInputEnvelope
+    set?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    disconnect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    delete?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    connect?: GiftVoucherTemplateWhereUniqueInput | GiftVoucherTemplateWhereUniqueInput[]
+    update?: GiftVoucherTemplateUpdateWithWhereUniqueWithoutServiceInput | GiftVoucherTemplateUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: GiftVoucherTemplateUpdateManyWithWhereWithoutServiceInput | GiftVoucherTemplateUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: GiftVoucherTemplateScalarWhereInput | GiftVoucherTemplateScalarWhereInput[]
   }
 
   export type BranchCreateNestedOneWithoutBranchServicesInput = {
@@ -18907,6 +24378,20 @@ export namespace Prisma {
     connect?: BranchServiceWhereUniqueInput
   }
 
+  export type GiftVoucherUsageCreateNestedManyWithoutBookingInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutBookingInput, GiftVoucherUsageUncheckedCreateWithoutBookingInput> | GiftVoucherUsageCreateWithoutBookingInput[] | GiftVoucherUsageUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutBookingInput | GiftVoucherUsageCreateOrConnectWithoutBookingInput[]
+    createMany?: GiftVoucherUsageCreateManyBookingInputEnvelope
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+  }
+
+  export type GiftVoucherUsageUncheckedCreateNestedManyWithoutBookingInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutBookingInput, GiftVoucherUsageUncheckedCreateWithoutBookingInput> | GiftVoucherUsageCreateWithoutBookingInput[] | GiftVoucherUsageUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutBookingInput | GiftVoucherUsageCreateOrConnectWithoutBookingInput[]
+    createMany?: GiftVoucherUsageCreateManyBookingInputEnvelope
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+  }
+
   export type EnumBookingStatusFieldUpdateOperationsInput = {
     set?: $Enums.BookingStatus
   }
@@ -18941,6 +24426,230 @@ export namespace Prisma {
     upsert?: BranchServiceUpsertWithoutBookingsInput
     connect?: BranchServiceWhereUniqueInput
     update?: XOR<XOR<BranchServiceUpdateToOneWithWhereWithoutBookingsInput, BranchServiceUpdateWithoutBookingsInput>, BranchServiceUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type GiftVoucherUsageUpdateManyWithoutBookingNestedInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutBookingInput, GiftVoucherUsageUncheckedCreateWithoutBookingInput> | GiftVoucherUsageCreateWithoutBookingInput[] | GiftVoucherUsageUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutBookingInput | GiftVoucherUsageCreateOrConnectWithoutBookingInput[]
+    upsert?: GiftVoucherUsageUpsertWithWhereUniqueWithoutBookingInput | GiftVoucherUsageUpsertWithWhereUniqueWithoutBookingInput[]
+    createMany?: GiftVoucherUsageCreateManyBookingInputEnvelope
+    set?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    disconnect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    delete?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    update?: GiftVoucherUsageUpdateWithWhereUniqueWithoutBookingInput | GiftVoucherUsageUpdateWithWhereUniqueWithoutBookingInput[]
+    updateMany?: GiftVoucherUsageUpdateManyWithWhereWithoutBookingInput | GiftVoucherUsageUpdateManyWithWhereWithoutBookingInput[]
+    deleteMany?: GiftVoucherUsageScalarWhereInput | GiftVoucherUsageScalarWhereInput[]
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateManyWithoutBookingNestedInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutBookingInput, GiftVoucherUsageUncheckedCreateWithoutBookingInput> | GiftVoucherUsageCreateWithoutBookingInput[] | GiftVoucherUsageUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutBookingInput | GiftVoucherUsageCreateOrConnectWithoutBookingInput[]
+    upsert?: GiftVoucherUsageUpsertWithWhereUniqueWithoutBookingInput | GiftVoucherUsageUpsertWithWhereUniqueWithoutBookingInput[]
+    createMany?: GiftVoucherUsageCreateManyBookingInputEnvelope
+    set?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    disconnect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    delete?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    update?: GiftVoucherUsageUpdateWithWhereUniqueWithoutBookingInput | GiftVoucherUsageUpdateWithWhereUniqueWithoutBookingInput[]
+    updateMany?: GiftVoucherUsageUpdateManyWithWhereWithoutBookingInput | GiftVoucherUsageUpdateManyWithWhereWithoutBookingInput[]
+    deleteMany?: GiftVoucherUsageScalarWhereInput | GiftVoucherUsageScalarWhereInput[]
+  }
+
+  export type ServiceCreateNestedOneWithoutGiftVoucherTemplatesInput = {
+    create?: XOR<ServiceCreateWithoutGiftVoucherTemplatesInput, ServiceUncheckedCreateWithoutGiftVoucherTemplatesInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutGiftVoucherTemplatesInput
+    connect?: ServiceWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCreatedGiftVoucherTemplatesInput = {
+    create?: XOR<UserCreateWithoutCreatedGiftVoucherTemplatesInput, UserUncheckedCreateWithoutCreatedGiftVoucherTemplatesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedGiftVoucherTemplatesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GiftVoucherCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<GiftVoucherCreateWithoutTemplateInput, GiftVoucherUncheckedCreateWithoutTemplateInput> | GiftVoucherCreateWithoutTemplateInput[] | GiftVoucherUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutTemplateInput | GiftVoucherCreateOrConnectWithoutTemplateInput[]
+    createMany?: GiftVoucherCreateManyTemplateInputEnvelope
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+  }
+
+  export type GiftVoucherUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<GiftVoucherCreateWithoutTemplateInput, GiftVoucherUncheckedCreateWithoutTemplateInput> | GiftVoucherCreateWithoutTemplateInput[] | GiftVoucherUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutTemplateInput | GiftVoucherCreateOrConnectWithoutTemplateInput[]
+    createMany?: GiftVoucherCreateManyTemplateInputEnvelope
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+  }
+
+  export type EnumGiftVoucherTypeFieldUpdateOperationsInput = {
+    set?: $Enums.GiftVoucherType
+  }
+
+  export type ServiceUpdateOneWithoutGiftVoucherTemplatesNestedInput = {
+    create?: XOR<ServiceCreateWithoutGiftVoucherTemplatesInput, ServiceUncheckedCreateWithoutGiftVoucherTemplatesInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutGiftVoucherTemplatesInput
+    upsert?: ServiceUpsertWithoutGiftVoucherTemplatesInput
+    disconnect?: ServiceWhereInput | boolean
+    delete?: ServiceWhereInput | boolean
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutGiftVoucherTemplatesInput, ServiceUpdateWithoutGiftVoucherTemplatesInput>, ServiceUncheckedUpdateWithoutGiftVoucherTemplatesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCreatedGiftVoucherTemplatesNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedGiftVoucherTemplatesInput, UserUncheckedCreateWithoutCreatedGiftVoucherTemplatesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedGiftVoucherTemplatesInput
+    upsert?: UserUpsertWithoutCreatedGiftVoucherTemplatesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedGiftVoucherTemplatesInput, UserUpdateWithoutCreatedGiftVoucherTemplatesInput>, UserUncheckedUpdateWithoutCreatedGiftVoucherTemplatesInput>
+  }
+
+  export type GiftVoucherUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<GiftVoucherCreateWithoutTemplateInput, GiftVoucherUncheckedCreateWithoutTemplateInput> | GiftVoucherCreateWithoutTemplateInput[] | GiftVoucherUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutTemplateInput | GiftVoucherCreateOrConnectWithoutTemplateInput[]
+    upsert?: GiftVoucherUpsertWithWhereUniqueWithoutTemplateInput | GiftVoucherUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: GiftVoucherCreateManyTemplateInputEnvelope
+    set?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    disconnect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    delete?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    update?: GiftVoucherUpdateWithWhereUniqueWithoutTemplateInput | GiftVoucherUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: GiftVoucherUpdateManyWithWhereWithoutTemplateInput | GiftVoucherUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+  }
+
+  export type GiftVoucherUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<GiftVoucherCreateWithoutTemplateInput, GiftVoucherUncheckedCreateWithoutTemplateInput> | GiftVoucherCreateWithoutTemplateInput[] | GiftVoucherUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutTemplateInput | GiftVoucherCreateOrConnectWithoutTemplateInput[]
+    upsert?: GiftVoucherUpsertWithWhereUniqueWithoutTemplateInput | GiftVoucherUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: GiftVoucherCreateManyTemplateInputEnvelope
+    set?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    disconnect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    delete?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    connect?: GiftVoucherWhereUniqueInput | GiftVoucherWhereUniqueInput[]
+    update?: GiftVoucherUpdateWithWhereUniqueWithoutTemplateInput | GiftVoucherUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: GiftVoucherUpdateManyWithWhereWithoutTemplateInput | GiftVoucherUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+  }
+
+  export type GiftVoucherTemplateCreateNestedOneWithoutGiftVouchersInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutGiftVouchersInput, GiftVoucherTemplateUncheckedCreateWithoutGiftVouchersInput>
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutGiftVouchersInput
+    connect?: GiftVoucherTemplateWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPurchasedGiftVouchersInput = {
+    create?: XOR<UserCreateWithoutPurchasedGiftVouchersInput, UserUncheckedCreateWithoutPurchasedGiftVouchersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPurchasedGiftVouchersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReceivedGiftVouchersInput = {
+    create?: XOR<UserCreateWithoutReceivedGiftVouchersInput, UserUncheckedCreateWithoutReceivedGiftVouchersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedGiftVouchersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GiftVoucherUsageCreateNestedManyWithoutVoucherInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutVoucherInput, GiftVoucherUsageUncheckedCreateWithoutVoucherInput> | GiftVoucherUsageCreateWithoutVoucherInput[] | GiftVoucherUsageUncheckedCreateWithoutVoucherInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutVoucherInput | GiftVoucherUsageCreateOrConnectWithoutVoucherInput[]
+    createMany?: GiftVoucherUsageCreateManyVoucherInputEnvelope
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+  }
+
+  export type GiftVoucherUsageUncheckedCreateNestedManyWithoutVoucherInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutVoucherInput, GiftVoucherUsageUncheckedCreateWithoutVoucherInput> | GiftVoucherUsageCreateWithoutVoucherInput[] | GiftVoucherUsageUncheckedCreateWithoutVoucherInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutVoucherInput | GiftVoucherUsageCreateOrConnectWithoutVoucherInput[]
+    createMany?: GiftVoucherUsageCreateManyVoucherInputEnvelope
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+  }
+
+  export type EnumGiftVoucherStatusFieldUpdateOperationsInput = {
+    set?: $Enums.GiftVoucherStatus
+  }
+
+  export type GiftVoucherTemplateUpdateOneRequiredWithoutGiftVouchersNestedInput = {
+    create?: XOR<GiftVoucherTemplateCreateWithoutGiftVouchersInput, GiftVoucherTemplateUncheckedCreateWithoutGiftVouchersInput>
+    connectOrCreate?: GiftVoucherTemplateCreateOrConnectWithoutGiftVouchersInput
+    upsert?: GiftVoucherTemplateUpsertWithoutGiftVouchersInput
+    connect?: GiftVoucherTemplateWhereUniqueInput
+    update?: XOR<XOR<GiftVoucherTemplateUpdateToOneWithWhereWithoutGiftVouchersInput, GiftVoucherTemplateUpdateWithoutGiftVouchersInput>, GiftVoucherTemplateUncheckedUpdateWithoutGiftVouchersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPurchasedGiftVouchersNestedInput = {
+    create?: XOR<UserCreateWithoutPurchasedGiftVouchersInput, UserUncheckedCreateWithoutPurchasedGiftVouchersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPurchasedGiftVouchersInput
+    upsert?: UserUpsertWithoutPurchasedGiftVouchersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPurchasedGiftVouchersInput, UserUpdateWithoutPurchasedGiftVouchersInput>, UserUncheckedUpdateWithoutPurchasedGiftVouchersInput>
+  }
+
+  export type UserUpdateOneWithoutReceivedGiftVouchersNestedInput = {
+    create?: XOR<UserCreateWithoutReceivedGiftVouchersInput, UserUncheckedCreateWithoutReceivedGiftVouchersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedGiftVouchersInput
+    upsert?: UserUpsertWithoutReceivedGiftVouchersInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedGiftVouchersInput, UserUpdateWithoutReceivedGiftVouchersInput>, UserUncheckedUpdateWithoutReceivedGiftVouchersInput>
+  }
+
+  export type GiftVoucherUsageUpdateManyWithoutVoucherNestedInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutVoucherInput, GiftVoucherUsageUncheckedCreateWithoutVoucherInput> | GiftVoucherUsageCreateWithoutVoucherInput[] | GiftVoucherUsageUncheckedCreateWithoutVoucherInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutVoucherInput | GiftVoucherUsageCreateOrConnectWithoutVoucherInput[]
+    upsert?: GiftVoucherUsageUpsertWithWhereUniqueWithoutVoucherInput | GiftVoucherUsageUpsertWithWhereUniqueWithoutVoucherInput[]
+    createMany?: GiftVoucherUsageCreateManyVoucherInputEnvelope
+    set?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    disconnect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    delete?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    update?: GiftVoucherUsageUpdateWithWhereUniqueWithoutVoucherInput | GiftVoucherUsageUpdateWithWhereUniqueWithoutVoucherInput[]
+    updateMany?: GiftVoucherUsageUpdateManyWithWhereWithoutVoucherInput | GiftVoucherUsageUpdateManyWithWhereWithoutVoucherInput[]
+    deleteMany?: GiftVoucherUsageScalarWhereInput | GiftVoucherUsageScalarWhereInput[]
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateManyWithoutVoucherNestedInput = {
+    create?: XOR<GiftVoucherUsageCreateWithoutVoucherInput, GiftVoucherUsageUncheckedCreateWithoutVoucherInput> | GiftVoucherUsageCreateWithoutVoucherInput[] | GiftVoucherUsageUncheckedCreateWithoutVoucherInput[]
+    connectOrCreate?: GiftVoucherUsageCreateOrConnectWithoutVoucherInput | GiftVoucherUsageCreateOrConnectWithoutVoucherInput[]
+    upsert?: GiftVoucherUsageUpsertWithWhereUniqueWithoutVoucherInput | GiftVoucherUsageUpsertWithWhereUniqueWithoutVoucherInput[]
+    createMany?: GiftVoucherUsageCreateManyVoucherInputEnvelope
+    set?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    disconnect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    delete?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    connect?: GiftVoucherUsageWhereUniqueInput | GiftVoucherUsageWhereUniqueInput[]
+    update?: GiftVoucherUsageUpdateWithWhereUniqueWithoutVoucherInput | GiftVoucherUsageUpdateWithWhereUniqueWithoutVoucherInput[]
+    updateMany?: GiftVoucherUsageUpdateManyWithWhereWithoutVoucherInput | GiftVoucherUsageUpdateManyWithWhereWithoutVoucherInput[]
+    deleteMany?: GiftVoucherUsageScalarWhereInput | GiftVoucherUsageScalarWhereInput[]
+  }
+
+  export type GiftVoucherCreateNestedOneWithoutUsagesInput = {
+    create?: XOR<GiftVoucherCreateWithoutUsagesInput, GiftVoucherUncheckedCreateWithoutUsagesInput>
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutUsagesInput
+    connect?: GiftVoucherWhereUniqueInput
+  }
+
+  export type BookingCreateNestedOneWithoutGiftVoucherUsagesInput = {
+    create?: XOR<BookingCreateWithoutGiftVoucherUsagesInput, BookingUncheckedCreateWithoutGiftVoucherUsagesInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutGiftVoucherUsagesInput
+    connect?: BookingWhereUniqueInput
+  }
+
+  export type GiftVoucherUpdateOneRequiredWithoutUsagesNestedInput = {
+    create?: XOR<GiftVoucherCreateWithoutUsagesInput, GiftVoucherUncheckedCreateWithoutUsagesInput>
+    connectOrCreate?: GiftVoucherCreateOrConnectWithoutUsagesInput
+    upsert?: GiftVoucherUpsertWithoutUsagesInput
+    connect?: GiftVoucherWhereUniqueInput
+    update?: XOR<XOR<GiftVoucherUpdateToOneWithWhereWithoutUsagesInput, GiftVoucherUpdateWithoutUsagesInput>, GiftVoucherUncheckedUpdateWithoutUsagesInput>
+  }
+
+  export type BookingUpdateOneWithoutGiftVoucherUsagesNestedInput = {
+    create?: XOR<BookingCreateWithoutGiftVoucherUsagesInput, BookingUncheckedCreateWithoutGiftVoucherUsagesInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutGiftVoucherUsagesInput
+    upsert?: BookingUpsertWithoutGiftVoucherUsagesInput
+    disconnect?: BookingWhereInput | boolean
+    delete?: BookingWhereInput | boolean
+    connect?: BookingWhereUniqueInput
+    update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutGiftVoucherUsagesInput, BookingUpdateWithoutGiftVoucherUsagesInput>, BookingUncheckedUpdateWithoutGiftVoucherUsagesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -19211,6 +24920,40 @@ export namespace Prisma {
     _max?: NestedEnumBookingStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumGiftVoucherTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherType | EnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherTypeFilter<$PrismaModel> | $Enums.GiftVoucherType
+  }
+
+  export type NestedEnumGiftVoucherTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherType | EnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherType[] | ListEnumGiftVoucherTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherTypeWithAggregatesFilter<$PrismaModel> | $Enums.GiftVoucherType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGiftVoucherTypeFilter<$PrismaModel>
+    _max?: NestedEnumGiftVoucherTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumGiftVoucherStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherStatus | EnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherStatusFilter<$PrismaModel> | $Enums.GiftVoucherStatus
+  }
+
+  export type NestedEnumGiftVoucherStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GiftVoucherStatus | EnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GiftVoucherStatus[] | ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGiftVoucherStatusWithAggregatesFilter<$PrismaModel> | $Enums.GiftVoucherStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGiftVoucherStatusFilter<$PrismaModel>
+    _max?: NestedEnumGiftVoucherStatusFilter<$PrismaModel>
+  }
+
   export type AccountCreateWithoutUserInput = {
     type: string
     provider: string
@@ -19278,6 +25021,7 @@ export namespace Prisma {
     service: ServiceCreateNestedOneWithoutBookingsInput
     branch: BranchCreateNestedOneWithoutBookingsInput
     branchService: BranchServiceCreateNestedOneWithoutBookingsInput
+    giftVoucherUsages?: GiftVoucherUsageCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutUserInput = {
@@ -19294,6 +25038,7 @@ export namespace Prisma {
     attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutUserInput = {
@@ -19320,6 +25065,7 @@ export namespace Prisma {
     category: CategoryCreateNestedOneWithoutServicesInput
     branchServices?: BranchServiceCreateNestedManyWithoutServiceInput
     bookings?: BookingCreateNestedManyWithoutServiceInput
+    giftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutCreatedByInput = {
@@ -19336,6 +25082,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     branchServices?: BranchServiceUncheckedCreateNestedManyWithoutServiceInput
     bookings?: BookingUncheckedCreateNestedManyWithoutServiceInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutCreatedByInput = {
@@ -19345,6 +25092,148 @@ export namespace Prisma {
 
   export type ServiceCreateManyCreatedByInputEnvelope = {
     data: ServiceCreateManyCreatedByInput | ServiceCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiftVoucherCreateWithoutPurchasedByInput = {
+    id?: string
+    code: string
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    template: GiftVoucherTemplateCreateNestedOneWithoutGiftVouchersInput
+    recipient?: UserCreateNestedOneWithoutReceivedGiftVouchersInput
+    usages?: GiftVoucherUsageCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherUncheckedCreateWithoutPurchasedByInput = {
+    id?: string
+    code: string
+    templateId: string
+    recipientId?: string | null
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherCreateOrConnectWithoutPurchasedByInput = {
+    where: GiftVoucherWhereUniqueInput
+    create: XOR<GiftVoucherCreateWithoutPurchasedByInput, GiftVoucherUncheckedCreateWithoutPurchasedByInput>
+  }
+
+  export type GiftVoucherCreateManyPurchasedByInputEnvelope = {
+    data: GiftVoucherCreateManyPurchasedByInput | GiftVoucherCreateManyPurchasedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiftVoucherCreateWithoutRecipientInput = {
+    id?: string
+    code: string
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    template: GiftVoucherTemplateCreateNestedOneWithoutGiftVouchersInput
+    purchasedBy: UserCreateNestedOneWithoutPurchasedGiftVouchersInput
+    usages?: GiftVoucherUsageCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherUncheckedCreateWithoutRecipientInput = {
+    id?: string
+    code: string
+    templateId: string
+    purchasedById: string
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherCreateOrConnectWithoutRecipientInput = {
+    where: GiftVoucherWhereUniqueInput
+    create: XOR<GiftVoucherCreateWithoutRecipientInput, GiftVoucherUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type GiftVoucherCreateManyRecipientInputEnvelope = {
+    data: GiftVoucherCreateManyRecipientInput | GiftVoucherCreateManyRecipientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiftVoucherTemplateCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    service?: ServiceCreateNestedOneWithoutGiftVoucherTemplatesInput
+    giftVouchers?: GiftVoucherCreateNestedManyWithoutTemplateInput
+  }
+
+  export type GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    serviceId?: string | null
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    giftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type GiftVoucherTemplateCreateOrConnectWithoutCreatedByInput = {
+    where: GiftVoucherTemplateWhereUniqueInput
+    create: XOR<GiftVoucherTemplateCreateWithoutCreatedByInput, GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type GiftVoucherTemplateCreateManyCreatedByInputEnvelope = {
+    data: GiftVoucherTemplateCreateManyCreatedByInput | GiftVoucherTemplateCreateManyCreatedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -19472,6 +25361,97 @@ export namespace Prisma {
     createdById?: StringFilter<"Service"> | string
   }
 
+  export type GiftVoucherUpsertWithWhereUniqueWithoutPurchasedByInput = {
+    where: GiftVoucherWhereUniqueInput
+    update: XOR<GiftVoucherUpdateWithoutPurchasedByInput, GiftVoucherUncheckedUpdateWithoutPurchasedByInput>
+    create: XOR<GiftVoucherCreateWithoutPurchasedByInput, GiftVoucherUncheckedCreateWithoutPurchasedByInput>
+  }
+
+  export type GiftVoucherUpdateWithWhereUniqueWithoutPurchasedByInput = {
+    where: GiftVoucherWhereUniqueInput
+    data: XOR<GiftVoucherUpdateWithoutPurchasedByInput, GiftVoucherUncheckedUpdateWithoutPurchasedByInput>
+  }
+
+  export type GiftVoucherUpdateManyWithWhereWithoutPurchasedByInput = {
+    where: GiftVoucherScalarWhereInput
+    data: XOR<GiftVoucherUpdateManyMutationInput, GiftVoucherUncheckedUpdateManyWithoutPurchasedByInput>
+  }
+
+  export type GiftVoucherScalarWhereInput = {
+    AND?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+    OR?: GiftVoucherScalarWhereInput[]
+    NOT?: GiftVoucherScalarWhereInput | GiftVoucherScalarWhereInput[]
+    id?: StringFilter<"GiftVoucher"> | string
+    code?: StringFilter<"GiftVoucher"> | string
+    templateId?: StringFilter<"GiftVoucher"> | string
+    purchasedById?: StringFilter<"GiftVoucher"> | string
+    recipientId?: StringNullableFilter<"GiftVoucher"> | string | null
+    recipientEmail?: StringNullableFilter<"GiftVoucher"> | string | null
+    recipientName?: StringNullableFilter<"GiftVoucher"> | string | null
+    status?: EnumGiftVoucherStatusFilter<"GiftVoucher"> | $Enums.GiftVoucherStatus
+    originalValue?: FloatFilter<"GiftVoucher"> | number
+    remainingValue?: FloatFilter<"GiftVoucher"> | number
+    purchasePrice?: FloatFilter<"GiftVoucher"> | number
+    expiresAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    usedAt?: DateTimeNullableFilter<"GiftVoucher"> | Date | string | null
+    message?: StringNullableFilter<"GiftVoucher"> | string | null
+    createdAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"GiftVoucher"> | Date | string
+  }
+
+  export type GiftVoucherUpsertWithWhereUniqueWithoutRecipientInput = {
+    where: GiftVoucherWhereUniqueInput
+    update: XOR<GiftVoucherUpdateWithoutRecipientInput, GiftVoucherUncheckedUpdateWithoutRecipientInput>
+    create: XOR<GiftVoucherCreateWithoutRecipientInput, GiftVoucherUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type GiftVoucherUpdateWithWhereUniqueWithoutRecipientInput = {
+    where: GiftVoucherWhereUniqueInput
+    data: XOR<GiftVoucherUpdateWithoutRecipientInput, GiftVoucherUncheckedUpdateWithoutRecipientInput>
+  }
+
+  export type GiftVoucherUpdateManyWithWhereWithoutRecipientInput = {
+    where: GiftVoucherScalarWhereInput
+    data: XOR<GiftVoucherUpdateManyMutationInput, GiftVoucherUncheckedUpdateManyWithoutRecipientInput>
+  }
+
+  export type GiftVoucherTemplateUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: GiftVoucherTemplateWhereUniqueInput
+    update: XOR<GiftVoucherTemplateUpdateWithoutCreatedByInput, GiftVoucherTemplateUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<GiftVoucherTemplateCreateWithoutCreatedByInput, GiftVoucherTemplateUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type GiftVoucherTemplateUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: GiftVoucherTemplateWhereUniqueInput
+    data: XOR<GiftVoucherTemplateUpdateWithoutCreatedByInput, GiftVoucherTemplateUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type GiftVoucherTemplateUpdateManyWithWhereWithoutCreatedByInput = {
+    where: GiftVoucherTemplateScalarWhereInput
+    data: XOR<GiftVoucherTemplateUpdateManyMutationInput, GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type GiftVoucherTemplateScalarWhereInput = {
+    AND?: GiftVoucherTemplateScalarWhereInput | GiftVoucherTemplateScalarWhereInput[]
+    OR?: GiftVoucherTemplateScalarWhereInput[]
+    NOT?: GiftVoucherTemplateScalarWhereInput | GiftVoucherTemplateScalarWhereInput[]
+    id?: StringFilter<"GiftVoucherTemplate"> | string
+    name?: StringFilter<"GiftVoucherTemplate"> | string
+    description?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    type?: EnumGiftVoucherTypeFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
+    value?: FloatFilter<"GiftVoucherTemplate"> | number
+    serviceId?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    isActive?: BoolFilter<"GiftVoucherTemplate"> | boolean
+    validityDays?: IntFilter<"GiftVoucherTemplate"> | number
+    maxUsageCount?: IntNullableFilter<"GiftVoucherTemplate"> | number | null
+    currentUsageCount?: IntFilter<"GiftVoucherTemplate"> | number
+    imageUrl?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    imageUuid?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
+    createdAt?: DateTimeFilter<"GiftVoucherTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"GiftVoucherTemplate"> | Date | string
+    createdById?: StringFilter<"GiftVoucherTemplate"> | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -19486,6 +25466,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutUserInput
     createdServices?: ServiceCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -19502,6 +25485,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
     createdServices?: ServiceUncheckedCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -19534,6 +25520,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutUserNestedInput
     createdServices?: ServiceUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -19550,6 +25539,9 @@ export namespace Prisma {
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
     createdServices?: ServiceUncheckedUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutTwoFactorConfirmationInput = {
@@ -19566,6 +25558,9 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutUserInput
     createdServices?: ServiceCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutTwoFactorConfirmationInput = {
@@ -19582,6 +25577,9 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
     createdServices?: ServiceUncheckedCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutTwoFactorConfirmationInput = {
@@ -19614,6 +25612,9 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutUserNestedInput
     createdServices?: ServiceUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTwoFactorConfirmationInput = {
@@ -19630,6 +25631,9 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
     createdServices?: ServiceUncheckedUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ServiceCreateWithoutCategoryInput = {
@@ -19646,6 +25650,7 @@ export namespace Prisma {
     branchServices?: BranchServiceCreateNestedManyWithoutServiceInput
     bookings?: BookingCreateNestedManyWithoutServiceInput
     createdBy: UserCreateNestedOneWithoutCreatedServicesInput
+    giftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutCategoryInput = {
@@ -19662,6 +25667,7 @@ export namespace Prisma {
     createdById: string
     branchServices?: BranchServiceUncheckedCreateNestedManyWithoutServiceInput
     bookings?: BookingUncheckedCreateNestedManyWithoutServiceInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutCategoryInput = {
@@ -19734,6 +25740,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutBookingsInput
     service: ServiceCreateNestedOneWithoutBookingsInput
     branchService: BranchServiceCreateNestedOneWithoutBookingsInput
+    giftVoucherUsages?: GiftVoucherUsageCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutBranchInput = {
@@ -19750,6 +25757,7 @@ export namespace Prisma {
     attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutBranchInput = {
@@ -19872,6 +25880,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutBookingsInput
     branch: BranchCreateNestedOneWithoutBookingsInput
     branchService: BranchServiceCreateNestedOneWithoutBookingsInput
+    giftVoucherUsages?: GiftVoucherUsageCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutServiceInput = {
@@ -19888,6 +25897,7 @@ export namespace Prisma {
     attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutServiceInput = {
@@ -19914,6 +25924,9 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutUserInput
+    purchasedGiftVouchers?: GiftVoucherCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedServicesInput = {
@@ -19930,11 +25943,60 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedServicesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutCreatedServicesInput, UserUncheckedCreateWithoutCreatedServicesInput>
+  }
+
+  export type GiftVoucherTemplateCreateWithoutServiceInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutCreatedGiftVoucherTemplatesInput
+    giftVouchers?: GiftVoucherCreateNestedManyWithoutTemplateInput
+  }
+
+  export type GiftVoucherTemplateUncheckedCreateWithoutServiceInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    giftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type GiftVoucherTemplateCreateOrConnectWithoutServiceInput = {
+    where: GiftVoucherTemplateWhereUniqueInput
+    create: XOR<GiftVoucherTemplateCreateWithoutServiceInput, GiftVoucherTemplateUncheckedCreateWithoutServiceInput>
+  }
+
+  export type GiftVoucherTemplateCreateManyServiceInputEnvelope = {
+    data: GiftVoucherTemplateCreateManyServiceInput | GiftVoucherTemplateCreateManyServiceInput[]
+    skipDuplicates?: boolean
   }
 
   export type CategoryUpsertWithoutServicesInput = {
@@ -20021,6 +26083,9 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutUserNestedInput
+    purchasedGiftVouchers?: GiftVoucherUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedServicesInput = {
@@ -20037,6 +26102,25 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type GiftVoucherTemplateUpsertWithWhereUniqueWithoutServiceInput = {
+    where: GiftVoucherTemplateWhereUniqueInput
+    update: XOR<GiftVoucherTemplateUpdateWithoutServiceInput, GiftVoucherTemplateUncheckedUpdateWithoutServiceInput>
+    create: XOR<GiftVoucherTemplateCreateWithoutServiceInput, GiftVoucherTemplateUncheckedCreateWithoutServiceInput>
+  }
+
+  export type GiftVoucherTemplateUpdateWithWhereUniqueWithoutServiceInput = {
+    where: GiftVoucherTemplateWhereUniqueInput
+    data: XOR<GiftVoucherTemplateUpdateWithoutServiceInput, GiftVoucherTemplateUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type GiftVoucherTemplateUpdateManyWithWhereWithoutServiceInput = {
+    where: GiftVoucherTemplateScalarWhereInput
+    data: XOR<GiftVoucherTemplateUpdateManyMutationInput, GiftVoucherTemplateUncheckedUpdateManyWithoutServiceInput>
   }
 
   export type BranchCreateWithoutBranchServicesInput = {
@@ -20084,6 +26168,7 @@ export namespace Prisma {
     category: CategoryCreateNestedOneWithoutServicesInput
     bookings?: BookingCreateNestedManyWithoutServiceInput
     createdBy: UserCreateNestedOneWithoutCreatedServicesInput
+    giftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutBranchServicesInput = {
@@ -20100,6 +26185,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById: string
     bookings?: BookingUncheckedCreateNestedManyWithoutServiceInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutBranchServicesInput = {
@@ -20121,6 +26207,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutBookingsInput
     service: ServiceCreateNestedOneWithoutBookingsInput
     branch: BranchCreateNestedOneWithoutBookingsInput
+    giftVoucherUsages?: GiftVoucherUsageCreateNestedManyWithoutBookingInput
   }
 
   export type BookingUncheckedCreateWithoutBranchServiceInput = {
@@ -20137,6 +26224,7 @@ export namespace Prisma {
     attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type BookingCreateOrConnectWithoutBranchServiceInput = {
@@ -20211,6 +26299,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     bookings?: BookingUpdateManyWithoutServiceNestedInput
     createdBy?: UserUpdateOneRequiredWithoutCreatedServicesNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutBranchServicesInput = {
@@ -20227,6 +26316,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     bookings?: BookingUncheckedUpdateManyWithoutServiceNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type BookingUpsertWithWhereUniqueWithoutBranchServiceInput = {
@@ -20259,6 +26349,9 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
     createdServices?: ServiceCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutBookingsInput = {
@@ -20275,6 +26368,9 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
     createdServices?: ServiceUncheckedCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutBookingsInput = {
@@ -20296,6 +26392,7 @@ export namespace Prisma {
     category: CategoryCreateNestedOneWithoutServicesInput
     branchServices?: BranchServiceCreateNestedManyWithoutServiceInput
     createdBy: UserCreateNestedOneWithoutCreatedServicesInput
+    giftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutBookingsInput = {
@@ -20312,6 +26409,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById: string
     branchServices?: BranchServiceUncheckedCreateNestedManyWithoutServiceInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutBookingsInput = {
@@ -20375,6 +26473,32 @@ export namespace Prisma {
     create: XOR<BranchServiceCreateWithoutBookingsInput, BranchServiceUncheckedCreateWithoutBookingsInput>
   }
 
+  export type GiftVoucherUsageCreateWithoutBookingInput = {
+    id?: string
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+    voucher: GiftVoucherCreateNestedOneWithoutUsagesInput
+  }
+
+  export type GiftVoucherUsageUncheckedCreateWithoutBookingInput = {
+    id?: string
+    voucherId: string
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type GiftVoucherUsageCreateOrConnectWithoutBookingInput = {
+    where: GiftVoucherUsageWhereUniqueInput
+    create: XOR<GiftVoucherUsageCreateWithoutBookingInput, GiftVoucherUsageUncheckedCreateWithoutBookingInput>
+  }
+
+  export type GiftVoucherUsageCreateManyBookingInputEnvelope = {
+    data: GiftVoucherUsageCreateManyBookingInput | GiftVoucherUsageCreateManyBookingInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutBookingsInput = {
     update: XOR<UserUpdateWithoutBookingsInput, UserUncheckedUpdateWithoutBookingsInput>
     create: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
@@ -20400,6 +26524,9 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
     createdServices?: ServiceUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -20416,6 +26543,9 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
     createdServices?: ServiceUncheckedUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ServiceUpsertWithoutBookingsInput = {
@@ -20443,6 +26573,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     branchServices?: BranchServiceUpdateManyWithoutServiceNestedInput
     createdBy?: UserUpdateOneRequiredWithoutCreatedServicesNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutBookingsInput = {
@@ -20459,6 +26590,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     branchServices?: BranchServiceUncheckedUpdateManyWithoutServiceNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type BranchUpsertWithoutBookingsInput = {
@@ -20529,6 +26661,764 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GiftVoucherUsageUpsertWithWhereUniqueWithoutBookingInput = {
+    where: GiftVoucherUsageWhereUniqueInput
+    update: XOR<GiftVoucherUsageUpdateWithoutBookingInput, GiftVoucherUsageUncheckedUpdateWithoutBookingInput>
+    create: XOR<GiftVoucherUsageCreateWithoutBookingInput, GiftVoucherUsageUncheckedCreateWithoutBookingInput>
+  }
+
+  export type GiftVoucherUsageUpdateWithWhereUniqueWithoutBookingInput = {
+    where: GiftVoucherUsageWhereUniqueInput
+    data: XOR<GiftVoucherUsageUpdateWithoutBookingInput, GiftVoucherUsageUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type GiftVoucherUsageUpdateManyWithWhereWithoutBookingInput = {
+    where: GiftVoucherUsageScalarWhereInput
+    data: XOR<GiftVoucherUsageUpdateManyMutationInput, GiftVoucherUsageUncheckedUpdateManyWithoutBookingInput>
+  }
+
+  export type GiftVoucherUsageScalarWhereInput = {
+    AND?: GiftVoucherUsageScalarWhereInput | GiftVoucherUsageScalarWhereInput[]
+    OR?: GiftVoucherUsageScalarWhereInput[]
+    NOT?: GiftVoucherUsageScalarWhereInput | GiftVoucherUsageScalarWhereInput[]
+    id?: StringFilter<"GiftVoucherUsage"> | string
+    voucherId?: StringFilter<"GiftVoucherUsage"> | string
+    bookingId?: StringNullableFilter<"GiftVoucherUsage"> | string | null
+    amountUsed?: FloatFilter<"GiftVoucherUsage"> | number
+    usedAt?: DateTimeFilter<"GiftVoucherUsage"> | Date | string
+    notes?: StringNullableFilter<"GiftVoucherUsage"> | string | null
+  }
+
+  export type ServiceCreateWithoutGiftVoucherTemplatesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    duration: number
+    basePrice: number
+    status?: $Enums.ServiceStatus
+    image?: string | null
+    isPopular?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: CategoryCreateNestedOneWithoutServicesInput
+    branchServices?: BranchServiceCreateNestedManyWithoutServiceInput
+    bookings?: BookingCreateNestedManyWithoutServiceInput
+    createdBy: UserCreateNestedOneWithoutCreatedServicesInput
+  }
+
+  export type ServiceUncheckedCreateWithoutGiftVoucherTemplatesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    duration: number
+    basePrice: number
+    categoryId: string
+    status?: $Enums.ServiceStatus
+    image?: string | null
+    isPopular?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    branchServices?: BranchServiceUncheckedCreateNestedManyWithoutServiceInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutGiftVoucherTemplatesInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutGiftVoucherTemplatesInput, ServiceUncheckedCreateWithoutGiftVoucherTemplatesInput>
+  }
+
+  export type UserCreateWithoutCreatedGiftVoucherTemplatesInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
+    createdServices?: ServiceCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedGiftVoucherTemplatesInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+    createdServices?: ServiceUncheckedCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput
+    receivedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedGiftVoucherTemplatesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedGiftVoucherTemplatesInput, UserUncheckedCreateWithoutCreatedGiftVoucherTemplatesInput>
+  }
+
+  export type GiftVoucherCreateWithoutTemplateInput = {
+    id?: string
+    code: string
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    purchasedBy: UserCreateNestedOneWithoutPurchasedGiftVouchersInput
+    recipient?: UserCreateNestedOneWithoutReceivedGiftVouchersInput
+    usages?: GiftVoucherUsageCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    code: string
+    purchasedById: string
+    recipientId?: string | null
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usages?: GiftVoucherUsageUncheckedCreateNestedManyWithoutVoucherInput
+  }
+
+  export type GiftVoucherCreateOrConnectWithoutTemplateInput = {
+    where: GiftVoucherWhereUniqueInput
+    create: XOR<GiftVoucherCreateWithoutTemplateInput, GiftVoucherUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type GiftVoucherCreateManyTemplateInputEnvelope = {
+    data: GiftVoucherCreateManyTemplateInput | GiftVoucherCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServiceUpsertWithoutGiftVoucherTemplatesInput = {
+    update: XOR<ServiceUpdateWithoutGiftVoucherTemplatesInput, ServiceUncheckedUpdateWithoutGiftVoucherTemplatesInput>
+    create: XOR<ServiceCreateWithoutGiftVoucherTemplatesInput, ServiceUncheckedCreateWithoutGiftVoucherTemplatesInput>
+    where?: ServiceWhereInput
+  }
+
+  export type ServiceUpdateToOneWithWhereWithoutGiftVoucherTemplatesInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutGiftVoucherTemplatesInput, ServiceUncheckedUpdateWithoutGiftVoucherTemplatesInput>
+  }
+
+  export type ServiceUpdateWithoutGiftVoucherTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    basePrice?: FloatFieldUpdateOperationsInput | number
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isPopular?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
+    branchServices?: BranchServiceUpdateManyWithoutServiceNestedInput
+    bookings?: BookingUpdateManyWithoutServiceNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedServicesNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutGiftVoucherTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    basePrice?: FloatFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isPopular?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    branchServices?: BranchServiceUncheckedUpdateManyWithoutServiceNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type UserUpsertWithoutCreatedGiftVoucherTemplatesInput = {
+    update: XOR<UserUpdateWithoutCreatedGiftVoucherTemplatesInput, UserUncheckedUpdateWithoutCreatedGiftVoucherTemplatesInput>
+    create: XOR<UserCreateWithoutCreatedGiftVoucherTemplatesInput, UserUncheckedCreateWithoutCreatedGiftVoucherTemplatesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedGiftVoucherTemplatesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedGiftVoucherTemplatesInput, UserUncheckedUpdateWithoutCreatedGiftVoucherTemplatesInput>
+  }
+
+  export type UserUpdateWithoutCreatedGiftVoucherTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
+    createdServices?: ServiceUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedGiftVoucherTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+    createdServices?: ServiceUncheckedUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type GiftVoucherUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: GiftVoucherWhereUniqueInput
+    update: XOR<GiftVoucherUpdateWithoutTemplateInput, GiftVoucherUncheckedUpdateWithoutTemplateInput>
+    create: XOR<GiftVoucherCreateWithoutTemplateInput, GiftVoucherUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type GiftVoucherUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: GiftVoucherWhereUniqueInput
+    data: XOR<GiftVoucherUpdateWithoutTemplateInput, GiftVoucherUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type GiftVoucherUpdateManyWithWhereWithoutTemplateInput = {
+    where: GiftVoucherScalarWhereInput
+    data: XOR<GiftVoucherUpdateManyMutationInput, GiftVoucherUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type GiftVoucherTemplateCreateWithoutGiftVouchersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    service?: ServiceCreateNestedOneWithoutGiftVoucherTemplatesInput
+    createdBy: UserCreateNestedOneWithoutCreatedGiftVoucherTemplatesInput
+  }
+
+  export type GiftVoucherTemplateUncheckedCreateWithoutGiftVouchersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    serviceId?: string | null
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type GiftVoucherTemplateCreateOrConnectWithoutGiftVouchersInput = {
+    where: GiftVoucherTemplateWhereUniqueInput
+    create: XOR<GiftVoucherTemplateCreateWithoutGiftVouchersInput, GiftVoucherTemplateUncheckedCreateWithoutGiftVouchersInput>
+  }
+
+  export type UserCreateWithoutPurchasedGiftVouchersInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
+    createdServices?: ServiceCreateNestedManyWithoutCreatedByInput
+    receivedGiftVouchers?: GiftVoucherCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutPurchasedGiftVouchersInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+    createdServices?: ServiceUncheckedCreateNestedManyWithoutCreatedByInput
+    receivedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutRecipientInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutPurchasedGiftVouchersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPurchasedGiftVouchersInput, UserUncheckedCreateWithoutPurchasedGiftVouchersInput>
+  }
+
+  export type UserCreateWithoutReceivedGiftVouchersInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
+    createdServices?: ServiceCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherCreateNestedManyWithoutPurchasedByInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutReceivedGiftVouchersInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+    createdServices?: ServiceUncheckedCreateNestedManyWithoutCreatedByInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedCreateNestedManyWithoutPurchasedByInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutReceivedGiftVouchersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReceivedGiftVouchersInput, UserUncheckedCreateWithoutReceivedGiftVouchersInput>
+  }
+
+  export type GiftVoucherUsageCreateWithoutVoucherInput = {
+    id?: string
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+    booking?: BookingCreateNestedOneWithoutGiftVoucherUsagesInput
+  }
+
+  export type GiftVoucherUsageUncheckedCreateWithoutVoucherInput = {
+    id?: string
+    bookingId?: string | null
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type GiftVoucherUsageCreateOrConnectWithoutVoucherInput = {
+    where: GiftVoucherUsageWhereUniqueInput
+    create: XOR<GiftVoucherUsageCreateWithoutVoucherInput, GiftVoucherUsageUncheckedCreateWithoutVoucherInput>
+  }
+
+  export type GiftVoucherUsageCreateManyVoucherInputEnvelope = {
+    data: GiftVoucherUsageCreateManyVoucherInput | GiftVoucherUsageCreateManyVoucherInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiftVoucherTemplateUpsertWithoutGiftVouchersInput = {
+    update: XOR<GiftVoucherTemplateUpdateWithoutGiftVouchersInput, GiftVoucherTemplateUncheckedUpdateWithoutGiftVouchersInput>
+    create: XOR<GiftVoucherTemplateCreateWithoutGiftVouchersInput, GiftVoucherTemplateUncheckedCreateWithoutGiftVouchersInput>
+    where?: GiftVoucherTemplateWhereInput
+  }
+
+  export type GiftVoucherTemplateUpdateToOneWithWhereWithoutGiftVouchersInput = {
+    where?: GiftVoucherTemplateWhereInput
+    data: XOR<GiftVoucherTemplateUpdateWithoutGiftVouchersInput, GiftVoucherTemplateUncheckedUpdateWithoutGiftVouchersInput>
+  }
+
+  export type GiftVoucherTemplateUpdateWithoutGiftVouchersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: ServiceUpdateOneWithoutGiftVoucherTemplatesNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedGiftVoucherTemplatesNestedInput
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateWithoutGiftVouchersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserUpsertWithoutPurchasedGiftVouchersInput = {
+    update: XOR<UserUpdateWithoutPurchasedGiftVouchersInput, UserUncheckedUpdateWithoutPurchasedGiftVouchersInput>
+    create: XOR<UserCreateWithoutPurchasedGiftVouchersInput, UserUncheckedCreateWithoutPurchasedGiftVouchersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPurchasedGiftVouchersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPurchasedGiftVouchersInput, UserUncheckedUpdateWithoutPurchasedGiftVouchersInput>
+  }
+
+  export type UserUpdateWithoutPurchasedGiftVouchersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
+    createdServices?: ServiceUpdateManyWithoutCreatedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPurchasedGiftVouchersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+    createdServices?: ServiceUncheckedUpdateManyWithoutCreatedByNestedInput
+    receivedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutRecipientNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUpsertWithoutReceivedGiftVouchersInput = {
+    update: XOR<UserUpdateWithoutReceivedGiftVouchersInput, UserUncheckedUpdateWithoutReceivedGiftVouchersInput>
+    create: XOR<UserCreateWithoutReceivedGiftVouchersInput, UserUncheckedCreateWithoutReceivedGiftVouchersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceivedGiftVouchersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceivedGiftVouchersInput, UserUncheckedUpdateWithoutReceivedGiftVouchersInput>
+  }
+
+  export type UserUpdateWithoutReceivedGiftVouchersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
+    createdServices?: ServiceUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUpdateManyWithoutPurchasedByNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceivedGiftVouchersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+    createdServices?: ServiceUncheckedUpdateManyWithoutCreatedByNestedInput
+    purchasedGiftVouchers?: GiftVoucherUncheckedUpdateManyWithoutPurchasedByNestedInput
+    createdGiftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type GiftVoucherUsageUpsertWithWhereUniqueWithoutVoucherInput = {
+    where: GiftVoucherUsageWhereUniqueInput
+    update: XOR<GiftVoucherUsageUpdateWithoutVoucherInput, GiftVoucherUsageUncheckedUpdateWithoutVoucherInput>
+    create: XOR<GiftVoucherUsageCreateWithoutVoucherInput, GiftVoucherUsageUncheckedCreateWithoutVoucherInput>
+  }
+
+  export type GiftVoucherUsageUpdateWithWhereUniqueWithoutVoucherInput = {
+    where: GiftVoucherUsageWhereUniqueInput
+    data: XOR<GiftVoucherUsageUpdateWithoutVoucherInput, GiftVoucherUsageUncheckedUpdateWithoutVoucherInput>
+  }
+
+  export type GiftVoucherUsageUpdateManyWithWhereWithoutVoucherInput = {
+    where: GiftVoucherUsageScalarWhereInput
+    data: XOR<GiftVoucherUsageUpdateManyMutationInput, GiftVoucherUsageUncheckedUpdateManyWithoutVoucherInput>
+  }
+
+  export type GiftVoucherCreateWithoutUsagesInput = {
+    id?: string
+    code: string
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    template: GiftVoucherTemplateCreateNestedOneWithoutGiftVouchersInput
+    purchasedBy: UserCreateNestedOneWithoutPurchasedGiftVouchersInput
+    recipient?: UserCreateNestedOneWithoutReceivedGiftVouchersInput
+  }
+
+  export type GiftVoucherUncheckedCreateWithoutUsagesInput = {
+    id?: string
+    code: string
+    templateId: string
+    purchasedById: string
+    recipientId?: string | null
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GiftVoucherCreateOrConnectWithoutUsagesInput = {
+    where: GiftVoucherWhereUniqueInput
+    create: XOR<GiftVoucherCreateWithoutUsagesInput, GiftVoucherUncheckedCreateWithoutUsagesInput>
+  }
+
+  export type BookingCreateWithoutGiftVoucherUsagesInput = {
+    id?: string
+    scheduledAt: Date | string
+    status?: $Enums.BookingStatus
+    totalPrice: number
+    notes?: string | null
+    adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutBookingsInput
+    service: ServiceCreateNestedOneWithoutBookingsInput
+    branch: BranchCreateNestedOneWithoutBookingsInput
+    branchService: BranchServiceCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateWithoutGiftVoucherUsagesInput = {
+    id?: string
+    userId: string
+    serviceId: string
+    branchId: string
+    branchServiceId: string
+    scheduledAt: Date | string
+    status?: $Enums.BookingStatus
+    totalPrice: number
+    notes?: string | null
+    adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingCreateOrConnectWithoutGiftVoucherUsagesInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutGiftVoucherUsagesInput, BookingUncheckedCreateWithoutGiftVoucherUsagesInput>
+  }
+
+  export type GiftVoucherUpsertWithoutUsagesInput = {
+    update: XOR<GiftVoucherUpdateWithoutUsagesInput, GiftVoucherUncheckedUpdateWithoutUsagesInput>
+    create: XOR<GiftVoucherCreateWithoutUsagesInput, GiftVoucherUncheckedCreateWithoutUsagesInput>
+    where?: GiftVoucherWhereInput
+  }
+
+  export type GiftVoucherUpdateToOneWithWhereWithoutUsagesInput = {
+    where?: GiftVoucherWhereInput
+    data: XOR<GiftVoucherUpdateWithoutUsagesInput, GiftVoucherUncheckedUpdateWithoutUsagesInput>
+  }
+
+  export type GiftVoucherUpdateWithoutUsagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: GiftVoucherTemplateUpdateOneRequiredWithoutGiftVouchersNestedInput
+    purchasedBy?: UserUpdateOneRequiredWithoutPurchasedGiftVouchersNestedInput
+    recipient?: UserUpdateOneWithoutReceivedGiftVouchersNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateWithoutUsagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    purchasedById?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUpsertWithoutGiftVoucherUsagesInput = {
+    update: XOR<BookingUpdateWithoutGiftVoucherUsagesInput, BookingUncheckedUpdateWithoutGiftVoucherUsagesInput>
+    create: XOR<BookingCreateWithoutGiftVoucherUsagesInput, BookingUncheckedCreateWithoutGiftVoucherUsagesInput>
+    where?: BookingWhereInput
+  }
+
+  export type BookingUpdateToOneWithWhereWithoutGiftVoucherUsagesInput = {
+    where?: BookingWhereInput
+    data: XOR<BookingUpdateWithoutGiftVoucherUsagesInput, BookingUncheckedUpdateWithoutGiftVoucherUsagesInput>
+  }
+
+  export type BookingUpdateWithoutGiftVoucherUsagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBookingsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutBookingsNestedInput
+    branchService?: BranchServiceUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutGiftVoucherUsagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    branchServiceId?: StringFieldUpdateOperationsInput | string
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AccountCreateManyUserInput = {
     type: string
     provider: string
@@ -20570,6 +27460,59 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     image?: string | null
     isPopular?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GiftVoucherCreateManyPurchasedByInput = {
+    id?: string
+    code: string
+    templateId: string
+    recipientId?: string | null
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GiftVoucherCreateManyRecipientInput = {
+    id?: string
+    code: string
+    templateId: string
+    purchasedById: string
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GiftVoucherTemplateCreateManyCreatedByInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    serviceId?: string | null
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20633,6 +27576,7 @@ export namespace Prisma {
     service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
     branch?: BranchUpdateOneRequiredWithoutBookingsNestedInput
     branchService?: BranchServiceUpdateOneRequiredWithoutBookingsNestedInput
+    giftVoucherUsages?: GiftVoucherUsageUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutUserInput = {
@@ -20649,6 +27593,7 @@ export namespace Prisma {
     attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutUserInput = {
@@ -20681,6 +27626,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     branchServices?: BranchServiceUpdateManyWithoutServiceNestedInput
     bookings?: BookingUpdateManyWithoutServiceNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutCreatedByInput = {
@@ -20697,6 +27643,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branchServices?: BranchServiceUncheckedUpdateManyWithoutServiceNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutServiceNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutCreatedByInput = {
@@ -20709,6 +27656,171 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isPopular?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherUpdateWithoutPurchasedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: GiftVoucherTemplateUpdateOneRequiredWithoutGiftVouchersNestedInput
+    recipient?: UserUpdateOneWithoutReceivedGiftVouchersNestedInput
+    usages?: GiftVoucherUsageUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateWithoutPurchasedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usages?: GiftVoucherUsageUncheckedUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateManyWithoutPurchasedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherUpdateWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: GiftVoucherTemplateUpdateOneRequiredWithoutGiftVouchersNestedInput
+    purchasedBy?: UserUpdateOneRequiredWithoutPurchasedGiftVouchersNestedInput
+    usages?: GiftVoucherUsageUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    purchasedById?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usages?: GiftVoucherUsageUncheckedUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateManyWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    purchasedById?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherTemplateUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: ServiceUpdateOneWithoutGiftVoucherTemplatesNestedInput
+    giftVouchers?: GiftVoucherUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    giftVouchers?: GiftVoucherUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20741,6 +27853,7 @@ export namespace Prisma {
     branchServices?: BranchServiceUpdateManyWithoutServiceNestedInput
     bookings?: BookingUpdateManyWithoutServiceNestedInput
     createdBy?: UserUpdateOneRequiredWithoutCreatedServicesNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutCategoryInput = {
@@ -20757,6 +27870,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     branchServices?: BranchServiceUncheckedUpdateManyWithoutServiceNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutServiceNestedInput
+    giftVoucherTemplates?: GiftVoucherTemplateUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutCategoryInput = {
@@ -20841,6 +27955,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
     branchService?: BranchServiceUpdateOneRequiredWithoutBookingsNestedInput
+    giftVoucherUsages?: GiftVoucherUsageUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutBranchInput = {
@@ -20857,6 +27972,7 @@ export namespace Prisma {
     attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutBranchInput = {
@@ -20898,6 +28014,23 @@ export namespace Prisma {
     attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type GiftVoucherTemplateCreateManyServiceInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.GiftVoucherType
+    value: number
+    isActive?: boolean
+    validityDays?: number
+    maxUsageCount?: number | null
+    currentUsageCount?: number
+    imageUrl?: string | null
+    imageUuid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
   }
 
   export type BranchServiceUpdateWithoutServiceInput = {
@@ -20943,6 +28076,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     branch?: BranchUpdateOneRequiredWithoutBookingsNestedInput
     branchService?: BranchServiceUpdateOneRequiredWithoutBookingsNestedInput
+    giftVoucherUsages?: GiftVoucherUsageUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutServiceInput = {
@@ -20959,6 +28093,7 @@ export namespace Prisma {
     attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutServiceInput = {
@@ -20975,6 +28110,59 @@ export namespace Prisma {
     attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherTemplateUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutCreatedGiftVoucherTemplatesNestedInput
+    giftVouchers?: GiftVoucherUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    giftVouchers?: GiftVoucherUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type GiftVoucherTemplateUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
+    value?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    validityDays?: IntFieldUpdateOperationsInput | number
+    maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingCreateManyBranchServiceInput = {
@@ -21007,6 +28195,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
     branch?: BranchUpdateOneRequiredWithoutBookingsNestedInput
+    giftVoucherUsages?: GiftVoucherUsageUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutBranchServiceInput = {
@@ -21023,6 +28212,7 @@ export namespace Prisma {
     attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    giftVoucherUsages?: GiftVoucherUsageUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type BookingUncheckedUpdateManyWithoutBranchServiceInput = {
@@ -21039,6 +28229,144 @@ export namespace Prisma {
     attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherUsageCreateManyBookingInput = {
+    id?: string
+    voucherId: string
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type GiftVoucherUsageUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    voucher?: GiftVoucherUpdateOneRequiredWithoutUsagesNestedInput
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    voucherId?: StringFieldUpdateOperationsInput | string
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateManyWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    voucherId?: StringFieldUpdateOperationsInput | string
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GiftVoucherCreateManyTemplateInput = {
+    id?: string
+    code: string
+    purchasedById: string
+    recipientId?: string | null
+    recipientEmail?: string | null
+    recipientName?: string | null
+    status?: $Enums.GiftVoucherStatus
+    originalValue: number
+    remainingValue: number
+    purchasePrice: number
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    message?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GiftVoucherUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchasedBy?: UserUpdateOneRequiredWithoutPurchasedGiftVouchersNestedInput
+    recipient?: UserUpdateOneWithoutReceivedGiftVouchersNestedInput
+    usages?: GiftVoucherUsageUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    purchasedById?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usages?: GiftVoucherUsageUncheckedUpdateManyWithoutVoucherNestedInput
+  }
+
+  export type GiftVoucherUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    purchasedById?: StringFieldUpdateOperationsInput | string
+    recipientId?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    recipientName?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumGiftVoucherStatusFieldUpdateOperationsInput | $Enums.GiftVoucherStatus
+    originalValue?: FloatFieldUpdateOperationsInput | number
+    remainingValue?: FloatFieldUpdateOperationsInput | number
+    purchasePrice?: FloatFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftVoucherUsageCreateManyVoucherInput = {
+    id?: string
+    bookingId?: string | null
+    amountUsed: number
+    usedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type GiftVoucherUsageUpdateWithoutVoucherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    booking?: BookingUpdateOneWithoutGiftVoucherUsagesNestedInput
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateWithoutVoucherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GiftVoucherUsageUncheckedUpdateManyWithoutVoucherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    amountUsed?: FloatFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
