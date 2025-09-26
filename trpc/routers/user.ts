@@ -1,4 +1,4 @@
-import { baseProcedure, createTRPCRouter } from "../init";
+import { baseProcedure, protectedProcedure, createTRPCRouter } from "../init";
 import {
   loginSchema,
   newPasswordSchema,
@@ -219,5 +219,103 @@ export const userRouter = createTRPCRouter({
         where: { id: resetToken.id },
       });
       return { success: true, message: "Password reset successfully" };
+    }),
+
+  // Get user's bookings
+  getMyBookings: protectedProcedure
+    .query(async ({ ctx }) => {
+      const userId = ctx.session.user?.id;
+      if (!userId) {
+        throw new TRPCError({ code: 'UNAUTHORIZED', message: 'User not found' });
+      }
+
+      return await prisma.booking.findMany({
+        where: { userId },
+        include: {
+          service: {
+            include: {
+              category: true
+            }
+          },
+          branch: true,
+          branchService: true
+        },
+        orderBy: { scheduledAt: 'desc' }
+      });
+    }),
+
+  // Cancel a booking
+  cancelBooking: protectedProcedure
+    .input(z.object({ bookingId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const booking = await prisma.booking.findFirst({
+        where: {
+          id: input.bookingId,
+          userId: ctx.session.user.id
+        }
+      });
+
+      if (!booking) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Booking not found' });
+      }
+
+      if (booking.status === 'COMPLETED' || booking.status === 'CANCELLED') {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Cannot cancel this booking' });
+      }
+
+      return await prisma.booking.update({
+        where: { id: input.bookingId },
+        data: { status: 'CANCELLED' }
+      });
+    }),
+
+  // Create a new booking
+  createBooking: protectedProcedure
+    .input(z.object({
+      serviceId: z.string(),
+      branchId: z.string(),
+      scheduledAt: z.string(), // ISO date string
+      notes: z.string().optional()
+    }))
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session.user?.id;
+      if (!userId) {
+        throw new TRPCError({ code: 'UNAUTHORIZED', message: 'User not found' });
+      }
+
+      // Check if branch service exists
+      const branchService = await prisma.branchService.findFirst({
+        where: {
+          serviceId: input.serviceId,
+          branchId: input.branchId,
+          isAvailable: true
+        }
+      });
+
+      if (!branchService) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Service not available at this branch' });
+      }
+
+      return await prisma.booking.create({
+        data: {
+          userId,
+          serviceId: input.serviceId,
+          branchId: input.branchId,
+          branchServiceId: branchService.id,
+          scheduledAt: new Date(input.scheduledAt),
+          totalPrice: branchService.price,
+          notes: input.notes,
+          status: 'PENDING'
+        },
+        include: {
+          service: {
+            include: {
+              category: true
+            }
+          },
+          branch: true,
+          branchService: true
+        }
+      });
     }),
 });

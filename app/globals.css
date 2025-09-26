@@ -44,79 +44,314 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Golden Hands Spa Theme Colors */
+  --spa-gold: #D4AF37;
+  --spa-gold-light: #F4E4BC;
+  --spa-gold-dark: #B8860B;
+  --spa-gold-accent: #FFD700;
+  --spa-white: #FFFFFF;
+  --spa-black: #000000;
+  --spa-gray-light: #F8F8F8;
+  --spa-gray-medium: #E5E5E5;
+  --spa-gray-dark: #333333;
+  
+  /* Enhanced Design System */
+  --radius: 0.75rem;
+  --background: var(--spa-white);
+  --foreground: var(--spa-black);
+  --card: var(--spa-white);
+  --card-foreground: var(--spa-black);
+  --popover: var(--spa-white);
+  --popover-foreground: var(--spa-black);
+  --primary: var(--spa-gold);
+  --primary-foreground: var(--spa-black);
+  --secondary: var(--spa-gold-light);
+  --secondary-foreground: var(--spa-black);
+  --muted: var(--spa-gray-light);
+  --muted-foreground: var(--spa-gray-dark);
+  --accent: var(--spa-gold-light);
+  --accent-foreground: var(--spa-black);
+  --destructive: #DC2626;
+  --border: var(--spa-gray-medium);
+  --input: var(--spa-white);
+  --ring: var(--spa-gold);
+  --chart-1: var(--spa-gold);
+  --chart-2: var(--spa-gold-dark);
+  --chart-3: var(--spa-gold-light);
+  --chart-4: var(--spa-black);
+  --chart-5: var(--spa-gray-dark);
+  --sidebar: var(--spa-white);
+  --sidebar-foreground: var(--spa-black);
+  --sidebar-primary: var(--spa-gold);
+  --sidebar-primary-foreground: var(--spa-black);
+  --sidebar-accent: var(--spa-gold-light);
+  --sidebar-accent-foreground: var(--spa-black);
+  --sidebar-border: var(--spa-gray-medium);
+  --sidebar-ring: var(--spa-gold);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: var(--spa-black);
+  --foreground: var(--spa-white);
+  --card: var(--spa-gray-dark);
+  --card-foreground: var(--spa-white);
+  --popover: var(--spa-gray-dark);
+  --popover-foreground: var(--spa-white);
+  --primary: var(--spa-gold);
+  --primary-foreground: var(--spa-black);
+  --secondary: var(--spa-gray-dark);
+  --secondary-foreground: var(--spa-white);
+  --muted: var(--spa-gray-dark);
+  --muted-foreground: var(--spa-gray-medium);
+  --accent: var(--spa-gray-dark);
+  --accent-foreground: var(--spa-white);
+  --destructive: #EF4444;
+  --border: var(--spa-gray-dark);
+  --input: var(--spa-gray-dark);
+  --ring: var(--spa-gold);
+  --chart-1: var(--spa-gold);
+  --chart-2: var(--spa-gold-light);
+  --chart-3: var(--spa-gold-dark);
+  --chart-4: var(--spa-white);
+  --chart-5: var(--spa-gray-medium);
+  --sidebar: var(--spa-gray-dark);
+  --sidebar-foreground: var(--spa-white);
+  --sidebar-primary: var(--spa-gold);
+  --sidebar-primary-foreground: var(--spa-black);
+  --sidebar-accent: var(--spa-gray-dark);
+  --sidebar-accent-foreground: var(--spa-white);
+  --sidebar-border: var(--spa-gray-dark);
+  --sidebar-ring: var(--spa-gold);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
+  /* Golden Hands Spa Custom Styles */
+  .spa-gradient {
+    background: linear-gradient(135deg, var(--spa-gold) 0%, var(--spa-gold-light) 50%, var(--spa-gold-dark) 100%);
+  }
+  
+  .spa-gradient-text {
+    background: linear-gradient(135deg, var(--spa-gold) 0%, var(--spa-gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .spa-shadow {
+    box-shadow: 0 10px 25px -3px rgba(212, 175, 55, 0.1), 0 4px 6px -2px rgba(212, 175, 55, 0.05);
+  }
+  
+  .spa-border-glow {
+    border: 2px solid var(--spa-gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  
+  /* Premium Typography */
+  .spa-heading {
+    @apply font-semibold tracking-tight;
+    color: var(--spa-black);
+  }
+  
+  .spa-heading-gold {
+    @apply font-bold tracking-tight;
+    background: linear-gradient(135deg, var(--spa-gold) 0%, var(--spa-gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Elegant Animations */
+  .spa-fade-in {
+    animation: spaFadeIn 0.6s ease-out;
+  }
+  
+  .spa-slide-up {
+    animation: spaSlideUp 0.8s ease-out;
+  }
+  
+  .spa-scale-in {
+    animation: spaScaleIn 0.5s ease-out;
+  }
+  
+  /* Hover Effects */
+  .spa-hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .spa-hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.2);
+  }
+  
+  .spa-hover-glow:hover {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+  }
+}
+
+@layer components {
+  /* Premium Button Styles */
+  .btn-spa-primary {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    background: linear-gradient(135deg, var(--spa-gold) 0%, var(--spa-gold-dark) 100%);
+    color: var(--spa-black);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  }
+  
+  .btn-spa-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+  }
+  
+  .btn-spa-secondary {
+    @apply px-6 py-3 rounded-lg font-medium border-2 transition-all duration-300;
+    border-color: var(--spa-gold);
+    color: var(--spa-gold);
+    background: transparent;
+  }
+  
+  .btn-spa-secondary:hover {
+    background: var(--spa-gold);
+    color: var(--spa-black);
+    transform: translateY(-2px);
+  }
+  
+  /* Premium Card Styles */
+  .card-spa {
+    @apply rounded-xl p-6 transition-all duration-300;
+    background: var(--spa-white);
+    border: 1px solid var(--spa-gray-medium);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .card-spa:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+    border-color: var(--spa-gold);
+  }
+  
+  /* Premium Input Styles */
+  .input-spa {
+    @apply px-4 py-3 rounded-lg border-2 transition-all duration-300;
+    border-color: var(--spa-gray-medium);
+    background: var(--spa-white);
+    color: var(--spa-black);
+  }
+  
+  .input-spa:focus {
+    border-color: var(--spa-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    outline: none;
+  }
+}
+
+@layer utilities {
+  /* Golden Hands Spa Utility Classes */
+  .text-spa-gold { color: var(--spa-gold); }
+  .text-spa-gold-light { color: var(--spa-gold-light); }
+  .text-spa-gold-dark { color: var(--spa-gold-dark); }
+  
+  .bg-spa-gold { background-color: var(--spa-gold); }
+  .bg-spa-gold-light { background-color: var(--spa-gold-light); }
+  .bg-spa-gold-dark { background-color: var(--spa-gold-dark); }
+  
+  .border-spa-gold { border-color: var(--spa-gold); }
+  .border-spa-gold-light { border-color: var(--spa-gold-light); }
+  .border-spa-gold-dark { border-color: var(--spa-gold-dark); }
+  
+  .shadow-spa { box-shadow: 0 10px 25px -3px rgba(212, 175, 55, 0.1), 0 4px 6px -2px rgba(212, 175, 55, 0.05); }
+  .shadow-spa-lg { box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.2); }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Custom Animations */
+@keyframes spaFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spaSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spaScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--spa-gray-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--spa-gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--spa-gold-dark);
+}
+
+/* Selection Styling */
+::selection {
+  background: var(--spa-gold-light);
+  color: var(--spa-black);
+}
+
+::-moz-selection {
+  background: var(--spa-gold-light);
+  color: var(--spa-black);
 }

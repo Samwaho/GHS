@@ -175,6 +175,66 @@ exports.Prisma.TwoFactorConfirmationScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BranchScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  city: 'city',
+  phone: 'phone',
+  email: 'email',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ServiceScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  duration: 'duration',
+  basePrice: 'basePrice',
+  categoryId: 'categoryId',
+  status: 'status',
+  image: 'image',
+  isPopular: 'isPopular',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById'
+};
+
+exports.Prisma.BranchServiceScalarFieldEnum = {
+  id: 'id',
+  branchId: 'branchId',
+  serviceId: 'serviceId',
+  price: 'price',
+  isAvailable: 'isAvailable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serviceId: 'serviceId',
+  branchId: 'branchId',
+  branchServiceId: 'branchServiceId',
+  scheduledAt: 'scheduledAt',
+  status: 'status',
+  totalPrice: 'totalPrice',
+  notes: 'notes',
+  adminNotes: 'adminNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -194,13 +254,30 @@ exports.Role = exports.$Enums.Role = {
   USER: 'USER'
 };
 
+exports.ServiceStatus = exports.$Enums.ServiceStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.BookingStatus = exports.$Enums.BookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED',
+  COMPLETED: 'COMPLETED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
   VerificationToken: 'VerificationToken',
   PasswordResetToken: 'PasswordResetToken',
   TwoFactorToken: 'TwoFactorToken',
-  TwoFactorConfirmation: 'TwoFactorConfirmation'
+  TwoFactorConfirmation: 'TwoFactorConfirmation',
+  Category: 'Category',
+  Branch: 'Branch',
+  Service: 'Service',
+  BranchService: 'BranchService',
+  Booking: 'Booking'
 };
 
 /**

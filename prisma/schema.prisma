@@ -19,6 +19,18 @@ enum Role {
   USER
 }
 
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum ServiceStatus {
+  ACTIVE
+  INACTIVE
+}
+
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -28,10 +40,16 @@ model User {
   image         String?
   accounts      Account[]
   role          Role            @default(USER) 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  isTwoFactorEnabled Boolean @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  isTwoFactorEnabled Boolean    @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  
+  // User bookings
+  bookings      Booking[]
+  
+  // Admin created services
+  createdServices Service[]      @relation("ServiceCreator")
 }
 
 model Account {
@@ -88,4 +106,106 @@ model TwoFactorConfirmation {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+// Service Categories
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Services in this category
+  services    Service[]
+  
+  @@map("categories")
+}
+
+// Branch/Location
+model Branch {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  address     String
+  city        String
+  phone       String?
+  email       String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Services offered at this branch
+  branchServices BranchService[]
+  
+  // Bookings at this branch
+  bookings    Booking[]
+  
+  @@map("branches")
+}
+
+// Services
+model Service {
+  id          String        @id @default(cuid())
+  title       String
+  description String?
+  duration    Int           // Duration in minutes
+  basePrice   Float         // Base price (can be overridden per branch)
+  categoryId  String
+  status      ServiceStatus @default(ACTIVE)
+  image       String?       // Service image
+  isPopular   Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  // Relations
+  category       Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  branchServices BranchService[]
+  bookings       Booking[]
+  createdBy      User            @relation("ServiceCreator", fields: [createdById], references: [id])
+  createdById    String
+  
+  @@map("services")
+}
+
+// Branch-specific service pricing and availability
+model BranchService {
+  id          String    @id @default(cuid())
+  branchId    String
+  serviceId   String
+  price       Float     // Branch-specific price
+  isAvailable Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  branch   Branch    @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  service  Service   @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  bookings Booking[]
+  
+  @@unique([branchId, serviceId])
+  @@map("branch_services")
+}
+
+// Bookings
+model Booking {
+  id          String        @id @default(cuid())
+  userId      String
+  serviceId   String
+  branchId    String
+  branchServiceId String
+  scheduledAt DateTime      // Date and time of appointment
+  status      BookingStatus @default(PENDING)
+  totalPrice  Float         // Final price including any adjustments
+  notes       String?       // Customer notes
+  adminNotes  String?       // Admin/internal notes
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  // Relations
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service       Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  branch        Branch        @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  branchService BranchService @relation(fields: [branchServiceId], references: [id], onDelete: Cascade)
+  
+  @@map("bookings")
 }
