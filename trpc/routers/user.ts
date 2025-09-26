@@ -19,6 +19,11 @@ import {
   sendPasswordResetEmail,
   sendTwoFactorEmail,
   sendVerificationEmail,
+  sendWelcomeEmail,
+  sendBookingConfirmationEmail,
+  sendBookingCancellationEmail,
+  sendGiftVoucherPurchaseEmail,
+  sendGiftVoucherDeliveryEmail,
 } from "@/lib/mail";
 import z from "zod";
 
@@ -183,6 +188,12 @@ export const userRouter = createTRPCRouter({
       await prisma.verificationToken.delete({
         where: { id: verificationToken.id },
       });
+
+      // Send welcome email after successful verification
+      if (existingUser.name) {
+        await sendWelcomeEmail(existingUser.email, existingUser.name);
+      }
+
       return { success: true, message: "Email verified successfully" };
     }),
   resetPassword: baseProcedure
@@ -262,6 +273,24 @@ export const userRouter = createTRPCRouter({
         where: {
           id: input.bookingId,
           userId: ctx.session.user.id
+        },
+        include: {
+          service: {
+            select: {
+              title: true
+            }
+          },
+          branch: {
+            select: {
+              name: true
+            }
+          },
+          user: {
+            select: {
+              name: true,
+              email: true
+            }
+          }
         }
       });
 
@@ -273,10 +302,26 @@ export const userRouter = createTRPCRouter({
         throw new TRPCError({ code: 'BAD_REQUEST', message: 'Cannot cancel this booking' });
       }
 
-      return await prisma.booking.update({
+      const updatedBooking = await prisma.booking.update({
         where: { id: input.bookingId },
         data: { status: 'CANCELLED' }
       });
+
+      // Send booking cancellation email
+      if (booking.user?.email && booking.user?.name) {
+        await sendBookingCancellationEmail(
+          booking.user.email,
+          booking.user.name,
+          {
+            id: booking.id,
+            serviceName: booking.service.title,
+            branchName: booking.branch.name,
+            scheduledAt: booking.scheduledAt.toISOString()
+          }
+        );
+      }
+
+      return updatedBooking;
     }),
 
   // Create a new booking
@@ -374,7 +419,13 @@ export const userRouter = createTRPCRouter({
             }
           },
           branch: true,
-          branchService: true
+          branchService: true,
+          user: {
+            select: {
+              name: true,
+              email: true
+            }
+          }
         }
       });
 
@@ -401,6 +452,22 @@ export const userRouter = createTRPCRouter({
         });
       }
 
+      // Send booking confirmation email
+      if (booking.user?.email && booking.user?.name) {
+        await sendBookingConfirmationEmail(
+          booking.user.email,
+          booking.user.name,
+          {
+            id: booking.id,
+            serviceName: booking.service.title,
+            branchName: booking.branch.name,
+            scheduledAt: booking.scheduledAt.toISOString(),
+            totalPrice: booking.totalPrice,
+            notes: booking.notes || undefined
+          }
+        );
+      }
+
       return booking;
     }),
 
@@ -424,7 +491,7 @@ export const userRouter = createTRPCRouter({
   purchaseGiftVoucher: protectedProcedure
     .input(z.object({
       templateId: z.string(),
-      recipientEmail: z.string().email().optional(),
+      recipientEmail: z.string().email({ message: "Invalid email address" }).optional(),
       recipientName: z.string().optional(),
       message: z.string().optional(),
       purchasePrice: z.number().min(0)
@@ -505,6 +572,39 @@ export const userRouter = createTRPCRouter({
         where: { id: input.templateId },
         data: { currentUsageCount: { increment: 1 } }
       });
+
+      // Send purchase confirmation email to purchaser
+      if (voucher.purchasedBy?.email && voucher.purchasedBy?.name) {
+        await sendGiftVoucherPurchaseEmail(
+          voucher.purchasedBy.email,
+          voucher.purchasedBy.name,
+          {
+            code: voucher.code,
+            templateName: voucher.template.name,
+            originalValue: voucher.originalValue,
+            expiresAt: voucher.expiresAt.toISOString(),
+            recipientEmail: voucher.recipientEmail || undefined,
+            recipientName: voucher.recipientName || undefined,
+            message: voucher.message || undefined
+          }
+        );
+      }
+
+      // Send gift voucher delivery email to recipient if email provided
+      if (voucher.recipientEmail && voucher.recipientName && voucher.purchasedBy?.name) {
+        await sendGiftVoucherDeliveryEmail(
+          voucher.recipientEmail,
+          voucher.recipientName,
+          voucher.purchasedBy.name,
+          {
+            code: voucher.code,
+            templateName: voucher.template.name,
+            originalValue: voucher.originalValue,
+            expiresAt: voucher.expiresAt.toISOString(),
+            message: voucher.message || undefined
+          }
+        );
+      }
 
       return voucher;
     }),

@@ -330,31 +330,31 @@ export const twoFactorEmailTemplate = (token: string, userName?: string) => {
         <div class="header">
             <h1>🔒 Two-Factor Authentication</h1>
         </div>
-        
+
         <div class="content">
             <div class="greeting">
                 Hello${userName ? ` ${userName}` : ''}! 👋
             </div>
-            
+
             <div class="message">
                 We received a login request for your RentSys account. To complete the login process, please enter the verification code below.
             </div>
-            
+
             <div class="code-container">
                 <div class="verification-code">
                     ${token}
                 </div>
             </div>
-            
+
             <div class="warning">
                 <strong>⚠️ Security Notice:</strong> This verification code will expire in 10 minutes for your security. If you didn't attempt to log in to your RentSys account, please change your password immediately and contact our support team.
             </div>
-            
+
             <div class="message">
                 <strong>Important:</strong> Never share this code with anyone. RentSys staff will never ask for your verification code.
             </div>
         </div>
-        
+
         <div class="footer">
             <p><strong>RentSys</strong> - Your Complete Rental Management Solution</p>
             <p>This email was sent to you because you requested two-factor authentication.</p>
@@ -370,5 +370,469 @@ export const twoFactorEmailTemplate = (token: string, userName?: string) => {
         "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)",
         content,
         "#8b5cf6"
+    );
+};
+
+// Booking confirmation email template
+export const bookingConfirmationEmailTemplate = (
+    userName: string,
+    bookingDetails: {
+        id: string;
+        serviceName: string;
+        branchName: string;
+        scheduledAt: string;
+        totalPrice: number;
+        notes?: string;
+    }
+) => {
+    const content = `
+        <div class="header">
+            <h1>✅ Booking Confirmed!</h1>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello ${userName}! 👋
+            </div>
+
+            <div class="message">
+                Great news! Your booking has been confirmed. Here are the details of your appointment:
+            </div>
+
+            <div class="features">
+                <h3 style="margin-top: 0; color: #1f2937;">Booking Details:</h3>
+                <div class="feature">
+                    <span class="feature-icon">🆔</span>
+                    <strong>Booking ID:</strong> ${bookingDetails.id}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💼</span>
+                    <strong>Service:</strong> ${bookingDetails.serviceName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📍</span>
+                    <strong>Location:</strong> ${bookingDetails.branchName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📅</span>
+                    <strong>Date & Time:</strong> ${new Date(bookingDetails.scheduledAt).toLocaleString()}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💰</span>
+                    <strong>Total Price:</strong> $${bookingDetails.totalPrice.toFixed(2)}
+                </div>
+                ${bookingDetails.notes ? `
+                <div class="feature">
+                    <span class="feature-icon">📝</span>
+                    <strong>Notes:</strong> ${bookingDetails.notes}
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="message">
+                Please arrive 10 minutes before your scheduled time. If you need to make any changes or cancel your booking, please contact us as soon as possible.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>RentSys</strong> - Your Complete Rental Management Solution</p>
+            <p>Thank you for choosing our services!</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
+                © ${new Date().getFullYear()} RentSys. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    return createEmailTemplate(
+        "Booking Confirmed - RentSys",
+        "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+        content,
+        "#10b981"
+    );
+};
+
+// Booking cancellation email template
+export const bookingCancellationEmailTemplate = (
+    userName: string,
+    bookingDetails: {
+        id: string;
+        serviceName: string;
+        branchName: string;
+        scheduledAt: string;
+    }
+) => {
+    const content = `
+        <div class="header">
+            <h1>❌ Booking Cancelled</h1>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello ${userName}! 👋
+            </div>
+
+            <div class="message">
+                Your booking has been successfully cancelled. Here are the details of the cancelled appointment:
+            </div>
+
+            <div class="features">
+                <h3 style="margin-top: 0; color: #1f2937;">Cancelled Booking Details:</h3>
+                <div class="feature">
+                    <span class="feature-icon">🆔</span>
+                    <strong>Booking ID:</strong> ${bookingDetails.id}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💼</span>
+                    <strong>Service:</strong> ${bookingDetails.serviceName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📍</span>
+                    <strong>Location:</strong> ${bookingDetails.branchName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📅</span>
+                    <strong>Original Date & Time:</strong> ${new Date(bookingDetails.scheduledAt).toLocaleString()}
+                </div>
+            </div>
+
+            <div class="message">
+                We're sorry to see you cancel your appointment. If you'd like to reschedule or book a new appointment, we're here to help!
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>RentSys</strong> - Your Complete Rental Management Solution</p>
+            <p>We hope to serve you again soon!</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
+                © ${new Date().getFullYear()} RentSys. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    return createEmailTemplate(
+        "Booking Cancelled - RentSys",
+        "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+        content,
+        "#f59e0b"
+    );
+};
+
+// Gift voucher purchase confirmation email template
+export const giftVoucherPurchaseEmailTemplate = (
+    userName: string,
+    voucherDetails: {
+        code: string;
+        templateName: string;
+        originalValue: number;
+        expiresAt: string;
+        recipientEmail?: string;
+        recipientName?: string;
+        message?: string;
+    }
+) => {
+    const content = `
+        <div class="header">
+            <h1>🎁 Gift Voucher Purchased!</h1>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello ${userName}! 👋
+            </div>
+
+            <div class="message">
+                Thank you for purchasing a gift voucher! Here are the details:
+            </div>
+
+            <div class="features">
+                <h3 style="margin-top: 0; color: #1f2937;">Gift Voucher Details:</h3>
+                <div class="feature">
+                    <span class="feature-icon">🎫</span>
+                    <strong>Voucher Code:</strong> ${voucherDetails.code}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🏷️</span>
+                    <strong>Template:</strong> ${voucherDetails.templateName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💰</span>
+                    <strong>Value:</strong> $${voucherDetails.originalValue.toFixed(2)}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📅</span>
+                    <strong>Expires:</strong> ${new Date(voucherDetails.expiresAt).toLocaleDateString()}
+                </div>
+                ${voucherDetails.recipientEmail ? `
+                <div class="feature">
+                    <span class="feature-icon">📧</span>
+                    <strong>Recipient:</strong> ${voucherDetails.recipientName || voucherDetails.recipientEmail}
+                </div>
+                ` : ''}
+                ${voucherDetails.message ? `
+                <div class="feature">
+                    <span class="feature-icon">💌</span>
+                    <strong>Message:</strong> ${voucherDetails.message}
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="message">
+                ${voucherDetails.recipientEmail
+                    ? 'The recipient will receive a separate email with the gift voucher details.'
+                    : 'You can share this voucher code with the recipient to redeem the gift voucher.'
+                }
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>RentSys</strong> - Your Complete Rental Management Solution</p>
+            <p>Thank you for your purchase!</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
+                © ${new Date().getFullYear()} RentSys. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    return createEmailTemplate(
+        "Gift Voucher Purchase Confirmation - RentSys",
+        "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
+        content,
+        "#ec4899"
+    );
+};
+
+// Gift voucher delivery email template
+export const giftVoucherDeliveryEmailTemplate = (
+    recipientName: string,
+    purchaserName: string,
+    voucherDetails: {
+        code: string;
+        templateName: string;
+        originalValue: number;
+        expiresAt: string;
+        message?: string;
+    }
+) => {
+    const content = `
+        <div class="header">
+            <h1>🎁 You've Received a Gift Voucher!</h1>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello ${recipientName}! 👋
+            </div>
+
+            <div class="message">
+                Great news! ${purchaserName} has sent you a gift voucher for RentSys services!
+            </div>
+
+            ${voucherDetails.message ? `
+            <div class="features">
+                <h3 style="margin-top: 0; color: #1f2937;">Personal Message:</h3>
+                <p style="font-style: italic; color: #6b7280; padding: 15px; background-color: #f9fafb; border-radius: 8px; margin: 10px 0;">
+                    "${voucherDetails.message}"
+                </p>
+            </div>
+            ` : ''}
+
+            <div class="code-container">
+                <div class="verification-code" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);">
+                    ${voucherDetails.code}
+                </div>
+            </div>
+
+            <div class="features">
+                <h3 style="margin-top: 0; color: #1f2937;">Gift Voucher Details:</h3>
+                <div class="feature">
+                    <span class="feature-icon">🏷️</span>
+                    <strong>Template:</strong> ${voucherDetails.templateName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💰</span>
+                    <strong>Value:</strong> $${voucherDetails.originalValue.toFixed(2)}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📅</span>
+                    <strong>Expires:</strong> ${new Date(voucherDetails.expiresAt).toLocaleDateString()}
+                </div>
+            </div>
+
+            <div class="message">
+                To redeem this gift voucher, simply use the code above when making a booking on our platform. The voucher value will be automatically applied to your purchase.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>RentSys</strong> - Your Complete Rental Management Solution</p>
+            <p>Enjoy your gift voucher!</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
+                © ${new Date().getFullYear()} RentSys. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    return createEmailTemplate(
+        "Gift Voucher from " + purchaserName + " - RentSys",
+        "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
+        content,
+        "#ec4899"
+    );
+};
+
+// Booking status update email template
+export const bookingStatusUpdateEmailTemplate = (
+    userName: string,
+    bookingDetails: {
+        id: string;
+        serviceName: string;
+        branchName: string;
+        scheduledAt: string;
+        status: string;
+        adminNotes?: string;
+    }
+) => {
+    const statusEmoji = {
+        'PENDING': '⏳',
+        'CONFIRMED': '✅',
+        'CANCELLED': '❌',
+        'COMPLETED': '🎉'
+    };
+
+    const statusColor = {
+        'PENDING': '#f59e0b',
+        'CONFIRMED': '#10b981',
+        'CANCELLED': '#ef4444',
+        'COMPLETED': '#8b5cf6'
+    };
+
+    const content = `
+        <div class="header">
+            <h1>${statusEmoji[bookingDetails.status as keyof typeof statusEmoji]} Booking Status Updated</h1>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello ${userName}! 👋
+            </div>
+
+            <div class="message">
+                Your booking status has been updated to <strong>${bookingDetails.status}</strong>.
+            </div>
+
+            <div class="features">
+                <h3 style="margin-top: 0; color: #1f2937;">Booking Details:</h3>
+                <div class="feature">
+                    <span class="feature-icon">🆔</span>
+                    <strong>Booking ID:</strong> ${bookingDetails.id}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💼</span>
+                    <strong>Service:</strong> ${bookingDetails.serviceName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📍</span>
+                    <strong>Location:</strong> ${bookingDetails.branchName}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📅</span>
+                    <strong>Date & Time:</strong> ${new Date(bookingDetails.scheduledAt).toLocaleString()}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📊</span>
+                    <strong>Status:</strong> ${bookingDetails.status}
+                </div>
+                ${bookingDetails.adminNotes ? `
+                <div class="feature">
+                    <span class="feature-icon">📝</span>
+                    <strong>Admin Notes:</strong> ${bookingDetails.adminNotes}
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="message">
+                If you have any questions about this update, please don't hesitate to contact our support team.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>RentSys</strong> - Your Complete Rental Management Solution</p>
+            <p>Thank you for choosing our services!</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
+                © ${new Date().getFullYear()} RentSys. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    return createEmailTemplate(
+        "Booking Status Update - RentSys",
+        `linear-gradient(135deg, ${statusColor[bookingDetails.status as keyof typeof statusColor]} 0%, ${statusColor[bookingDetails.status as keyof typeof statusColor]}dd 100%)`,
+        content,
+        statusColor[bookingDetails.status as keyof typeof statusColor]
+    );
+};
+
+// User role change notification email template
+export const userRoleChangeEmailTemplate = (
+    userName: string,
+    newRole: string,
+    changedBy: string
+) => {
+    const content = `
+        <div class="header">
+            <h1>👤 Account Role Updated</h1>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello ${userName}! 👋
+            </div>
+
+            <div class="message">
+                Your account role has been updated by ${changedBy}.
+            </div>
+
+            <div class="features">
+                <h3 style="margin-top: 0; color: #1f2937;">Role Change Details:</h3>
+                <div class="feature">
+                    <span class="feature-icon">🔑</span>
+                    <strong>New Role:</strong> ${newRole}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">👨‍💼</span>
+                    <strong>Changed By:</strong> ${changedBy}
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📅</span>
+                    <strong>Date:</strong> ${new Date().toLocaleString()}
+                </div>
+            </div>
+
+            <div class="message">
+                ${newRole === 'ADMIN'
+                    ? 'You now have administrative privileges and can access the admin dashboard.'
+                    : 'Your account has been set to standard user privileges.'
+                }
+            </div>
+
+            <div class="message">
+                If you believe this change was made in error, please contact our support team immediately.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>RentSys</strong> - Your Complete Rental Management Solution</p>
+            <p>If you have any questions, please contact our support team.</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
+                © ${new Date().getFullYear()} RentSys. All rights reserved.
+            </p>
+        </div>
+    `;
+
+    return createEmailTemplate(
+        "Account Role Updated - RentSys",
+        "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
+        content,
+        "#6366f1"
     );
 };

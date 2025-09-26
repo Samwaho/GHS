@@ -3,6 +3,10 @@ import { adminProcedure, createTRPCRouter } from "../init";
 import { prisma } from "@/lib/db";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import {
+  sendBookingStatusUpdateEmail,
+  sendUserRoleChangeEmail,
+} from "@/lib/mail";
 
 // Schemas for validation
 const categorySchema = z.object({
@@ -40,7 +44,7 @@ const branchServiceSchema = z.object({
 const gallerySchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
-  imageUrl: z.string().url(),
+  imageUrl: z.string().min(1),
   imageUuid: z.string().optional(),
   order: z.number().default(0),
   isActive: z.boolean().default(true),
@@ -200,19 +204,64 @@ export const adminRouter = createTRPCRouter({
   }),
 
   updateBookingStatus: adminProcedure
-    .input(z.object({ 
-      id: z.string(), 
+    .input(z.object({
+      id: z.string(),
       status: z.enum(["PENDING", "CONFIRMED", "CANCELLED", "COMPLETED"]),
       adminNotes: z.string().optional()
     }))
-    .mutation(async ({ input }) => {
-      return await prisma.booking.update({
+    .mutation(async ({ input, ctx }) => {
+      // Get the booking with user and service details before updating
+      const booking = await prisma.booking.findUnique({
         where: { id: input.id },
-        data: { 
+        include: {
+          user: {
+            select: {
+              name: true,
+              email: true
+            }
+          },
+          service: {
+            select: {
+              title: true
+            }
+          },
+          branch: {
+            select: {
+              name: true
+            }
+          }
+        }
+      });
+
+      if (!booking) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Booking not found' });
+      }
+
+      const updatedBooking = await prisma.booking.update({
+        where: { id: input.id },
+        data: {
           status: input.status,
           adminNotes: input.adminNotes,
         },
       });
+
+      // Send status update email to user
+      if (booking.user?.email && booking.user?.name) {
+        await sendBookingStatusUpdateEmail(
+          booking.user.email,
+          booking.user.name,
+          {
+            id: booking.id,
+            serviceName: booking.service.title,
+            branchName: booking.branch.name,
+            scheduledAt: booking.scheduledAt.toISOString(),
+            status: input.status,
+            adminNotes: input.adminNotes
+          }
+        );
+      }
+
+      return updatedBooking;
     }),
 
   // Users Management
@@ -236,11 +285,46 @@ export const adminRouter = createTRPCRouter({
       id: z.string(),
       role: z.enum(["ADMIN", "USER"])
     }))
-    .mutation(async ({ input }) => {
-      return await prisma.user.update({
+    .mutation(async ({ input, ctx }) => {
+      // Get the user details before updating
+      const user = await prisma.user.findUnique({
+        where: { id: input.id },
+        select: {
+          name: true,
+          email: true,
+          role: true
+        }
+      });
+
+      if (!user) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' });
+      }
+
+      // Get the admin who is making the change
+      const adminUser = await prisma.user.findUnique({
+        where: { id: ctx.session.user.id },
+        select: {
+          name: true,
+          email: true
+        }
+      });
+
+      const updatedUser = await prisma.user.update({
         where: { id: input.id },
         data: { role: input.role },
       });
+
+      // Send role change notification email to user (only if role actually changed)
+      if (user.role !== input.role && user.email && user.name && adminUser?.name) {
+        await sendUserRoleChangeEmail(
+          user.email,
+          user.name,
+          input.role,
+          adminUser.name
+        );
+      }
+
+      return updatedUser;
     }),
 
   // Gallery Management
