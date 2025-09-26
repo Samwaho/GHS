@@ -198,6 +198,8 @@ model Booking {
   totalPrice      Float // Final price including any adjustments
   notes           String? // Customer notes
   adminNotes      String? // Admin/internal notes
+  attachmentUrl   String? // Uploadcare attachment URL
+  attachmentUuid  String? // Uploadcare attachment UUID for management
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
@@ -208,4 +210,19 @@ model Booking {
   branchService BranchService @relation(fields: [branchServiceId], references: [id], onDelete: Cascade)
 
   @@map("bookings")
+}
+
+// Gallery for displaying images
+model Gallery {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String // Uploadcare image URL
+  imageUuid   String? // Uploadcare image UUID for management
+  order       Int      @default(0) // For ordering images
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("gallery")
 }

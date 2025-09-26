@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Calendar, Clock, MapPin, DollarSign } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, addDays } from 'date-fns';
+import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -40,6 +41,8 @@ export default function BookingModal({
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [notes, setNotes] = useState('');
+  const [attachmentUrl, setAttachmentUrl] = useState('');
+  const [attachmentUuid, setAttachmentUuid] = useState('');
   
   const t = useTRPC();
   const { data: branches } = useQuery(t.public.getBranches.queryOptions());
@@ -63,6 +66,11 @@ export default function BookingModal({
     };
   });
 
+  const handleFileUpload = (result: { cdnUrl: string; uuid: string }) => {
+    setAttachmentUrl(result.cdnUrl);
+    setAttachmentUuid(result.uuid);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -84,7 +92,9 @@ export default function BookingModal({
         serviceId,
         branchId: selectedBranch,
         scheduledAt,
-        notes: notes || undefined
+        notes: notes || undefined,
+        attachmentUrl: attachmentUrl || undefined,
+        attachmentUuid: attachmentUuid || undefined
       });
       
       toast.success('Booking created successfully!');
@@ -95,6 +105,8 @@ export default function BookingModal({
       setSelectedDate('');
       setSelectedTime('');
       setNotes('');
+      setAttachmentUrl('');
+      setAttachmentUuid('');
     } catch {
       toast.error('Failed to create booking');
     }
@@ -107,18 +119,20 @@ export default function BookingModal({
     setSelectedDate('');
     setSelectedTime('');
     setNotes('');
+    setAttachmentUrl('');
+    setAttachmentUuid('');
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-xl max-h-[90vh] sm:max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold">
             Book {serviceTitle}
           </DialogTitle>
         </DialogHeader>
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
+
+        <form onSubmit={handleSubmit} className="space-y-3 py-2">
           <div className="space-y-2">
             <Label htmlFor="branch">Select Branch *</Label>
             <Select value={selectedBranch} onValueChange={setSelectedBranch}>
@@ -198,11 +212,25 @@ export default function BookingModal({
               placeholder="Any special requests or notes..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              rows={3}
+              rows={2}
+              className="resize-none"
             />
           </div>
 
-          <div className="flex space-x-3 pt-4">
+          <div className="space-y-2">
+            <Label>Reference Image/Document (Optional)</Label>
+            <p className="text-xs text-gray-500">
+              Upload a reference image or document to help us understand your requirements better.
+            </p>
+            <UploadcareUploader
+              onUpload={handleFileUpload}
+              preview={attachmentUrl}
+              maxSize={5}
+              compact={true}
+            />
+          </div>
+
+          <div className="flex space-x-3 pt-3 border-t mt-4">
             <Button
               type="button"
               variant="outline"

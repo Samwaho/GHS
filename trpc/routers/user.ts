@@ -275,7 +275,9 @@ export const userRouter = createTRPCRouter({
       serviceId: z.string(),
       branchId: z.string(),
       scheduledAt: z.string(), // ISO date string
-      notes: z.string().optional()
+      notes: z.string().optional(),
+      attachmentUrl: z.string().optional(),
+      attachmentUuid: z.string().optional()
     }))
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user?.id;
@@ -305,6 +307,8 @@ export const userRouter = createTRPCRouter({
           scheduledAt: new Date(input.scheduledAt),
           totalPrice: branchService.price,
           notes: input.notes,
+          attachmentUrl: input.attachmentUrl,
+          attachmentUuid: input.attachmentUuid,
           status: 'PENDING'
         },
         include: {

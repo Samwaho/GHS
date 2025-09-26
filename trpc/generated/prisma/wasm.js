@@ -231,6 +231,8 @@ exports.Prisma.BookingScalarFieldEnum = {
   totalPrice: 'totalPrice',
   notes: 'notes',
   adminNotes: 'adminNotes',
+  attachmentUrl: 'attachmentUrl',
+  attachmentUuid: 'attachmentUuid',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

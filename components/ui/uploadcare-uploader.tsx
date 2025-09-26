@@ -11,6 +11,7 @@ interface UploadcareUploaderProps {
   disabled?: boolean;
   className?: string;
   maxSize?: number;
+  compact?: boolean;
 }
 
 export function UploadcareUploader({
@@ -19,6 +20,7 @@ export function UploadcareUploader({
   disabled = false,
   className,
   maxSize = 10,
+  compact = false,
 }: UploadcareUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [currentPreview, setCurrentPreview] = useState(preview);
@@ -69,6 +71,7 @@ export function UploadcareUploader({
       className={className}
       maxSize={maxSize}
       accept="image/*"
+      compact={compact}
     />
   );
 }

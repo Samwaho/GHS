@@ -13151,6 +13151,8 @@ export namespace Prisma {
     totalPrice: number | null
     notes: string | null
     adminNotes: string | null
+    attachmentUrl: string | null
+    attachmentUuid: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13166,6 +13168,8 @@ export namespace Prisma {
     totalPrice: number | null
     notes: string | null
     adminNotes: string | null
+    attachmentUrl: string | null
+    attachmentUuid: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13181,6 +13185,8 @@ export namespace Prisma {
     totalPrice: number
     notes: number
     adminNotes: number
+    attachmentUrl: number
+    attachmentUuid: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -13206,6 +13212,8 @@ export namespace Prisma {
     totalPrice?: true
     notes?: true
     adminNotes?: true
+    attachmentUrl?: true
+    attachmentUuid?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13221,6 +13229,8 @@ export namespace Prisma {
     totalPrice?: true
     notes?: true
     adminNotes?: true
+    attachmentUrl?: true
+    attachmentUuid?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13236,6 +13246,8 @@ export namespace Prisma {
     totalPrice?: true
     notes?: true
     adminNotes?: true
+    attachmentUrl?: true
+    attachmentUuid?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -13338,6 +13350,8 @@ export namespace Prisma {
     totalPrice: number
     notes: string | null
     adminNotes: string | null
+    attachmentUrl: string | null
+    attachmentUuid: string | null
     createdAt: Date
     updatedAt: Date
     _count: BookingCountAggregateOutputType | null
@@ -13372,6 +13386,8 @@ export namespace Prisma {
     totalPrice?: boolean
     notes?: boolean
     adminNotes?: boolean
+    attachmentUrl?: boolean
+    attachmentUuid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13391,6 +13407,8 @@ export namespace Prisma {
     totalPrice?: boolean
     notes?: boolean
     adminNotes?: boolean
+    attachmentUrl?: boolean
+    attachmentUuid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13410,6 +13428,8 @@ export namespace Prisma {
     totalPrice?: boolean
     notes?: boolean
     adminNotes?: boolean
+    attachmentUrl?: boolean
+    attachmentUuid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13429,11 +13449,13 @@ export namespace Prisma {
     totalPrice?: boolean
     notes?: boolean
     adminNotes?: boolean
+    attachmentUrl?: boolean
+    attachmentUuid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serviceId" | "branchId" | "branchServiceId" | "scheduledAt" | "status" | "totalPrice" | "notes" | "adminNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serviceId" | "branchId" | "branchServiceId" | "scheduledAt" | "status" | "totalPrice" | "notes" | "adminNotes" | "attachmentUrl" | "attachmentUuid" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
@@ -13472,6 +13494,8 @@ export namespace Prisma {
       totalPrice: number
       notes: string | null
       adminNotes: string | null
+      attachmentUrl: string | null
+      attachmentUuid: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["booking"]>
@@ -13911,6 +13935,8 @@ export namespace Prisma {
     readonly totalPrice: FieldRef<"Booking", 'Float'>
     readonly notes: FieldRef<"Booking", 'String'>
     readonly adminNotes: FieldRef<"Booking", 'String'>
+    readonly attachmentUrl: FieldRef<"Booking", 'String'>
+    readonly attachmentUuid: FieldRef<"Booking", 'String'>
     readonly createdAt: FieldRef<"Booking", 'DateTime'>
     readonly updatedAt: FieldRef<"Booking", 'DateTime'>
   }
@@ -15563,6 +15589,8 @@ export namespace Prisma {
     totalPrice: 'totalPrice',
     notes: 'notes',
     adminNotes: 'adminNotes',
+    attachmentUrl: 'attachmentUrl',
+    attachmentUuid: 'attachmentUuid',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -16415,6 +16443,8 @@ export namespace Prisma {
     totalPrice?: FloatFilter<"Booking"> | number
     notes?: StringNullableFilter<"Booking"> | string | null
     adminNotes?: StringNullableFilter<"Booking"> | string | null
+    attachmentUrl?: StringNullableFilter<"Booking"> | string | null
+    attachmentUuid?: StringNullableFilter<"Booking"> | string | null
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -16434,6 +16464,8 @@ export namespace Prisma {
     totalPrice?: SortOrder
     notes?: SortOrderInput | SortOrder
     adminNotes?: SortOrderInput | SortOrder
+    attachmentUrl?: SortOrderInput | SortOrder
+    attachmentUuid?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -16456,6 +16488,8 @@ export namespace Prisma {
     totalPrice?: FloatFilter<"Booking"> | number
     notes?: StringNullableFilter<"Booking"> | string | null
     adminNotes?: StringNullableFilter<"Booking"> | string | null
+    attachmentUrl?: StringNullableFilter<"Booking"> | string | null
+    attachmentUuid?: StringNullableFilter<"Booking"> | string | null
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -16475,6 +16509,8 @@ export namespace Prisma {
     totalPrice?: SortOrder
     notes?: SortOrderInput | SortOrder
     adminNotes?: SortOrderInput | SortOrder
+    attachmentUrl?: SortOrderInput | SortOrder
+    attachmentUuid?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: BookingCountOrderByAggregateInput
@@ -16498,6 +16534,8 @@ export namespace Prisma {
     totalPrice?: FloatWithAggregatesFilter<"Booking"> | number
     notes?: StringNullableWithAggregatesFilter<"Booking"> | string | null
     adminNotes?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    attachmentUrl?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    attachmentUuid?: StringNullableWithAggregatesFilter<"Booking"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
   }
@@ -17317,6 +17355,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
@@ -17336,6 +17376,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17347,6 +17389,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
@@ -17366,6 +17410,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17381,6 +17427,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17392,6 +17440,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17407,6 +17457,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18183,6 +18235,8 @@ export namespace Prisma {
     totalPrice?: SortOrder
     notes?: SortOrder
     adminNotes?: SortOrder
+    attachmentUrl?: SortOrder
+    attachmentUuid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18202,6 +18256,8 @@ export namespace Prisma {
     totalPrice?: SortOrder
     notes?: SortOrder
     adminNotes?: SortOrder
+    attachmentUrl?: SortOrder
+    attachmentUuid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18217,6 +18273,8 @@ export namespace Prisma {
     totalPrice?: SortOrder
     notes?: SortOrder
     adminNotes?: SortOrder
+    attachmentUrl?: SortOrder
+    attachmentUuid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19213,6 +19271,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     service: ServiceCreateNestedOneWithoutBookingsInput
@@ -19230,6 +19290,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19370,6 +19432,8 @@ export namespace Prisma {
     totalPrice?: FloatFilter<"Booking"> | number
     notes?: StringNullableFilter<"Booking"> | string | null
     adminNotes?: StringNullableFilter<"Booking"> | string | null
+    attachmentUrl?: StringNullableFilter<"Booking"> | string | null
+    attachmentUuid?: StringNullableFilter<"Booking"> | string | null
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
   }
@@ -19663,6 +19727,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
@@ -19680,6 +19746,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19797,6 +19865,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
@@ -19814,6 +19884,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20042,6 +20114,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
@@ -20059,6 +20133,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20478,6 +20554,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20548,6 +20626,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     service?: ServiceUpdateOneRequiredWithoutBookingsNestedInput
@@ -20565,6 +20645,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20579,6 +20661,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20708,6 +20792,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20748,6 +20834,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
@@ -20765,6 +20853,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20779,6 +20869,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20802,6 +20894,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20842,6 +20936,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
@@ -20859,6 +20955,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20873,6 +20971,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20887,6 +20987,8 @@ export namespace Prisma {
     totalPrice: number
     notes?: string | null
     adminNotes?: string | null
+    attachmentUrl?: string | null
+    attachmentUuid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20898,6 +21000,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
@@ -20915,6 +21019,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20929,6 +21035,8 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    attachmentUuid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

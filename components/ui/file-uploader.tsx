@@ -14,6 +14,7 @@ interface FileUploaderProps {
   preview?: string;
   disabled?: boolean;
   className?: string;
+  compact?: boolean;
 }
 
 export function FileUploader({
@@ -24,6 +25,7 @@ export function FileUploader({
   preview,
   disabled = false,
   className,
+  compact = false,
 }: FileUploaderProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -98,12 +100,15 @@ export function FileUploader({
     <div className={cn('w-full', className)}>
       {preview ? (
         <Card className="relative">
-          <CardContent className="p-4">
+          <CardContent className={compact ? "p-2" : "p-4"}>
             <div className="relative">
               <img
                 src={preview}
                 alt="Preview"
-                className="w-full h-48 object-cover rounded-lg"
+                className={cn(
+                  "w-full object-cover rounded-lg",
+                  compact ? "h-32" : "h-48"
+                )}
               />
               <Button
                 type="button"
@@ -116,13 +121,14 @@ export function FileUploader({
                 <X className="w-4 h-4" />
               </Button>
             </div>
-            <div className="mt-3 text-center">
+            <div className={compact ? "mt-2 text-center" : "mt-3 text-center"}>
               <Button
                 type="button"
                 variant="outline"
                 onClick={handleClick}
                 disabled={disabled}
                 className="w-full"
+                size={compact ? "sm" : "default"}
               >
                 <Upload className="w-4 h-4 mr-2" />
                 Change Image
@@ -145,17 +151,20 @@ export function FileUploader({
           onDrop={handleDrop}
           onClick={handleClick}
         >
-          <CardContent className="p-8">
+          <CardContent className={compact ? "p-4" : "p-8"}>
             <div className="text-center">
-              <div className="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-full bg-gray-100">
+              <div className={cn(
+                "mx-auto flex items-center justify-center rounded-full bg-gray-100",
+                compact ? "w-8 h-8 mb-2" : "w-12 h-12 mb-4"
+              )}>
                 {isDragOver ? (
-                  <FileImage className="w-6 h-6 text-primary" />
+                  <FileImage className={cn(compact ? "w-4 h-4" : "w-6 h-6", "text-primary")} />
                 ) : (
-                  <ImageIcon className="w-6 h-6 text-gray-400" />
+                  <ImageIcon className={cn(compact ? "w-4 h-4" : "w-6 h-6", "text-gray-400")} />
                 )}
               </div>
-              <div className="mb-2">
-                <p className="text-sm font-medium text-gray-900">
+              <div className={compact ? "mb-1" : "mb-2"}>
+                <p className={cn(compact ? "text-xs" : "text-sm", "font-medium text-gray-900")}>
                   {isDragOver ? 'Drop your image here' : 'Upload an image'}
                 </p>
                 <p className="text-xs text-gray-500 mt-1">

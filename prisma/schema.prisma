@@ -195,11 +195,13 @@ model Booking {
   branchServiceId String
   scheduledAt DateTime      // Date and time of appointment
   status      BookingStatus @default(PENDING)
-  totalPrice  Float         // Final price including any adjustments
-  notes       String?       // Customer notes
-  adminNotes  String?       // Admin/internal notes
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  totalPrice    Float         // Final price including any adjustments
+  notes         String?       // Customer notes
+  adminNotes    String?       // Admin/internal notes
+  attachmentUrl String?       // Uploadcare attachment URL
+  attachmentUuid String?      // Uploadcare attachment UUID for management
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   // Relations
   user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
