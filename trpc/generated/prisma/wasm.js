@@ -255,6 +255,7 @@ exports.Prisma.GiftVoucherTemplateScalarFieldEnum = {
   description: 'description',
   type: 'type',
   value: 'value',
+  price: 'price',
   serviceId: 'serviceId',
   isActive: 'isActive',
   validityDays: 'validityDays',

@@ -224,7 +224,7 @@ export function ServicesClient({ session }: ServicesClientProps) {
                     </div>
                     <div className="flex items-center text-lg font-semibold text-amber-600">
                       <DollarSign className="h-4 w-4" />
-                      {service.basePrice}
+                      KSH {service.basePrice}
                     </div>
                   </div>
                   
@@ -297,7 +297,7 @@ export function ServicesClient({ session }: ServicesClientProps) {
                       </p>
                       <div className="flex justify-between items-center text-sm">
                         <span className="text-gray-500">{service.duration} min</span>
-                        <span className="font-semibold text-amber-600">${service.basePrice}</span>
+                        <span className="font-semibold text-amber-600">KSH {service.basePrice}</span>
                       </div>
                     </CardContent>
                   </Card>

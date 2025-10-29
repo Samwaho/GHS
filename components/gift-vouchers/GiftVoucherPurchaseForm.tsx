@@ -31,13 +31,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
   const purchaseMutation = useMutation(t.user.purchaseGiftVoucher.mutationOptions());
 
   const getPrice = () => {
-    if (template.type === 'FIXED_AMOUNT') {
-      return template.value;
-    } else if (template.type === 'SERVICE_SPECIFIC' && template.service) {
-      return template.service.basePrice;
-    } else {
-      return template.value;
-    }
+    return template.price;
   };
 
   const getTypeIcon = (type: string) => {
@@ -73,7 +67,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
     } else if (template.type === 'SERVICE_SPECIFIC' && template.service) {
       return template.service.title;
     } else {
-      return `$${template.value}`;
+      return `KSH ${template.value}`;
     }
   };
 
@@ -82,7 +76,6 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
 
     const purchaseData = {
       templateId: template.id,
-      purchasePrice: getPrice(),
       recipientEmail: formData.isForSelf ? undefined : formData.recipientEmail,
       recipientName: formData.isForSelf ? undefined : formData.recipientName,
       message: formData.message || undefined,
@@ -134,7 +127,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
                 </div>
                 <div>
                   <span className="font-medium">Price:</span>
-                  <p className="text-lg font-bold">${getPrice()}</p>
+                  <p className="text-lg font-bold">KSH {getPrice()}</p>
                 </div>
                 <div>
                   <span className="font-medium">Valid for:</span>
@@ -233,7 +226,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
                   </div>
                   <div className="flex justify-between font-bold text-lg border-t pt-2">
                     <span>Total:</span>
-                    <span>${getPrice()}</span>
+                    <span>KSH {getPrice()}</span>
                   </div>
                 </div>
               </CardContent>

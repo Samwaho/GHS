@@ -163,7 +163,7 @@ export default function BookingModal({
               <div className="flex items-center justify-between">
                 <div className="flex items-center text-amber-800">
                   <DollarSign className="h-4 w-4 mr-1" />
-                  <span className="font-semibold">${currentService.price}</span>
+                  <span className="font-semibold">KSH {currentService.price}</span>
                 </div>
                 <div className="flex items-center text-amber-700">
                   <Clock className="h-4 w-4 mr-1" />

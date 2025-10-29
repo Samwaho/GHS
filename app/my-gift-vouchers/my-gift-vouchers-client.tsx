@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Gift, Copy, Eye, Calendar, DollarSign, Clock, ShoppingBag } from 'lucide-react';
+import { Gift, Copy, Calendar, DollarSign, Clock, ShoppingBag } from 'lucide-react';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
@@ -63,15 +63,15 @@ export default function MyGiftVouchersClient() {
     } else if (voucher.template.type === 'SERVICE_SPECIFIC' && voucher.template.service) {
       return voucher.template.service.title;
     } else {
-      return `$${voucher.originalValue}`;
+      return `KSH ${voucher.originalValue}`;
     }
   };
 
-  const isExpired = (expiresAt: string) => {
+  const isExpired = (expiresAt: string | Date) => {
     return new Date(expiresAt) < new Date();
   };
 
-  const isExpiringSoon = (expiresAt: string) => {
+  const isExpiringSoon = (expiresAt: string | Date) => {
     const expiry = new Date(expiresAt);
     const now = new Date();
     const daysUntilExpiry = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
@@ -91,7 +91,7 @@ export default function MyGiftVouchersClient() {
       <div className="text-center py-12">
         <Gift className="w-16 h-16 text-gray-400 mx-auto mb-4" />
         <h3 className="text-xl font-semibold text-gray-900 mb-2">No Gift Vouchers Yet</h3>
-        <p className="text-gray-600 mb-6">You haven't purchased any gift vouchers yet.</p>
+        <p className="text-gray-600 mb-6">You haven&apos;t purchased any gift vouchers yet.</p>
         <Link href="/gift-vouchers">
           <Button>
             <ShoppingBag className="w-4 h-4 mr-2" />
@@ -108,27 +108,29 @@ export default function MyGiftVouchersClient() {
   const cancelledVouchers = vouchersQuery.data.filter(v => v.status === 'CANCELLED');
 
   const renderVoucherCard = (voucher: any) => (
-    <Card key={voucher.id} className="relative overflow-hidden">
+    <Card key={voucher.id} className="relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
       <CardHeader className="pb-3">
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Gift className="w-5 h-5" />
-              {voucher.template.name}
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+          <div className="flex-1 min-w-0">
+            <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
+              <Gift className="w-5 h-5 flex-shrink-0" />
+              <span className="truncate">{voucher.template.name}</span>
             </CardTitle>
-            <p className="text-sm text-gray-600 mt-1">
-              Code: <span className="font-mono font-semibold">{voucher.code}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2">
+              <p className="text-sm text-gray-600">
+                Code: <span className="font-mono font-semibold">{voucher.code}</span>
+              </p>
               <Button
                 variant="ghost"
                 size="sm"
-                className="ml-2 h-6 w-6 p-0"
+                className="h-6 w-6 p-0 self-start sm:self-center"
                 onClick={() => copyToClipboard(voucher.code)}
               >
                 <Copy className={`w-3 h-3 ${copiedCode === voucher.code ? 'text-green-600' : ''}`} />
               </Button>
-            </p>
+            </div>
           </div>
-          <div className="flex gap-2 flex-col items-end">
+          <div className="flex gap-2 flex-col sm:flex-row items-start sm:items-end">
             {getStatusBadge(voucher.status)}
             {getTypeBadge(voucher.template.type)}
           </div>
@@ -136,30 +138,34 @@ export default function MyGiftVouchersClient() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-            <div>
-              <span className="font-medium flex items-center gap-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 text-sm">
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <span className="font-medium flex items-center gap-1 text-gray-700">
                 <DollarSign className="w-3 h-3" />
                 Value:
               </span>
-              <p className="text-lg font-bold text-primary">{formatValue(voucher)}</p>
+              <p className="text-lg font-bold text-primary mt-1">{formatValue(voucher)}</p>
             </div>
-            <div>
-              <span className="font-medium">Remaining:</span>
-              <p className="text-lg font-bold">${voucher.remainingValue}</p>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <span className="font-medium text-gray-700">Price Paid:</span>
+              <p className="text-lg font-bold text-green-600 mt-1">${voucher.purchasePrice}</p>
             </div>
-            <div>
-              <span className="font-medium flex items-center gap-1">
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <span className="font-medium text-gray-700">Remaining:</span>
+              <p className="text-lg font-bold mt-1">${voucher.remainingValue}</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <span className="font-medium flex items-center gap-1 text-gray-700">
                 <Calendar className="w-3 h-3" />
                 Expires:
               </span>
-              <p className={isExpiringSoon(voucher.expiresAt) ? 'text-orange-600 font-semibold' : ''}>
+              <p className={`mt-1 ${isExpiringSoon(voucher.expiresAt) ? 'text-orange-600 font-semibold' : ''}`}>
                 {new Date(voucher.expiresAt).toLocaleDateString()}
               </p>
             </div>
-            <div>
-              <span className="font-medium">Purchased:</span>
-              <p>{new Date(voucher.createdAt).toLocaleDateString()}</p>
+            <div className="bg-gray-50 p-3 rounded-lg sm:col-span-2 lg:col-span-1">
+              <span className="font-medium text-gray-700">Purchased:</span>
+              <p className="mt-1">{new Date(voucher.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
 
@@ -192,25 +198,27 @@ export default function MyGiftVouchersClient() {
           )}
 
           {voucher.usages && voucher.usages.length > 0 && (
-            <div className="space-y-2">
-              <h4 className="font-medium text-sm">Usage History:</h4>
-              {voucher.usages.map((usage: any) => (
-                <div key={usage.id} className="p-2 bg-gray-50 rounded text-sm">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="font-medium">${usage.amountUsed} used</p>
-                      {usage.booking && (
-                        <p className="text-gray-600">
-                          For: {usage.booking.service.title} at {usage.booking.branch.name}
-                        </p>
-                      )}
+            <div className="space-y-3">
+              <h4 className="font-medium text-sm text-gray-800">Usage History:</h4>
+              <div className="space-y-2">
+                {voucher.usages.map((usage: any) => (
+                  <div key={usage.id} className="p-3 bg-gray-50 rounded-lg border text-sm">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
+                      <div className="flex-1">
+                        <p className="font-medium text-gray-900">${usage.amountUsed} used</p>
+                        {usage.booking && (
+                          <p className="text-gray-600 text-xs sm:text-sm mt-1">
+                            For: {usage.booking.service.title} at {usage.booking.branch.name}
+                          </p>
+                        )}
+                      </div>
+                      <span className="text-gray-500 text-xs sm:text-sm whitespace-nowrap">
+                        {new Date(usage.usedAt).toLocaleDateString()}
+                      </span>
                     </div>
-                    <span className="text-gray-500">
-                      {new Date(usage.usedAt).toLocaleDateString()}
-                    </span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -220,13 +228,13 @@ export default function MyGiftVouchersClient() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Your Gift Vouchers</h2>
-          <p className="text-gray-600">Total vouchers: {vouchersQuery.data.length}</p>
+          <h2 className="text-2xl sm:text-3xl font-bold">Your Gift Vouchers</h2>
+          <p className="text-gray-600 mt-1">Total vouchers: {vouchersQuery.data.length}</p>
         </div>
         <Link href="/gift-vouchers">
-          <Button>
+          <Button className="w-full sm:w-auto">
             <ShoppingBag className="w-4 h-4 mr-2" />
             Buy More Vouchers
           </Button>
@@ -234,64 +242,76 @@ export default function MyGiftVouchersClient() {
       </div>
 
       <Tabs defaultValue="active" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="active">
-            Active ({activeVouchers.length})
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto">
+          <TabsTrigger value="active" className="text-xs sm:text-sm py-2">
+            <span className="hidden sm:inline">Active</span>
+            <span className="sm:hidden">Active</span>
+            <span className="ml-1">({activeVouchers.length})</span>
           </TabsTrigger>
-          <TabsTrigger value="used">
-            Used ({usedVouchers.length})
+          <TabsTrigger value="used" className="text-xs sm:text-sm py-2">
+            <span className="hidden sm:inline">Used</span>
+            <span className="sm:hidden">Used</span>
+            <span className="ml-1">({usedVouchers.length})</span>
           </TabsTrigger>
-          <TabsTrigger value="expired">
-            Expired ({expiredVouchers.length})
+          <TabsTrigger value="expired" className="text-xs sm:text-sm py-2">
+            <span className="hidden sm:inline">Expired</span>
+            <span className="sm:hidden">Expired</span>
+            <span className="ml-1">({expiredVouchers.length})</span>
           </TabsTrigger>
-          <TabsTrigger value="cancelled">
-            Cancelled ({cancelledVouchers.length})
+          <TabsTrigger value="cancelled" className="text-xs sm:text-sm py-2">
+            <span className="hidden sm:inline">Cancelled</span>
+            <span className="sm:hidden">Cancelled</span>
+            <span className="ml-1">({cancelledVouchers.length})</span>
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="active" className="space-y-4">
+        <TabsContent value="active" className="space-y-4 mt-6">
           {activeVouchers.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-600">No active vouchers</p>
+            <div className="text-center py-12">
+              <Gift className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-600 text-lg">No active vouchers</p>
             </div>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {activeVouchers.map(renderVoucherCard)}
             </div>
           )}
         </TabsContent>
 
-        <TabsContent value="used" className="space-y-4">
+        <TabsContent value="used" className="space-y-4 mt-6">
           {usedVouchers.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-600">No used vouchers</p>
+            <div className="text-center py-12">
+              <Gift className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-600 text-lg">No used vouchers</p>
             </div>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {usedVouchers.map(renderVoucherCard)}
             </div>
           )}
         </TabsContent>
 
-        <TabsContent value="expired" className="space-y-4">
+        <TabsContent value="expired" className="space-y-4 mt-6">
           {expiredVouchers.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-600">No expired vouchers</p>
+            <div className="text-center py-12">
+              <Gift className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-600 text-lg">No expired vouchers</p>
             </div>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {expiredVouchers.map(renderVoucherCard)}
             </div>
           )}
         </TabsContent>
 
-        <TabsContent value="cancelled" className="space-y-4">
+        <TabsContent value="cancelled" className="space-y-4 mt-6">
           {cancelledVouchers.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-600">No cancelled vouchers</p>
+            <div className="text-center py-12">
+              <Gift className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-600 text-lg">No cancelled vouchers</p>
             </div>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {cancelledVouchers.map(renderVoucherCard)}
             </div>
           )}

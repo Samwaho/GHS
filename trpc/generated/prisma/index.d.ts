@@ -16019,6 +16019,7 @@ export namespace Prisma {
 
   export type GiftVoucherTemplateAvgAggregateOutputType = {
     value: number | null
+    price: number | null
     validityDays: number | null
     maxUsageCount: number | null
     currentUsageCount: number | null
@@ -16026,6 +16027,7 @@ export namespace Prisma {
 
   export type GiftVoucherTemplateSumAggregateOutputType = {
     value: number | null
+    price: number | null
     validityDays: number | null
     maxUsageCount: number | null
     currentUsageCount: number | null
@@ -16037,6 +16039,7 @@ export namespace Prisma {
     description: string | null
     type: $Enums.GiftVoucherType | null
     value: number | null
+    price: number | null
     serviceId: string | null
     isActive: boolean | null
     validityDays: number | null
@@ -16055,6 +16058,7 @@ export namespace Prisma {
     description: string | null
     type: $Enums.GiftVoucherType | null
     value: number | null
+    price: number | null
     serviceId: string | null
     isActive: boolean | null
     validityDays: number | null
@@ -16073,6 +16077,7 @@ export namespace Prisma {
     description: number
     type: number
     value: number
+    price: number
     serviceId: number
     isActive: number
     validityDays: number
@@ -16089,6 +16094,7 @@ export namespace Prisma {
 
   export type GiftVoucherTemplateAvgAggregateInputType = {
     value?: true
+    price?: true
     validityDays?: true
     maxUsageCount?: true
     currentUsageCount?: true
@@ -16096,6 +16102,7 @@ export namespace Prisma {
 
   export type GiftVoucherTemplateSumAggregateInputType = {
     value?: true
+    price?: true
     validityDays?: true
     maxUsageCount?: true
     currentUsageCount?: true
@@ -16107,6 +16114,7 @@ export namespace Prisma {
     description?: true
     type?: true
     value?: true
+    price?: true
     serviceId?: true
     isActive?: true
     validityDays?: true
@@ -16125,6 +16133,7 @@ export namespace Prisma {
     description?: true
     type?: true
     value?: true
+    price?: true
     serviceId?: true
     isActive?: true
     validityDays?: true
@@ -16143,6 +16152,7 @@ export namespace Prisma {
     description?: true
     type?: true
     value?: true
+    price?: true
     serviceId?: true
     isActive?: true
     validityDays?: true
@@ -16248,6 +16258,7 @@ export namespace Prisma {
     description: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     serviceId: string | null
     isActive: boolean
     validityDays: number
@@ -16285,6 +16296,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     value?: boolean
+    price?: boolean
     serviceId?: boolean
     isActive?: boolean
     validityDays?: boolean
@@ -16307,6 +16319,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     value?: boolean
+    price?: boolean
     serviceId?: boolean
     isActive?: boolean
     validityDays?: boolean
@@ -16327,6 +16340,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     value?: boolean
+    price?: boolean
     serviceId?: boolean
     isActive?: boolean
     validityDays?: boolean
@@ -16347,6 +16361,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     value?: boolean
+    price?: boolean
     serviceId?: boolean
     isActive?: boolean
     validityDays?: boolean
@@ -16359,7 +16374,7 @@ export namespace Prisma {
     createdById?: boolean
   }
 
-  export type GiftVoucherTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "type" | "value" | "serviceId" | "isActive" | "validityDays" | "maxUsageCount" | "currentUsageCount" | "imageUrl" | "imageUuid" | "createdAt" | "updatedAt" | "createdById", ExtArgs["result"]["giftVoucherTemplate"]>
+  export type GiftVoucherTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "type" | "value" | "price" | "serviceId" | "isActive" | "validityDays" | "maxUsageCount" | "currentUsageCount" | "imageUrl" | "imageUuid" | "createdAt" | "updatedAt" | "createdById", ExtArgs["result"]["giftVoucherTemplate"]>
   export type GiftVoucherTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | GiftVoucherTemplate$serviceArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
@@ -16388,6 +16403,7 @@ export namespace Prisma {
       description: string | null
       type: $Enums.GiftVoucherType
       value: number
+      price: number
       serviceId: string | null
       isActive: boolean
       validityDays: number
@@ -16829,6 +16845,7 @@ export namespace Prisma {
     readonly description: FieldRef<"GiftVoucherTemplate", 'String'>
     readonly type: FieldRef<"GiftVoucherTemplate", 'GiftVoucherType'>
     readonly value: FieldRef<"GiftVoucherTemplate", 'Float'>
+    readonly price: FieldRef<"GiftVoucherTemplate", 'Float'>
     readonly serviceId: FieldRef<"GiftVoucherTemplate", 'String'>
     readonly isActive: FieldRef<"GiftVoucherTemplate", 'Boolean'>
     readonly validityDays: FieldRef<"GiftVoucherTemplate", 'Int'>
@@ -19921,6 +19938,7 @@ export namespace Prisma {
     description: 'description',
     type: 'type',
     value: 'value',
+    price: 'price',
     serviceId: 'serviceId',
     isActive: 'isActive',
     validityDays: 'validityDays',
@@ -21023,6 +21041,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
     type?: EnumGiftVoucherTypeFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
     value?: FloatFilter<"GiftVoucherTemplate"> | number
+    price?: FloatFilter<"GiftVoucherTemplate"> | number
     serviceId?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
     isActive?: BoolFilter<"GiftVoucherTemplate"> | boolean
     validityDays?: IntFilter<"GiftVoucherTemplate"> | number
@@ -21044,6 +21063,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     type?: SortOrder
     value?: SortOrder
+    price?: SortOrder
     serviceId?: SortOrderInput | SortOrder
     isActive?: SortOrder
     validityDays?: SortOrder
@@ -21068,6 +21088,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
     type?: EnumGiftVoucherTypeFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
     value?: FloatFilter<"GiftVoucherTemplate"> | number
+    price?: FloatFilter<"GiftVoucherTemplate"> | number
     serviceId?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
     isActive?: BoolFilter<"GiftVoucherTemplate"> | boolean
     validityDays?: IntFilter<"GiftVoucherTemplate"> | number
@@ -21089,6 +21110,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     type?: SortOrder
     value?: SortOrder
+    price?: SortOrder
     serviceId?: SortOrderInput | SortOrder
     isActive?: SortOrder
     validityDays?: SortOrder
@@ -21115,6 +21137,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"GiftVoucherTemplate"> | string | null
     type?: EnumGiftVoucherTypeWithAggregatesFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
     value?: FloatWithAggregatesFilter<"GiftVoucherTemplate"> | number
+    price?: FloatWithAggregatesFilter<"GiftVoucherTemplate"> | number
     serviceId?: StringNullableWithAggregatesFilter<"GiftVoucherTemplate"> | string | null
     isActive?: BoolWithAggregatesFilter<"GiftVoucherTemplate"> | boolean
     validityDays?: IntWithAggregatesFilter<"GiftVoucherTemplate"> | number
@@ -22272,6 +22295,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     isActive?: boolean
     validityDays?: number
     maxUsageCount?: number | null
@@ -22291,6 +22315,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     serviceId?: string | null
     isActive?: boolean
     validityDays?: number
@@ -22310,6 +22335,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
     maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22329,6 +22355,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     serviceId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
@@ -22348,6 +22375,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     serviceId?: string | null
     isActive?: boolean
     validityDays?: number
@@ -22366,6 +22394,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
     maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22382,6 +22411,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     serviceId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
@@ -23427,6 +23457,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     value?: SortOrder
+    price?: SortOrder
     serviceId?: SortOrder
     isActive?: SortOrder
     validityDays?: SortOrder
@@ -23441,6 +23472,7 @@ export namespace Prisma {
 
   export type GiftVoucherTemplateAvgOrderByAggregateInput = {
     value?: SortOrder
+    price?: SortOrder
     validityDays?: SortOrder
     maxUsageCount?: SortOrder
     currentUsageCount?: SortOrder
@@ -23452,6 +23484,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     value?: SortOrder
+    price?: SortOrder
     serviceId?: SortOrder
     isActive?: SortOrder
     validityDays?: SortOrder
@@ -23470,6 +23503,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     value?: SortOrder
+    price?: SortOrder
     serviceId?: SortOrder
     isActive?: SortOrder
     validityDays?: SortOrder
@@ -23484,6 +23518,7 @@ export namespace Prisma {
 
   export type GiftVoucherTemplateSumOrderByAggregateInput = {
     value?: SortOrder
+    price?: SortOrder
     validityDays?: SortOrder
     maxUsageCount?: SortOrder
     currentUsageCount?: SortOrder
@@ -25197,6 +25232,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     isActive?: boolean
     validityDays?: number
     maxUsageCount?: number | null
@@ -25215,6 +25251,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     serviceId?: string | null
     isActive?: boolean
     validityDays?: number
@@ -25440,6 +25477,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
     type?: EnumGiftVoucherTypeFilter<"GiftVoucherTemplate"> | $Enums.GiftVoucherType
     value?: FloatFilter<"GiftVoucherTemplate"> | number
+    price?: FloatFilter<"GiftVoucherTemplate"> | number
     serviceId?: StringNullableFilter<"GiftVoucherTemplate"> | string | null
     isActive?: BoolFilter<"GiftVoucherTemplate"> | boolean
     validityDays?: IntFilter<"GiftVoucherTemplate"> | number
@@ -25959,6 +25997,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     isActive?: boolean
     validityDays?: number
     maxUsageCount?: number | null
@@ -25977,6 +26016,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     isActive?: boolean
     validityDays?: number
     maxUsageCount?: number | null
@@ -26935,6 +26975,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     isActive?: boolean
     validityDays?: number
     maxUsageCount?: number | null
@@ -26953,6 +26994,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     serviceId?: string | null
     isActive?: boolean
     validityDays?: number
@@ -27099,6 +27141,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
     maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
@@ -27117,6 +27160,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     serviceId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
@@ -27506,6 +27550,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     serviceId?: string | null
     isActive?: boolean
     validityDays?: number
@@ -27778,6 +27823,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
     maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
@@ -27796,6 +27842,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     serviceId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
@@ -27814,6 +27861,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     serviceId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
@@ -28022,6 +28070,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.GiftVoucherType
     value: number
+    price: number
     isActive?: boolean
     validityDays?: number
     maxUsageCount?: number | null
@@ -28118,6 +28167,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
     maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
@@ -28136,6 +28186,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
     maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null
@@ -28154,6 +28205,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumGiftVoucherTypeFieldUpdateOperationsInput | $Enums.GiftVoucherType
     value?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     validityDays?: IntFieldUpdateOperationsInput | number
     maxUsageCount?: NullableIntFieldUpdateOperationsInput | number | null

@@ -253,7 +253,8 @@ model GiftVoucherTemplate {
   name        String           // e.g., "Spa Day Package", "50% Off Massage"
   description String?
   type        GiftVoucherType  // FIXED_AMOUNT, PERCENTAGE, SERVICE_SPECIFIC
-  value       Float            // Amount or percentage value
+  value       Float            // Amount or percentage value (what the voucher is worth)
+  price       Float            // Price to purchase the voucher
   serviceId   String?          // For SERVICE_SPECIFIC type
   isActive    Boolean          @default(true)
   validityDays Int             @default(365) // How many days the voucher is valid

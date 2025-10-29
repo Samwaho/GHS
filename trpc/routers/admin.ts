@@ -55,6 +55,7 @@ const giftVoucherTemplateSchema = z.object({
   description: z.string().optional(),
   type: z.enum(["FIXED_AMOUNT", "PERCENTAGE", "SERVICE_SPECIFIC"]),
   value: z.number().min(0),
+  price: z.number().min(0),
   serviceId: z.string().optional(),
   isActive: z.boolean().default(true),
   validityDays: z.number().min(1).default(365),

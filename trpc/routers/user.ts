@@ -493,8 +493,7 @@ export const userRouter = createTRPCRouter({
       templateId: z.string(),
       recipientEmail: z.string().email({ message: "Invalid email address" }).optional(),
       recipientName: z.string().optional(),
-      message: z.string().optional(),
-      purchasePrice: z.number().min(0)
+      message: z.string().optional()
     }))
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user?.id;
@@ -538,10 +537,8 @@ export const userRouter = createTRPCRouter({
       }
 
       // Calculate voucher value
-      let voucherValue = input.purchasePrice;
-      if (template.type === 'FIXED_AMOUNT') {
-        voucherValue = template.value;
-      } else if (template.type === 'SERVICE_SPECIFIC' && template.service) {
+      let voucherValue = template.value;
+      if (template.type === 'SERVICE_SPECIFIC' && template.service) {
         voucherValue = template.service.basePrice;
       }
 
@@ -556,7 +553,7 @@ export const userRouter = createTRPCRouter({
           recipientName: input.recipientName,
           originalValue: voucherValue,
           remainingValue: voucherValue,
-          purchasePrice: input.purchasePrice,
+          purchasePrice: template.price,
           expiresAt: new Date(Date.now() + template.validityDays * 24 * 60 * 60 * 1000),
           message: input.message
         },
