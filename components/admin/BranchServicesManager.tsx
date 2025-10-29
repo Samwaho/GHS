@@ -12,6 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { formatKES } from '@/lib/currency';
 
 export default function BranchServicesManager() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -164,7 +165,7 @@ export default function BranchServicesManager() {
             <TableRow key={item.id}>
               <TableCell className="font-medium">{item.branch.name}</TableCell>
               <TableCell>{item.service.title}</TableCell>
-              <TableCell>${item.price}</TableCell>
+              <TableCell>{formatKES(item.price)}</TableCell>
               <TableCell>
                 <Badge variant={item.isAvailable ? 'default' : 'secondary'}>
                   {item.isAvailable ? 'Available' : 'Unavailable'}
@@ -187,4 +188,3 @@ export default function BranchServicesManager() {
     </div>
   );
 }
-

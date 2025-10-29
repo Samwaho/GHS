@@ -15,6 +15,7 @@ import { Calendar, Clock, MapPin, DollarSign, Gift } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, addDays } from 'date-fns';
 import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
+import { formatKES } from '@/lib/currency';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -163,7 +164,7 @@ export default function BookingModal({
               <div className="flex items-center justify-between">
                 <div className="flex items-center text-amber-800">
                   <DollarSign className="h-4 w-4 mr-1" />
-                  <span className="font-semibold">KSH {currentService.price}</span>
+                  <span className="font-semibold">{formatKES(currentService.price)}</span>
                 </div>
                 <div className="flex items-center text-amber-700">
                   <Clock className="h-4 w-4 mr-1" />

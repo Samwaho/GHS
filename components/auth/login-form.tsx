@@ -28,10 +28,12 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "../ui/input-otp";
+import { useSession } from "next-auth/react";
 
 export const LoginForm = () => {
   const t = useTRPC();
   const router = useRouter();
+  const { update: refreshSession } = useSession();
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const {
     mutate: login,
@@ -40,12 +42,19 @@ export const LoginForm = () => {
     data,
   } = useMutation(
     t.user.login.mutationOptions({
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
         if (data?.verifyEmail || data?.twoFactorEnabled) {
           setTwoFactorEnabled(data?.twoFactorEnabled ?? false);
           return;
         }
-        router.push(DEFAULT_REDIRECT_URL);
+        try {
+          await refreshSession();
+        } catch (sessionError) {
+          console.error("Failed to refresh session after login", sessionError);
+        }
+        setTwoFactorEnabled(false);
+        router.replace(DEFAULT_REDIRECT_URL);
+        router.refresh();
       },
     })
   );

@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { formatKES } from '@/lib/currency';
 
 export default function ServicesManager() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -215,7 +216,7 @@ export default function ServicesManager() {
               <TableCell className="font-medium">{service.title}</TableCell>
               <TableCell>{service.category.name}</TableCell>
               <TableCell>{service.duration} min</TableCell>
-              <TableCell>${service.basePrice}</TableCell>
+              <TableCell>{formatKES(service.basePrice)}</TableCell>
               <TableCell>
                 <Badge variant={service.status === 'ACTIVE' ? 'default' : 'secondary'}>
                   {service.status}

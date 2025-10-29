@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Clock, Star, Calendar, Filter, Search, DollarSign } from 'lucide-react';
 import { ExtendedUser } from '@/auth';
 import BookingModal from '@/components/booking/booking-modal';
+import { formatKES } from '@/lib/currency';
 
 interface ServicesClientProps {
   session: { user: ExtendedUser } | null;
@@ -224,7 +225,7 @@ export function ServicesClient({ session }: ServicesClientProps) {
                     </div>
                     <div className="flex items-center text-lg font-semibold text-amber-600">
                       <DollarSign className="h-4 w-4" />
-                      KSH {service.basePrice}
+                      {formatKES(service.basePrice)}
                     </div>
                   </div>
                   
@@ -297,7 +298,7 @@ export function ServicesClient({ session }: ServicesClientProps) {
                       </p>
                       <div className="flex justify-between items-center text-sm">
                         <span className="text-gray-500">{service.duration} min</span>
-                        <span className="font-semibold text-amber-600">KSH {service.basePrice}</span>
+                        <span className="font-semibold text-amber-600">{formatKES(service.basePrice)}</span>
                       </div>
                     </CardContent>
                   </Card>

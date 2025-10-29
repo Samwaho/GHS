@@ -14,7 +14,9 @@ import {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const fromEmail =
-  process.env.RESEND_FROM_EMAIL ?? "RentSys <noreply@ispinnacle.co.ke>";
+  process.env.RESEND_FROM_EMAIL ??
+  "Golden Hands Spa <noreply@goldenhandsspa.com>";
+
 export const sendVerificationEmail = async (
   email: string,
   token: string,
@@ -26,7 +28,7 @@ export const sendVerificationEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Verify your email - RentSys",
+      subject: "Verify your email - Golden Hands Spa",
       html: verifyEmailTemplate(confirmLink, userName),
     });
 
@@ -42,7 +44,7 @@ export const sendWelcomeEmail = async (email: string, userName: string) => {
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Welcome to RentSys! 🎉",
+      subject: "Welcome to Golden Hands Spa",
       html: welcomeEmailTemplate(userName),
     });
 
@@ -64,7 +66,7 @@ export const sendPasswordResetEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Reset your password - RentSys",
+      subject: "Reset your password - Golden Hands Spa",
       html: resetPasswordEmailTemplate(resetLink, userName),
     });
 
@@ -84,7 +86,7 @@ export const sendTwoFactorEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Two-Factor Authentication - RentSys",
+      subject: "Two-factor authentication code - Golden Hands Spa",
       html: twoFactorEmailTemplate(token, userName),
     });
 
@@ -111,7 +113,7 @@ export const sendBookingConfirmationEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Booking Confirmed - RentSys",
+      subject: "Booking Confirmed - Golden Hands Spa",
       html: bookingConfirmationEmailTemplate(userName, bookingDetails),
     });
 
@@ -136,7 +138,7 @@ export const sendBookingCancellationEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Booking Cancelled - RentSys",
+      subject: "Booking Cancelled - Golden Hands Spa",
       html: bookingCancellationEmailTemplate(userName, bookingDetails),
     });
 
@@ -164,7 +166,7 @@ export const sendGiftVoucherPurchaseEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Gift Voucher Purchase Confirmation - RentSys",
+      subject: "Gift Voucher Purchase Confirmation - Golden Hands Spa",
       html: giftVoucherPurchaseEmailTemplate(userName, voucherDetails),
     });
 
@@ -191,8 +193,12 @@ export const sendGiftVoucherDeliveryEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: `Gift Voucher from ${purchaserName} - RentSys`,
-      html: giftVoucherDeliveryEmailTemplate(recipientName, purchaserName, voucherDetails),
+      subject: `Gift Voucher from ${purchaserName} - Golden Hands Spa`,
+      html: giftVoucherDeliveryEmailTemplate(
+        recipientName,
+        purchaserName,
+        voucherDetails
+      ),
     });
 
     return { success: true, data: result };
@@ -218,7 +224,7 @@ export const sendBookingStatusUpdateEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Booking Status Update - RentSys",
+      subject: "Booking Status Update - Golden Hands Spa",
       html: bookingStatusUpdateEmailTemplate(userName, bookingDetails),
     });
 
@@ -239,7 +245,7 @@ export const sendUserRoleChangeEmail = async (
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Account Role Updated - RentSys",
+      subject: "Account Role Updated - Golden Hands Spa",
       html: userRoleChangeEmailTemplate(userName, newRole, changedBy),
     });
 

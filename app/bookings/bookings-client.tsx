@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar, Clock, MapPin, Phone, Star, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
+import { formatKES } from '@/lib/currency';
 
 type BookingStatus = 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED';
 
@@ -130,7 +131,7 @@ export default function BookingsClient() {
           <div className="space-y-3">
             <div className="text-right">
               <p className="text-2xl font-bold text-amber-600">
-                ${booking.totalPrice || booking.branchService?.price || 0}
+                {formatKES(booking.totalPrice ?? booking.branchService?.price ?? 0)}
               </p>
             </div>
             

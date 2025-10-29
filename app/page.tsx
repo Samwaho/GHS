@@ -12,24 +12,24 @@ export default async function Home() {
 
   const services = [
     {
-      title: "Relaxation Massage",
-      description: "Unwind with our signature full-body massage designed to melt away stress and tension.",
+      title: "Signature Relaxation Massage",
+      description: "Tailored full-body massage with aromatherapeutic botanicals to dissolve tension and restore balance.",
       duration: "60 min",
-      price: "From $120",
+      price: "From KES 18,000",
       image: "/IMG_0912.jpg"
     },
     {
-      title: "Facial Treatment",
-      description: "Rejuvenate your skin with our premium facial treatments using organic products.",
+      title: "Regenerative Facial Ritual",
+      description: "Advanced facial therapy pairing botanical actives with lymphatic sculpting for a luminous glow.",
       duration: "45 min",
-      price: "From $95",
+      price: "From KES 14,500",
       image: "/IMG_0913.JPG"
     },
     {
-      title: "Hot Stone Therapy",
-      description: "Experience deep relaxation with heated stones that soothe muscles and calm the mind.",
+      title: "Basalt Stone Therapy",
+      description: "Heated basalt stones and skilled techniques to ease muscular fatigue and encourage deep calm.",
       duration: "75 min",
-      price: "From $150",
+      price: "From KES 22,500",
       image: "/IMG_0919.JPG"
     }
   ];
@@ -71,29 +71,29 @@ export default async function Home() {
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Welcome to
-            <span className="block text-amber-300">Golden Hands Spa</span>
+            Experience Curated Wellness
+            <span className="block text-amber-300">Golden Hands Spa, Nairobi</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-            Experience ultimate relaxation and rejuvenation in our luxurious spa sanctuary
+            A private sanctuary where accredited therapists, Kenyan botanicals, and thoughtful rituals deliver lasting rejuvenation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/services">
               <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg">
                 <Sparkles className="mr-2 h-5 w-5" />
-                Explore Services
+                View Treatment Menu
               </Button>
             </Link>
             {session ? (
               <Link href="/bookings">
                 <Button size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-amber-800 px-8 py-3 text-lg">
-                  Book Now
+                  Reserve Your Appointment
                 </Button>
               </Link>
             ) : (
               <Link href="/auth/register">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-amber-800 px-8 py-3 text-lg">
-                  Join Us
+                  Create Client Account
                 </Button>
               </Link>
             )}
@@ -105,9 +105,9 @@ export default async function Home() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Golden Hands Spa?</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">The Golden Hands Spa Difference</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We provide exceptional spa experiences with premium services and personalized care
+              Thoughtfully curated treatments, discreet service, and world-class therapists for discerning guests.
             </p>
           </div>
 
@@ -116,24 +116,24 @@ export default async function Home() {
               <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="h-8 w-8 text-amber-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Expert Care</h3>
-              <p className="text-gray-600">Our certified therapists provide personalized treatments tailored to your needs</p>
+              <h3 className="text-xl font-semibold mb-3">Accredited Therapists</h3>
+              <p className="text-gray-600">Internationally trained specialists deliver bespoke therapies calibrated to your body&apos;s needs.</p>
             </div>
 
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Leaf className="h-8 w-8 text-amber-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Natural Products</h3>
-              <p className="text-gray-600">We use only premium, organic products for all our treatments</p>
+              <h3 className="text-xl font-semibold mb-3">Botanical Formulations</h3>
+              <p className="text-gray-600">We work exclusively with ethically sourced Kenyan botanicals and clinical-grade actives.</p>
             </div>
 
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Sparkles className="h-8 w-8 text-amber-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Luxury Experience</h3>
-              <p className="text-gray-600">Immerse yourself in our tranquil environment designed for ultimate relaxation</p>
+              <h3 className="text-xl font-semibold mb-3">Serene Ambience</h3>
+              <p className="text-gray-600">Purpose-built relaxation lounges, private suites, and calming soundscapes to encourage deep stillness.</p>
             </div>
           </div>
         </div>
@@ -144,7 +144,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Signature Services</h2>
-            <p className="text-xl text-gray-600">Discover our range of premium spa treatments</p>
+            <p className="text-xl text-gray-600">Explore our considered collection of treatments tailored for holistic restoration.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -213,8 +213,8 @@ export default async function Home() {
       <section className="py-20 bg-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Visit Us Today</h2>
-            <p className="text-xl text-gray-600">Experience the ultimate in relaxation and wellness</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Plan Your Visit</h2>
+            <p className="text-xl text-gray-600">Private suites, gracious hospitality, and seamless concierge support.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -224,7 +224,7 @@ export default async function Home() {
                   <MapPin className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Address</h3>
-                    <p className="text-gray-600">123 Wellness Street, Spa District, City 12345</p>
+                    <p className="text-gray-600">Riverside Square, Westlands, Nairobi</p>
                   </div>
                 </div>
 
@@ -232,7 +232,7 @@ export default async function Home() {
                   <Phone className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Phone</h3>
-                    <p className="text-gray-600">(555) 123-4567</p>
+                    <p className="text-gray-600">+254 711 123 456</p>
                   </div>
                 </div>
 
@@ -240,7 +240,7 @@ export default async function Home() {
                   <Mail className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-600">info@goldenhandsspa.com</p>
+                    <p className="text-gray-600">concierge@goldenhandsspa.co.ke</p>
                   </div>
                 </div>
 
@@ -248,7 +248,7 @@ export default async function Home() {
                   <Clock className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Hours</h3>
-                    <p className="text-gray-600">Mon-Sun: 9:00 AM - 9:00 PM</p>
+                    <p className="text-gray-600">Daily: 08:00 - 21:00</p>
                   </div>
                 </div>
               </div>
@@ -257,13 +257,13 @@ export default async function Home() {
                 {session ? (
                   <Link href="/bookings">
                     <Button size="lg" className="bg-amber-600 hover:bg-amber-700">
-                      Book Your Appointment
+                      Reserve Your Appointment
                     </Button>
                   </Link>
                 ) : (
                   <Link href="/auth/register">
                     <Button size="lg" className="bg-amber-600 hover:bg-amber-700">
-                      Sign Up to Book
+                      Create Client Account
                     </Button>
                   </Link>
                 )}

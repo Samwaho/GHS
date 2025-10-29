@@ -9,6 +9,7 @@ import { Gift, ShoppingCart, Percent, DollarSign, Star } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import GiftVoucherPurchaseForm from '@/components/gift-vouchers/GiftVoucherPurchaseForm';
+import { formatKES } from '@/lib/currency';
 
 interface GiftVouchersClientProps {
   session: { user?: { id: string; email: string; name?: string } } | null;
@@ -92,12 +93,12 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
     } else if (template.type === 'SERVICE_SPECIFIC' && template.service) {
       return `${template.service.title}`;
     } else {
-      return `KSH ${template.value}`;
+      return formatKES(template.value);
     }
   };
 
   const getPrice = (template: { price: number }) => {
-    return template.price;
+    return formatKES(template.price);
   };
 
   if (templatesQuery.isLoading) {
@@ -154,7 +155,7 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
                     {formatValue(template)}
                   </div>
                   <div className="text-lg font-semibold text-gray-700">
-                    Price: KSH {getPrice(template)}
+                    Price: {getPrice(template)}
                   </div>
                 </div>
 

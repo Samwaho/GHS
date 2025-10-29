@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Gift, Copy, Calendar, DollarSign, Clock, ShoppingBag } from 'lucide-react';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import { formatKES } from '@/lib/currency';
 
 export default function MyGiftVouchersClient() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
@@ -60,11 +61,13 @@ export default function MyGiftVouchersClient() {
   const formatValue = (voucher: any) => {
     if (voucher.template.type === 'PERCENTAGE') {
       return `${voucher.template.value}% OFF`;
-    } else if (voucher.template.type === 'SERVICE_SPECIFIC' && voucher.template.service) {
-      return voucher.template.service.title;
-    } else {
-      return `KSH ${voucher.originalValue}`;
     }
+
+    if (voucher.template.type === 'SERVICE_SPECIFIC' && voucher.template.service) {
+      return voucher.template.service.title;
+    }
+
+    return formatKES(voucher.originalValue);
   };
 
   const isExpired = (expiresAt: string | Date) => {
@@ -148,11 +151,11 @@ export default function MyGiftVouchersClient() {
             </div>
             <div className="bg-gray-50 p-3 rounded-lg">
               <span className="font-medium text-gray-700">Price Paid:</span>
-              <p className="text-lg font-bold text-green-600 mt-1">${voucher.purchasePrice}</p>
+              <p className="text-lg font-bold text-green-600 mt-1">{formatKES(voucher.purchasePrice)}</p>
             </div>
             <div className="bg-gray-50 p-3 rounded-lg">
               <span className="font-medium text-gray-700">Remaining:</span>
-              <p className="text-lg font-bold mt-1">${voucher.remainingValue}</p>
+              <p className="text-lg font-bold mt-1">{formatKES(voucher.remainingValue)}</p>
             </div>
             <div className="bg-gray-50 p-3 rounded-lg">
               <span className="font-medium flex items-center gap-1 text-gray-700">
@@ -205,7 +208,7 @@ export default function MyGiftVouchersClient() {
                   <div key={usage.id} className="p-3 bg-gray-50 rounded-lg border text-sm">
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
                       <div className="flex-1">
-                        <p className="font-medium text-gray-900">${usage.amountUsed} used</p>
+                        <p className="font-medium text-gray-900">{formatKES(usage.amountUsed)} used</p>
                         {usage.booking && (
                           <p className="text-gray-600 text-xs sm:text-sm mt-1">
                             For: {usage.booking.service.title} at {usage.booking.branch.name}

@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import GiftVoucherTemplateForm from './GiftVoucherTemplateForm';
+import { formatKES } from '@/lib/currency';
 
 export default function GiftVouchersManager() {
   const [showTemplateForm, setShowTemplateForm] = useState(false);
@@ -147,12 +148,12 @@ export default function GiftVouchersManager() {
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <span className="font-medium text-gray-700 block">Value:</span>
                         <p className="text-lg font-bold text-primary mt-1">
-                          {template.type === 'PERCENTAGE' ? `${template.value}%` : `$${template.value}`}
+                          {template.type === 'PERCENTAGE' ? `${template.value}%` : formatKES(template.value)}
                         </p>
                       </div>
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <span className="font-medium text-gray-700 block">Price:</span>
-                        <p className="text-lg font-bold text-green-600 mt-1">${template.price}</p>
+                        <p className="text-lg font-bold text-green-600 mt-1">{formatKES(template.price)}</p>
                       </div>
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <span className="font-medium text-gray-700 block">Validity:</span>
@@ -232,7 +233,9 @@ export default function GiftVouchersManager() {
                       </div>
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <span className="font-medium text-gray-700 block">Value:</span>
-                        <p className="text-sm mt-1">${voucher.remainingValue} / ${voucher.originalValue}</p>
+                        <p className="text-sm mt-1">
+                          {formatKES(voucher.remainingValue)} / {formatKES(voucher.originalValue)}
+                        </p>
                       </div>
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <span className="font-medium text-gray-700 block">Expires:</span>
@@ -288,7 +291,7 @@ export default function GiftVouchersManager() {
                       </div>
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <span className="font-medium text-gray-700 block">Amount Used:</span>
-                        <p className="text-lg font-bold text-primary mt-1">${usage.amountUsed}</p>
+                        <p className="text-lg font-bold text-primary mt-1">{formatKES(usage.amountUsed)}</p>
                       </div>
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <span className="font-medium text-gray-700 block">Used For:</span>

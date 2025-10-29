@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { toast } from 'sonner';
 import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
 import { buildUploadcareUrl, imageTransformations } from '@/lib/uploadcare';
+import { formatKES } from '@/lib/currency';
 
 interface GiftVoucherTemplateFormProps {
   template?: {
@@ -163,7 +164,7 @@ export default function GiftVoucherTemplateForm({ template, onClose, onSuccess }
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="space-y-3">
               <Label htmlFor="value" className="text-base font-medium">
-                Value * {formData.type === 'PERCENTAGE' ? '(%)' : '($)'}
+                Value * {formData.type === 'PERCENTAGE' ? '(%)' : '(KES)'}
               </Label>
               <Input
                 id="value"
@@ -179,7 +180,7 @@ export default function GiftVoucherTemplateForm({ template, onClose, onSuccess }
             </div>
 
             <div className="space-y-3">
-              <Label htmlFor="price" className="text-base font-medium">Price * ($)</Label>
+              <Label htmlFor="price" className="text-base font-medium">Price * (KES)</Label>
               <Input
                 id="price"
                 type="number"
@@ -216,7 +217,7 @@ export default function GiftVoucherTemplateForm({ template, onClose, onSuccess }
                 <SelectContent>
                   {servicesQuery.data?.map((service: { id: string; title: string; basePrice: number }) => (
                     <SelectItem key={service.id} value={service.id}>
-                      {service.title} - ${service.basePrice}
+                      {service.title} - {formatKES(service.basePrice)}
                     </SelectItem>
                   ))}
                 </SelectContent>

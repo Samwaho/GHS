@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Gift, DollarSign, Percent, Star, User, Mail, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
+import { formatKES } from '@/lib/currency';
 
 interface GiftVoucherPurchaseFormProps {
   template: any;
@@ -30,9 +31,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
 
   const purchaseMutation = useMutation(t.user.purchaseGiftVoucher.mutationOptions());
 
-  const getPrice = () => {
-    return template.price;
-  };
+  const getFormattedPrice = () => formatKES(template.price);
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -67,7 +66,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
     } else if (template.type === 'SERVICE_SPECIFIC' && template.service) {
       return template.service.title;
     } else {
-      return `KSH ${template.value}`;
+      return formatKES(template.value);
     }
   };
 
@@ -127,7 +126,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
                 </div>
                 <div>
                   <span className="font-medium">Price:</span>
-                  <p className="text-lg font-bold">KSH {getPrice()}</p>
+                  <p className="text-lg font-bold">{getFormattedPrice()}</p>
                 </div>
                 <div>
                   <span className="font-medium">Valid for:</span>
@@ -226,7 +225,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
                   </div>
                   <div className="flex justify-between font-bold text-lg border-t pt-2">
                     <span>Total:</span>
-                    <span>KSH {getPrice()}</span>
+                    <span>{getFormattedPrice()}</span>
                   </div>
                 </div>
               </CardContent>
@@ -241,7 +240,7 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
                 disabled={purchaseMutation.isPending}
                 className="min-w-[120px]"
               >
-                {purchaseMutation.isPending ? 'Processing...' : `Purchase $${getPrice()}`}
+                {purchaseMutation.isPending ? 'Processing...' : `Purchase ${getFormattedPrice()}`}
               </Button>
             </div>
           </form>
