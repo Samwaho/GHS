@@ -26,6 +26,10 @@ import {
   sendGiftVoucherDeliveryEmail,
 } from "@/lib/mail";
 import z from "zod";
+import {
+  BOOKING_MIN_LEAD_TIME_MINUTES,
+} from "@/lib/booking-config";
+import { addDays, addMinutes, startOfDay } from "date-fns";
 
 // Helper function to generate unique voucher codes
 function generateVoucherCode(): string {
@@ -261,7 +265,7 @@ export const userRouter = createTRPCRouter({
           branch: true,
           branchService: true
         },
-        orderBy: { scheduledAt: 'desc' }
+        orderBy: { scheduledAt: 'asc' }
       });
     }),
 
@@ -322,7 +326,7 @@ export const userRouter = createTRPCRouter({
       }
 
       return updatedBooking;
-    }),
+  }),
 
   // Create a new booking
   createBooking: protectedProcedure
@@ -337,122 +341,224 @@ export const userRouter = createTRPCRouter({
     }))
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user?.id;
+      const userEmail = ctx.session.user?.email ?? null;
       if (!userId) {
         throw new TRPCError({ code: 'UNAUTHORIZED', message: 'User not found' });
       }
 
-      // Check if branch service exists
-      const branchService = await prisma.branchService.findFirst({
-        where: {
-          serviceId: input.serviceId,
-          branchId: input.branchId,
-          isAvailable: true
-        }
-      });
-
-      if (!branchService) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Service not available at this branch' });
+      const scheduledAt = new Date(input.scheduledAt);
+      if (Number.isNaN(scheduledAt.getTime())) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid booking date selected.' });
       }
 
-      let finalPrice = branchService.price;
-      let giftVoucher = null;
-      let voucherUsageAmount = 0;
-
-      // Handle gift voucher if provided
-      if (input.giftVoucherCode) {
-        giftVoucher = await prisma.giftVoucher.findUnique({
-          where: { code: input.giftVoucherCode },
-          include: { template: { include: { service: true } } }
+      const minimumAllowedTime = addMinutes(new Date(), BOOKING_MIN_LEAD_TIME_MINUTES);
+      if (scheduledAt < minimumAllowedTime) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `Appointments must be scheduled at least ${BOOKING_MIN_LEAD_TIME_MINUTES / 60} hours in advance.`,
         });
-
-        if (!giftVoucher) {
-          throw new TRPCError({ code: 'NOT_FOUND', message: 'Gift voucher not found' });
-        }
-
-        if (giftVoucher.status !== 'ACTIVE') {
-          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher is not active' });
-        }
-
-        if (giftVoucher.expiresAt < new Date()) {
-          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has expired' });
-        }
-
-        if (giftVoucher.remainingValue <= 0) {
-          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has no remaining value' });
-        }
-
-        // Check if voucher is service-specific
-        if (giftVoucher.template.type === 'SERVICE_SPECIFIC' && giftVoucher.template.serviceId !== input.serviceId) {
-          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher is not valid for this service' });
-        }
-
-        // Calculate discount
-        if (giftVoucher.template.type === 'FIXED_AMOUNT') {
-          voucherUsageAmount = Math.min(giftVoucher.remainingValue, finalPrice);
-        } else if (giftVoucher.template.type === 'PERCENTAGE') {
-          voucherUsageAmount = Math.min(giftVoucher.remainingValue, (finalPrice * giftVoucher.template.value) / 100);
-        } else if (giftVoucher.template.type === 'SERVICE_SPECIFIC') {
-          voucherUsageAmount = Math.min(giftVoucher.remainingValue, finalPrice);
-        }
-
-        finalPrice = Math.max(0, finalPrice - voucherUsageAmount);
       }
 
-      // Create the booking
-      const booking = await prisma.booking.create({
-        data: {
-          userId,
-          serviceId: input.serviceId,
-          branchId: input.branchId,
-          branchServiceId: branchService.id,
-          scheduledAt: new Date(input.scheduledAt),
-          totalPrice: finalPrice,
-          notes: input.notes,
-          attachmentUrl: input.attachmentUrl,
-          attachmentUuid: input.attachmentUuid,
-          status: 'PENDING'
-        },
-        include: {
-          service: {
-            include: {
-              category: true
-            }
+      const booking = await prisma.$transaction(async (tx) => {
+        const branchService = await tx.branchService.findFirst({
+          where: {
+            serviceId: input.serviceId,
+            branchId: input.branchId,
+            isAvailable: true,
           },
-          branch: true,
-          branchService: true,
-          user: {
-            select: {
-              name: true,
-              email: true
-            }
-          }
+          include: {
+            service: {
+              select: {
+                duration: true,
+                status: true,
+                title: true,
+              },
+            },
+            branch: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        });
+
+        if (!branchService || !branchService.service || branchService.service.status !== 'ACTIVE') {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Selected treatment is currently unavailable at this branch.',
+          });
         }
+
+        const serviceDuration = branchService.service.duration;
+        if (!serviceDuration || serviceDuration <= 0) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'Service duration is not configured correctly. Please contact support.',
+          });
+        }
+
+        const requestedEndTime = addMinutes(scheduledAt, serviceDuration);
+        const dayStart = startOfDay(scheduledAt);
+        const dayEnd = addDays(dayStart, 1);
+
+        const existingBookings = await tx.booking.findMany({
+          where: {
+            branchServiceId: branchService.id,
+            status: { in: ['PENDING', 'CONFIRMED'] },
+            scheduledAt: {
+              gte: dayStart,
+              lt: dayEnd,
+            },
+          },
+          include: {
+            service: {
+              select: {
+                duration: true,
+              },
+            },
+          },
+        });
+
+        const hasConflict = existingBookings.some((existing) => {
+          const existingDuration = existing.service?.duration ?? serviceDuration;
+          const existingEnd = addMinutes(existing.scheduledAt, existingDuration);
+          return scheduledAt < existingEnd && requestedEndTime > existing.scheduledAt;
+        });
+
+        if (hasConflict) {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'Selected time is no longer available. Please choose another slot.',
+          });
+        }
+
+        let finalPrice = branchService.price;
+        let voucherUsageAmount = 0;
+        let voucherToUpdate: { id: string; remainingValue: number } | null = null;
+
+        if (input.giftVoucherCode) {
+          const giftVoucher = await tx.giftVoucher.findUnique({
+            where: { code: input.giftVoucherCode },
+            include: { template: { include: { service: true } } },
+          });
+
+          if (!giftVoucher) {
+            throw new TRPCError({ code: 'NOT_FOUND', message: 'Gift voucher not found.' });
+          }
+
+          const isVoucherOwnedByUser =
+            giftVoucher.purchasedById === userId ||
+            giftVoucher.recipientId === userId ||
+            (!!giftVoucher.recipientEmail &&
+              !!userEmail &&
+              giftVoucher.recipientEmail.toLowerCase() === userEmail.toLowerCase());
+
+          if (!isVoucherOwnedByUser) {
+            throw new TRPCError({
+              code: 'FORBIDDEN',
+              message: 'This gift voucher is not associated with your account.',
+            });
+          }
+
+          if (giftVoucher.status !== 'ACTIVE') {
+            throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher is not active.' });
+          }
+
+          if (giftVoucher.expiresAt < new Date()) {
+            throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has expired.' });
+          }
+
+          if (giftVoucher.remainingValue <= 0) {
+            throw new TRPCError({ code: 'BAD_REQUEST', message: 'Gift voucher has no remaining value.' });
+          }
+
+          if (
+            giftVoucher.template.type === 'SERVICE_SPECIFIC' &&
+            giftVoucher.template.serviceId !== input.serviceId
+          ) {
+            throw new TRPCError({
+              code: 'BAD_REQUEST',
+              message: 'Gift voucher is not valid for this treatment.',
+            });
+          }
+
+          if (giftVoucher.template.type === 'FIXED_AMOUNT') {
+            voucherUsageAmount = Math.min(giftVoucher.remainingValue, finalPrice);
+          } else if (giftVoucher.template.type === 'PERCENTAGE') {
+            voucherUsageAmount = Math.min(
+              giftVoucher.remainingValue,
+              (finalPrice * giftVoucher.template.value) / 100
+            );
+          } else if (giftVoucher.template.type === 'SERVICE_SPECIFIC') {
+            voucherUsageAmount = Math.min(giftVoucher.remainingValue, finalPrice);
+          }
+
+          finalPrice = Math.max(0, finalPrice - voucherUsageAmount);
+          finalPrice = Math.round(finalPrice * 100) / 100;
+          const roundedRemainingValue =
+            Math.round((giftVoucher.remainingValue - voucherUsageAmount) * 100) / 100;
+          voucherToUpdate = {
+            id: giftVoucher.id,
+            remainingValue: roundedRemainingValue,
+          };
+        }
+
+        const bookingRecord = await tx.booking.create({
+          data: {
+            userId,
+            serviceId: input.serviceId,
+            branchId: input.branchId,
+            branchServiceId: branchService.id,
+            scheduledAt,
+            totalPrice: Math.round(finalPrice * 100) / 100,
+            notes: input.notes,
+            attachmentUrl: input.attachmentUrl,
+            attachmentUuid: input.attachmentUuid,
+            status: 'PENDING',
+          },
+          include: {
+            service: {
+              include: {
+                category: true,
+              },
+            },
+            branch: true,
+            branchService: true,
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
+
+        if (input.giftVoucherCode && voucherToUpdate) {
+          if (voucherUsageAmount > 0) {
+            await tx.giftVoucherUsage.create({
+              data: {
+                voucherId: voucherToUpdate.id,
+                bookingId: bookingRecord.id,
+                amountUsed: voucherUsageAmount,
+                notes: `Used for booking ${bookingRecord.id}`,
+              },
+            });
+          }
+
+          await tx.giftVoucher.update({
+            where: { id: voucherToUpdate.id },
+            data: {
+              remainingValue: Math.max(0, voucherToUpdate.remainingValue),
+              status: voucherToUpdate.remainingValue <= 0 ? 'USED' : 'ACTIVE',
+              usedAt: voucherToUpdate.remainingValue <= 0 ? new Date() : undefined,
+            },
+          });
+        }
+
+        return bookingRecord;
       });
 
-      // Record gift voucher usage if applicable
-      if (giftVoucher && voucherUsageAmount > 0) {
-        await prisma.giftVoucherUsage.create({
-          data: {
-            voucherId: giftVoucher.id,
-            bookingId: booking.id,
-            amountUsed: voucherUsageAmount,
-            notes: `Used for booking ${booking.id}`
-          }
-        });
-
-        // Update voucher remaining value
-        const newRemainingValue = giftVoucher.remainingValue - voucherUsageAmount;
-        await prisma.giftVoucher.update({
-          where: { id: giftVoucher.id },
-          data: {
-            remainingValue: newRemainingValue,
-            status: newRemainingValue <= 0 ? 'USED' : 'ACTIVE',
-            usedAt: newRemainingValue <= 0 ? new Date() : undefined
-          }
-        });
-      }
-
-      // Send booking confirmation email
+      // Send booking confirmation email outside transaction
       if (booking.user?.email && booking.user?.name) {
         await sendBookingConfirmationEmail(
           booking.user.email,
@@ -463,7 +569,7 @@ export const userRouter = createTRPCRouter({
             branchName: booking.branch.name,
             scheduledAt: booking.scheduledAt.toISOString(),
             totalPrice: booking.totalPrice,
-            notes: booking.notes || undefined
+            notes: booking.notes || undefined,
           }
         );
       }

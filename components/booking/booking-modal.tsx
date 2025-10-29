@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useTRPC } from '@/trpc/client';
 import { useQuery, useMutation } from '@tanstack/react-query';
@@ -16,6 +16,10 @@ import { toast } from 'sonner';
 import { format, addDays } from 'date-fns';
 import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
 import { formatKES } from '@/lib/currency';
+import {
+  BOOKING_LOOKAHEAD_DAYS,
+  BOOKING_MIN_LEAD_TIME_MINUTES,
+} from '@/lib/booking-config';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -24,12 +28,6 @@ interface BookingModalProps {
   serviceTitle: string;
   serviceDuration: number;
 }
-
-const timeSlots = [
-  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-  '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-  '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'
-];
 
 export default function BookingModal({ 
   isOpen, 
@@ -49,24 +47,59 @@ export default function BookingModal({
 
   const t = useTRPC();
   const { data: branches } = useQuery(t.public.getBranches.queryOptions());
-  const { data: branchServices } = useQuery({
+  const { data: branchServices, isFetching: branchServicesLoading } = useQuery({
     ...t.public.getBranchServices.queryOptions({ branchId: selectedBranch }),
     enabled: !!selectedBranch,
+  });
+  const { data: availabilityData, isFetching: availabilityLoading } = useQuery({
+    ...t.public.getAvailableBookingSlots.queryOptions({
+      branchId: selectedBranch,
+      serviceId,
+      date: selectedDate,
+    }),
+    enabled: Boolean(selectedBranch && selectedDate),
+    staleTime: 60 * 1000,
   });
 
   const createBookingMutation = useMutation(t.user.createBooking.mutationOptions());
   
-  const branchesList = (branches as any[]) ?? [];
-  const currentService = (branchServices as any[])?.find((bs: any) => bs.service.id === serviceId);
+  type Branch = NonNullable<typeof branches>[number];
+  type BranchService = NonNullable<typeof branchServices>[number];
+
+  const branchesList = branches ?? [];
+  const branchServicesList = branchServices ?? [];
+  const currentService = branchServicesList.find((branchService: BranchService) => branchService.service.id === serviceId);
+  const displayedDuration = currentService?.service?.duration ?? serviceDuration;
+  const showServiceUnavailable = selectedBranch && !branchServicesLoading && !currentService;
+  const availableSlots = useMemo(
+    () => availabilityData?.availableSlots ?? [],
+    [availabilityData]
+  );
+  const fullyBooked = availabilityData?.isFullyBooked && !availabilityLoading;
+  const canSubmit =
+    !!currentService &&
+    !!selectedBranch &&
+    !!selectedDate &&
+    !!selectedTime;
   
-  // Generate next 30 days for date selection
-  const availableDates = Array.from({ length: 30 }, (_, i) => {
-    const date = addDays(new Date(), i + 1);
+  // Generate next set of days for date selection
+  const availableDates = useMemo(() => Array.from({ length: BOOKING_LOOKAHEAD_DAYS }, (_, i) => {
+    const date = addDays(new Date(), i);
     return {
       value: format(date, 'yyyy-MM-dd'),
       label: format(date, 'EEEE, MMMM d')
     };
-  });
+  }), []);
+
+  useEffect(() => {
+    setSelectedTime('');
+  }, [selectedBranch, selectedDate]);
+
+  useEffect(() => {
+    if (selectedTime && !availableSlots.includes(selectedTime)) {
+      setSelectedTime('');
+    }
+  }, [availableSlots, selectedTime]);
 
   const handleFileUpload = (result: { cdnUrl: string; uuid: string }) => {
     setAttachmentUrl(result.cdnUrl);
@@ -85,6 +118,11 @@ export default function BookingModal({
     
     if (!selectedBranch || !selectedDate || !selectedTime) {
       toast.error('Please fill in all required fields');
+      return;
+    }
+
+    if (!currentService) {
+      toast.error('This treatment is not available at the selected branch.');
       return;
     }
     
@@ -113,8 +151,9 @@ export default function BookingModal({
       setAttachmentUrl('');
       setAttachmentUuid('');
       setGiftVoucherCode('');
-    } catch {
-      toast.error('Failed to create booking');
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Failed to create booking';
+      toast.error(message);
     }
   };
 
@@ -147,7 +186,7 @@ export default function BookingModal({
                 <SelectValue placeholder="Choose a location" />
               </SelectTrigger>
               <SelectContent>
-                {branchesList.map((branch: any) => (
+                {branchesList.map((branch: Branch) => (
                   <SelectItem key={branch.id} value={branch.id}>
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-2" />
@@ -159,6 +198,12 @@ export default function BookingModal({
             </Select>
           </div>
 
+          {showServiceUnavailable && (
+            <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+              This treatment is not currently offered at the selected branch. Please choose a different branch.
+            </div>
+          )}
+
           {currentService && (
             <div className="bg-amber-50 p-3 rounded-lg">
               <div className="flex items-center justify-between">
@@ -168,10 +213,9 @@ export default function BookingModal({
                 </div>
                 <div className="flex items-center text-amber-700">
                   <Clock className="h-4 w-4 mr-1" />
-                  <span>{serviceDuration} minutes</span>
+                  <span>{displayedDuration} minutes</span>
                 </div>
               </div>
-
             </div>
           )}
 
@@ -212,20 +256,37 @@ export default function BookingModal({
           <div className="space-y-2">
             <Label htmlFor="time">Select Time *</Label>
             <Select value={selectedTime} onValueChange={setSelectedTime}>
-              <SelectTrigger>
-                <SelectValue placeholder="Choose a time" />
+              <SelectTrigger disabled={!selectedBranch || !selectedDate}>
+                <SelectValue placeholder={!selectedBranch || !selectedDate ? 'Select branch & date first' : 'Choose a time'} />
               </SelectTrigger>
               <SelectContent>
-                {timeSlots.map((time) => (
-                  <SelectItem key={time} value={time}>
-                    <div className="flex items-center">
-                      <Clock className="h-4 w-4 mr-2" />
-                      {time}
-                    </div>
+                {!selectedBranch || !selectedDate ? (
+                  <SelectItem value="placeholder" disabled>
+                    Select a branch and date to view availability
                   </SelectItem>
-                ))}
+                ) : availabilityLoading ? (
+                  <SelectItem value="loading" disabled>
+                    Checking availability...
+                  </SelectItem>
+                ) : availableSlots.length === 0 ? (
+                  <SelectItem value="unavailable" disabled>
+                    {fullyBooked ? 'All appointments are booked for this day' : 'No available slots found'}
+                  </SelectItem>
+                ) : (
+                  availableSlots.map((time) => (
+                    <SelectItem key={time} value={time}>
+                      <div className="flex items-center">
+                        <Clock className="h-4 w-4 mr-2" />
+                        {time}
+                      </div>
+                    </SelectItem>
+                  ))
+                )}
               </SelectContent>
             </Select>
+            <p className="text-xs text-muted-foreground">
+              Appointments must be booked at least {BOOKING_MIN_LEAD_TIME_MINUTES / 60} hours in advance.
+            </p>
           </div>
 
           <div className="space-y-2">
@@ -264,8 +325,8 @@ export default function BookingModal({
             </Button>
             <Button
               type="submit"
-              disabled={createBookingMutation.isPending}
-              className="flex-1 bg-amber-600 hover:bg-amber-700"
+              disabled={createBookingMutation.isPending || !canSubmit}
+              className="flex-1 bg-amber-600 hover:bg-amber-700 disabled:opacity-60"
             >
               {createBookingMutation.isPending ? 'Booking...' : 'Book Now'}
             </Button>

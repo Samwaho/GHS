@@ -17,7 +17,12 @@ import { formatKES } from '@/lib/currency';
 
 export default function ServicesManager() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  type ServiceItem = { id: string; title: string; description?: string | null; duration: number; basePrice: number; categoryId: string; status: 'ACTIVE' | 'INACTIVE'; image?: string | null; isPopular: boolean; category?: any; _count?: any; createdBy?: any; };
+  const t = useTRPC();
+  const servicesQuery = useQuery(t.admin.getServices.queryOptions());
+  const categoriesQuery = useQuery(t.admin.getCategories.queryOptions());
+
+  type ServiceItem = NonNullable<typeof servicesQuery.data>[number];
+
   const [editingService, setEditingService] = useState<ServiceItem | null>(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -30,11 +35,8 @@ export default function ServicesManager() {
     isPopular: false,
   });
 
-  const t = useTRPC();
-  const { data: services, refetch } = useQuery(t.admin.getServices.queryOptions());
-  const { data: categories } = useQuery(t.admin.getCategories.queryOptions());
-  const servicesList = services ?? [];
-  const categoriesList = categories ?? [];
+  const servicesList = servicesQuery.data ?? [];
+  const categoriesList = categoriesQuery.data ?? [];
   const createMutation = useMutation(t.admin.createService.mutationOptions());
   const updateMutation = useMutation(t.admin.updateService.mutationOptions());
   const deleteMutation = useMutation(t.admin.deleteService.mutationOptions());
@@ -52,7 +54,7 @@ export default function ServicesManager() {
       setIsDialogOpen(false);
       setEditingService(null);
       resetForm();
-      refetch();
+      servicesQuery.refetch();
     } catch {
       toast.error('Something went wrong');
     }
@@ -91,7 +93,7 @@ export default function ServicesManager() {
       try {
         await deleteMutation.mutateAsync({ id });
         toast.success('Service deleted successfully');
-        refetch();
+        servicesQuery.refetch();
       } catch {
         toast.error('Failed to delete service');
       }

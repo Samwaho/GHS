@@ -10,12 +10,23 @@ import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Gift, DollarSign, Percent, Star, User, Mail, MessageSquare } from 'lucide-react';
+import { Gift, DollarSign, Percent, Star, User, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
 import { formatKES } from '@/lib/currency';
 
+type VoucherTemplate = {
+  id: string;
+  name: string;
+  description?: string | null;
+  type: 'FIXED_AMOUNT' | 'PERCENTAGE' | 'SERVICE_SPECIFIC';
+  value: number;
+  price: number;
+  validityDays: number;
+  service?: { title: string } | null;
+};
+
 interface GiftVoucherPurchaseFormProps {
-  template: any;
+  template: VoucherTemplate;
   onClose: () => void;
   onSuccess: () => void;
 }
@@ -84,12 +95,12 @@ export default function GiftVoucherPurchaseForm({ template, onClose, onSuccess }
       await purchaseMutation.mutateAsync(purchaseData);
       toast.success('Gift voucher purchased successfully!');
       onSuccess();
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to purchase gift voucher');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'Failed to purchase gift voucher');
     }
   };
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = <K extends keyof typeof formData>(field: K, value: (typeof formData)[K]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

@@ -10,18 +10,20 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import GiftVoucherPurchaseForm from '@/components/gift-vouchers/GiftVoucherPurchaseForm';
 import { formatKES } from '@/lib/currency';
+import type { Session } from 'next-auth';
 
 interface GiftVouchersClientProps {
-  session: { user?: { id: string; email: string; name?: string } } | null;
+  session: Session | null;
 }
 
 export default function GiftVouchersClient({ session }: GiftVouchersClientProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<{
     id: string;
     name: string;
-    type: string;
+    type: 'FIXED_AMOUNT' | 'PERCENTAGE' | 'SERVICE_SPECIFIC';
     value: number;
     price: number;
+    validityDays: number;
     service?: { title: string } | null;
     maxUsageCount?: number | null;
     currentUsageCount?: number | null;
@@ -35,9 +37,10 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
   const handlePurchase = (template: {
     id: string;
     name: string;
-    type: string;
+    type: 'FIXED_AMOUNT' | 'PERCENTAGE' | 'SERVICE_SPECIFIC';
     value: number;
     price: number;
+    validityDays: number;
     service?: { title: string } | null;
     maxUsageCount?: number | null;
     currentUsageCount?: number | null;

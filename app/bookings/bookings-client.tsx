@@ -17,9 +17,10 @@ type BookingStatus = 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED';
 
 interface UserBooking {
   id: string;
-  scheduledAt: Date;
+  scheduledAt: string | Date;
   status: BookingStatus;
   notes: string | null;
+  adminNotes: string | null;
   totalPrice: number;
   service: {
     id: string;
@@ -139,6 +140,14 @@ export default function BookingsClient() {
               <div className="bg-gray-50 p-3 rounded-lg">
                 <p className="text-sm text-gray-600">
                   <strong>Notes:</strong> {booking.notes}
+                </p>
+              </div>
+            )}
+
+            {booking.adminNotes && (
+              <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
+                <p className="text-sm text-amber-900">
+                  <strong>Spa concierge update:</strong> {booking.adminNotes}
                 </p>
               </div>
             )}

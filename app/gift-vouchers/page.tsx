@@ -1,7 +1,7 @@
-import { auth } from '@/auth';
 import { Navigation } from '@/components/ui/navigation';
 import { Footer } from '@/components/ui/footer';
 import GiftVouchersClient from './gift-vouchers-client';
+import { auth } from '@/auth';
 
 export default async function GiftVouchersPage() {
   const session = await auth();

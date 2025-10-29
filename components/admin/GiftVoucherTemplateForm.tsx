@@ -12,22 +12,23 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { toast } from 'sonner';
 import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
 import { buildUploadcareUrl, imageTransformations } from '@/lib/uploadcare';
+import Image from 'next/image';
 import { formatKES } from '@/lib/currency';
 
 interface GiftVoucherTemplateFormProps {
   template?: {
     id: string;
     name: string;
-    description: string;
-    type: string;
+    description?: string | null;
+    type: 'FIXED_AMOUNT' | 'PERCENTAGE' | 'SERVICE_SPECIFIC';
     value: number;
     price: number;
-    serviceId?: string;
+    serviceId?: string | null;
     isActive: boolean;
     validityDays: number;
-    maxUsageCount?: number;
-    imageUrl?: string;
-    imageUuid?: string;
+    maxUsageCount?: number | null;
+    imageUrl?: string | null;
+    imageUuid?: string | null;
   };
   onClose: () => void;
   onSuccess: () => void;
@@ -252,10 +253,13 @@ export default function GiftVoucherTemplateForm({ template, onClose, onSuccess }
             {formData.imageUrl && (
               <div className="flex justify-center pt-4">
                 <div className="relative">
-                  <img
+                  <Image
                     src={buildUploadcareUrl(formData.imageUuid || '', imageTransformations.thumbnail)}
                     alt="Preview"
+                    width={224}
+                    height={160}
                     className="w-56 h-40 object-cover rounded-lg border-2 border-gray-300 shadow-lg"
+                    unoptimized
                   />
                   <div className="absolute -top-3 -right-3 bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shadow-md">
                     ✓

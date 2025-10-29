@@ -8,6 +8,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import Image from 'next/image';
 
 interface GalleryItem {
   id: string;
@@ -90,12 +91,14 @@ export default function GalleryGrid() {
             onClick={() => openLightbox(item, index)}
           >
             <CardContent className="p-0">
-              <div className="aspect-square overflow-hidden">
-                <img
+              <div className="aspect-square overflow-hidden relative">
+                <Image
                   src={buildUploadcareUrl(item.imageUuid || '', imageTransformations.gallery)}
                   alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
+                  unoptimized
                 />
               </div>
               <div className="p-4">
@@ -152,11 +155,13 @@ export default function GalleryGrid() {
             {/* Image */}
             {selectedImage && (
               <div className="flex flex-col">
-                <div className="relative">
-                  <img
+                <div className="relative min-h-[300px]">
+                  <Image
                     src={buildUploadcareUrl(selectedImage.imageUuid || '', imageTransformations.large)}
                     alt={selectedImage.title}
-                    className="w-full max-h-[80vh] object-contain"
+                    fill
+                    className="object-contain max-h-[80vh]"
+                    unoptimized
                   />
                 </div>
                 

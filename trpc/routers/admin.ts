@@ -200,7 +200,10 @@ export const adminRouter = createTRPCRouter({
         service: { select: { title: true } },
         branch: { select: { name: true } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: [
+        { scheduledAt: 'asc' },
+        { createdAt: 'desc' },
+      ],
     });
   }),
 

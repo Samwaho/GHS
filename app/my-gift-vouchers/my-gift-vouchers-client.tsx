@@ -58,7 +58,10 @@ export default function MyGiftVouchersClient() {
     return <Badge variant={variants[type] || 'outline'}>{labels[type] || type}</Badge>;
   };
 
-  const formatValue = (voucher: any) => {
+  type Voucher = NonNullable<typeof vouchersQuery.data>[number];
+  type VoucherUsage = Voucher["usages"][number];
+
+  const formatValue = (voucher: Voucher) => {
     if (voucher.template.type === 'PERCENTAGE') {
       return `${voucher.template.value}% OFF`;
     }
@@ -110,7 +113,7 @@ export default function MyGiftVouchersClient() {
   const expiredVouchers = vouchersQuery.data.filter(v => v.status === 'EXPIRED' || isExpired(v.expiresAt));
   const cancelledVouchers = vouchersQuery.data.filter(v => v.status === 'CANCELLED');
 
-  const renderVoucherCard = (voucher: any) => (
+  const renderVoucherCard = (voucher: Voucher) => (
     <Card key={voucher.id} className="relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
       <CardHeader className="pb-3">
         <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
@@ -204,7 +207,7 @@ export default function MyGiftVouchersClient() {
             <div className="space-y-3">
               <h4 className="font-medium text-sm text-gray-800">Usage History:</h4>
               <div className="space-y-2">
-                {voucher.usages.map((usage: any) => (
+                {voucher.usages.map((usage: VoucherUsage) => (
                   <div key={usage.id} className="p-3 bg-gray-50 rounded-lg border text-sm">
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
                       <div className="flex-1">

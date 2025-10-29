@@ -15,6 +15,7 @@ import { useTRPC } from '@/trpc/client';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
 import { buildUploadcareUrl, imageTransformations } from '@/lib/uploadcare';
+import Image from 'next/image';
 
 interface GalleryItem {
   id: string;
@@ -61,7 +62,6 @@ export default function GalleryManager() {
   const createMutation = useMutation(t.admin.createGalleryItem.mutationOptions());
   const updateMutation = useMutation(t.admin.updateGalleryItem.mutationOptions());
   const deleteMutation = useMutation(t.admin.deleteGalleryItem.mutationOptions());
-  const reorderMutation = useMutation(t.admin.reorderGalleryItems.mutationOptions());
 
   const resetForm = () => {
     setFormData({
@@ -159,27 +159,6 @@ export default function GalleryManager() {
     }));
   };
 
-  const moveItem = async (fromIndex: number, toIndex: number) => {
-    if (!galleryItems) return;
-
-    const items = [...galleryItems];
-    const [movedItem] = items.splice(fromIndex, 1);
-    items.splice(toIndex, 0, movedItem);
-
-    const reorderData = items.map((item, index) => ({
-      id: item.id,
-      order: index,
-    }));
-
-    try {
-      await reorderMutation.mutateAsync(reorderData);
-      toast.success('Gallery items reordered successfully');
-      refetch();
-    } catch {
-      toast.error('Failed to reorder gallery items');
-    }
-  };
-
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -224,10 +203,13 @@ export default function GalleryManager() {
                 </div>
                 {formData.imageUrl && (
                   <div className="mt-2">
-                    <img
+                    <Image
                       src={buildUploadcareUrl(formData.imageUuid || '', imageTransformations.thumbnail)}
                       alt="Preview"
+                      width={128}
+                      height={96}
                       className="w-32 h-24 object-cover rounded"
+                      unoptimized
                     />
                   </div>
                 )}
@@ -261,10 +243,13 @@ export default function GalleryManager() {
                 <GripVertical className="w-5 h-5 text-gray-400" />
               </div>
               <div className="flex-shrink-0">
-                <img
+                <Image
                   src={buildUploadcareUrl(item.imageUuid || '', imageTransformations.thumbnail)}
                   alt={item.title}
+                  width={80}
+                  height={64}
                   className="w-20 h-16 object-cover rounded"
+                  unoptimized
                 />
               </div>
               <div className="flex-1">
@@ -346,10 +331,13 @@ export default function GalleryManager() {
               </div>
               {formData.imageUrl && (
                 <div className="mt-2">
-                  <img
+                  <Image
                     src={buildUploadcareUrl(formData.imageUuid || '', imageTransformations.thumbnail)}
                     alt="Preview"
+                    width={128}
+                    height={96}
                     className="w-32 h-24 object-cover rounded"
+                    unoptimized
                   />
                 </div>
               )}

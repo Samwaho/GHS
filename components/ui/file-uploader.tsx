@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Upload, X, Image as ImageIcon, FileImage } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 interface FileUploaderProps {
   onFileSelect: (file: File) => void;
@@ -102,13 +103,16 @@ export function FileUploader({
         <Card className="relative">
           <CardContent className={compact ? "p-2" : "p-4"}>
             <div className="relative">
-              <img
+              <Image
                 src={preview}
                 alt="Preview"
+                width={600}
+                height={compact ? 128 : 192}
                 className={cn(
                   "w-full object-cover rounded-lg",
                   compact ? "h-32" : "h-48"
                 )}
+                unoptimized
               />
               <Button
                 type="button"

@@ -13,27 +13,17 @@ import { formatKES } from '@/lib/currency';
 
 export default function GiftVouchersManager() {
   const [showTemplateForm, setShowTemplateForm] = useState(false);
-  const [editingTemplate, setEditingTemplate] = useState<{
-    id: string;
-    name: string;
-    description: string;
-    type: string;
-    value: number;
-    price: number;
-    serviceId?: string;
-    isActive: boolean;
-    validityDays: number;
-    maxUsageCount?: number;
-    imageUrl?: string;
-    imageUuid?: string;
-  } | null>(null);
-
   const t = useTRPC();
 
-  // Queries
   const templatesQuery = useQuery(t.admin.getGiftVoucherTemplates.queryOptions());
   const vouchersQuery = useQuery(t.admin.getGiftVouchers.queryOptions());
   const usagesQuery = useQuery(t.admin.getGiftVoucherUsages.queryOptions());
+
+  type Template = NonNullable<typeof templatesQuery.data>[number];
+  type Voucher = NonNullable<typeof vouchersQuery.data>[number];
+  type VoucherUsage = NonNullable<typeof usagesQuery.data>[number];
+
+  const [editingTemplate, setEditingTemplate] = useState<Template | null>(null);
 
   // Mutations
   const deleteTemplateMutation = useMutation(t.admin.deleteGiftVoucherTemplate.mutationOptions());
@@ -51,20 +41,7 @@ export default function GiftVouchersManager() {
     }
   };
 
-  const handleEditTemplate = (template: {
-    id: string;
-    name: string;
-    description: string;
-    type: string;
-    value: number;
-    price: number;
-    serviceId?: string;
-    isActive: boolean;
-    validityDays: number;
-    maxUsageCount?: number;
-    imageUrl?: string;
-    imageUuid?: string;
-  }) => {
+  const handleEditTemplate = (template: Template) => {
     setEditingTemplate(template);
     setShowTemplateForm(true);
   };
@@ -127,7 +104,7 @@ export default function GiftVouchersManager() {
             </div>
           ) : (
             <div className="grid gap-6">
-              {templatesQuery.data?.map((template: any) => (
+              {templatesQuery.data?.map((template: Template) => (
                 <Card key={template.id} className="hover:shadow-lg transition-shadow duration-200">
                   <CardHeader className="pb-4">
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
@@ -205,7 +182,7 @@ export default function GiftVouchersManager() {
             </div>
           ) : (
             <div className="grid gap-6">
-              {vouchersQuery.data?.map((voucher: any) => (
+              {vouchersQuery.data?.map((voucher: Voucher) => (
                 <Card key={voucher.id} className="hover:shadow-lg transition-shadow duration-200">
                   <CardHeader className="pb-4">
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
@@ -280,7 +257,7 @@ export default function GiftVouchersManager() {
             </div>
           ) : (
             <div className="grid gap-6">
-              {usagesQuery.data?.map((usage: any) => (
+              {usagesQuery.data?.map((usage: VoucherUsage) => (
                 <Card key={usage.id} className="hover:shadow-lg transition-shadow duration-200">
                   <CardContent className="pt-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -318,7 +295,24 @@ export default function GiftVouchersManager() {
 
       {showTemplateForm && (
         <GiftVoucherTemplateForm
-          template={editingTemplate || undefined}
+          template={
+            editingTemplate
+              ? {
+                  id: editingTemplate.id,
+                  name: editingTemplate.name,
+                  description: editingTemplate.description,
+                  type: editingTemplate.type,
+                  value: editingTemplate.value,
+                  price: editingTemplate.price,
+                  serviceId: editingTemplate.serviceId,
+                  isActive: editingTemplate.isActive,
+                  validityDays: editingTemplate.validityDays,
+                  maxUsageCount: editingTemplate.maxUsageCount,
+                  imageUrl: editingTemplate.imageUrl,
+                  imageUuid: editingTemplate.imageUuid,
+                }
+              : undefined
+          }
           onClose={handleCloseForm}
           onSuccess={() => {
             handleCloseForm();
