@@ -59,12 +59,12 @@ export function Navigation() {
               Contact
             </Link>
             
-            {session ? (
+            {session?.user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
-                    <span>{session.user?.name || 'User'}</span>
+                    <span>{session?.user?.name || 'Account'}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
@@ -80,7 +80,7 @@ export function Navigation() {
                       My Gift Vouchers
                     </Link>
                   </DropdownMenuItem>
-                  {session.user?.role === 'ADMIN' && (
+                  {session?.user?.role === 'ADMIN' && (
                     <DropdownMenuItem asChild>
                       <Link href="/admin" className="flex items-center">
                         <Settings className="h-4 w-4 mr-2" />
@@ -159,10 +159,10 @@ export function Navigation() {
                 Contact
               </Link>
               
-              {session ? (
+              {session?.user ? (
                 <div className="border-t border-amber-100 pt-3 mt-3">
                   <div className="px-3 py-2 text-sm text-gray-500">
-                    Signed in as {session.user?.name}
+                    Signed in as {session?.user?.name || 'Account'}
                   </div>
                   <Link
                     href="/bookings"
@@ -171,7 +171,7 @@ export function Navigation() {
                   >
                     My Bookings
                   </Link>
-                  {session.user?.role === 'ADMIN' && (
+                  {session?.user?.role === 'ADMIN' && (
                     <Link
                       href="/admin"
                       className="block px-3 py-2 text-gray-700 hover:text-amber-700 transition-colors"
