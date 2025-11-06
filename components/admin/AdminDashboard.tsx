@@ -12,12 +12,7 @@ import GiftVouchersManager from './GiftVouchersManager';
 
 export default function AdminDashboard() {
   return (
-    <div className="container mx-auto px-4 py-6 sm:px-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-        <p className="text-gray-600 mt-2">Manage your spa services, bookings, and more</p>
-      </div>
-
+    <div className="space-y-6">
       <Tabs defaultValue="categories" className="space-y-6">
         <div className="w-full overflow-x-auto">
           <TabsList className="flex w-full min-w-max gap-2 py-1 pr-2 flex-nowrap sm:min-w-0 sm:flex-wrap sm:justify-center lg:flex-nowrap lg:justify-start">
