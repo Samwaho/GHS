@@ -19,32 +19,34 @@ export default function AdminDashboard() {
       </div>
 
       <Tabs defaultValue="categories" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8">
-          <TabsTrigger value="categories" className="text-xs sm:text-sm py-2">
+        <div className="w-full overflow-x-auto">
+          <TabsList className="flex w-full min-w-max gap-2 py-1 pr-2 flex-nowrap sm:min-w-0 sm:flex-wrap sm:justify-center lg:flex-nowrap lg:justify-start">
+            <TabsTrigger value="categories" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Categories
-          </TabsTrigger>
-          <TabsTrigger value="services" className="text-xs sm:text-sm py-2">
+            </TabsTrigger>
+            <TabsTrigger value="services" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Services
-          </TabsTrigger>
-          <TabsTrigger value="branches" className="text-xs sm:text-sm py-2">
+            </TabsTrigger>
+            <TabsTrigger value="branches" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Branches
-          </TabsTrigger>
-          <TabsTrigger value="branch-services" className="text-xs sm:text-sm py-2">
+            </TabsTrigger>
+            <TabsTrigger value="branch-services" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Branch Services
-          </TabsTrigger>
-          <TabsTrigger value="bookings" className="text-xs sm:text-sm py-2">
+            </TabsTrigger>
+            <TabsTrigger value="bookings" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Bookings
-          </TabsTrigger>
-          <TabsTrigger value="users" className="text-xs sm:text-sm py-2">
+            </TabsTrigger>
+            <TabsTrigger value="users" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Users
-          </TabsTrigger>
-          <TabsTrigger value="gallery" className="text-xs sm:text-sm py-2">
+            </TabsTrigger>
+            <TabsTrigger value="gallery" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Gallery
-          </TabsTrigger>
-          <TabsTrigger value="gift-vouchers" className="text-xs sm:text-sm py-2">
+            </TabsTrigger>
+            <TabsTrigger value="gift-vouchers" className="flex-none py-2 text-xs sm:flex-1 sm:text-sm">
             Gift Vouchers
-          </TabsTrigger>
-        </TabsList>
+            </TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="categories">
           <Card>
