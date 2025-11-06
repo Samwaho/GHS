@@ -83,10 +83,16 @@ export default function GiftVouchersManager() {
   return (
     <div className="space-y-8">
       <Tabs defaultValue="templates" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-12">
-          <TabsTrigger value="templates" className="text-base font-medium">Templates</TabsTrigger>
-          <TabsTrigger value="vouchers" className="text-base font-medium">Vouchers</TabsTrigger>
-          <TabsTrigger value="usage" className="text-base font-medium">Usage History</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-1 gap-2 sm:grid-cols-3">
+          <TabsTrigger value="templates" className="py-2 text-sm font-medium sm:text-base">
+            Templates
+          </TabsTrigger>
+          <TabsTrigger value="vouchers" className="py-2 text-sm font-medium sm:text-base">
+            Vouchers
+          </TabsTrigger>
+          <TabsTrigger value="usage" className="py-2 text-sm font-medium sm:text-base">
+            Usage History
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="templates" className="space-y-6 mt-6">

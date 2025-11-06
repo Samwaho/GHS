@@ -12,22 +12,38 @@ import GiftVouchersManager from './GiftVouchersManager';
 
 export default function AdminDashboard() {
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto px-4 py-6 sm:px-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
         <p className="text-gray-600 mt-2">Manage your spa services, bookings, and more</p>
       </div>
 
       <Tabs defaultValue="categories" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-8">
-          <TabsTrigger value="categories">Categories</TabsTrigger>
-          <TabsTrigger value="services">Services</TabsTrigger>
-          <TabsTrigger value="branches">Branches</TabsTrigger>
-          <TabsTrigger value="branch-services">Branch Services</TabsTrigger>
-          <TabsTrigger value="bookings">Bookings</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
-          <TabsTrigger value="gallery">Gallery</TabsTrigger>
-          <TabsTrigger value="gift-vouchers">Gift Vouchers</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8">
+          <TabsTrigger value="categories" className="text-xs sm:text-sm py-2">
+            Categories
+          </TabsTrigger>
+          <TabsTrigger value="services" className="text-xs sm:text-sm py-2">
+            Services
+          </TabsTrigger>
+          <TabsTrigger value="branches" className="text-xs sm:text-sm py-2">
+            Branches
+          </TabsTrigger>
+          <TabsTrigger value="branch-services" className="text-xs sm:text-sm py-2">
+            Branch Services
+          </TabsTrigger>
+          <TabsTrigger value="bookings" className="text-xs sm:text-sm py-2">
+            Bookings
+          </TabsTrigger>
+          <TabsTrigger value="users" className="text-xs sm:text-sm py-2">
+            Users
+          </TabsTrigger>
+          <TabsTrigger value="gallery" className="text-xs sm:text-sm py-2">
+            Gallery
+          </TabsTrigger>
+          <TabsTrigger value="gift-vouchers" className="text-xs sm:text-sm py-2">
+            Gift Vouchers
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="categories">
