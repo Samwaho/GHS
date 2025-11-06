@@ -37,9 +37,9 @@ export function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-300">
-              <li>📞 (555) 123-4567</li>
-              <li>✉️ info@goldenhandsspa.com</li>
-              <li>📍 123 Wellness Street</li>
+              <li>📞 0719369088</li>
+              <li>✉️ info@ghwellnessafrica.com</li>
+              <li>📍 KILIMANI-Swiss lenana mount hotel(4th floor)</li>
             </ul>
           </div>
         </div>

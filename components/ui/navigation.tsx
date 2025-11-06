@@ -52,12 +52,7 @@ export function Navigation() {
             <Link href="/gift-vouchers" className="text-gray-700 hover:text-amber-700 transition-colors">
               Gift Vouchers
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-amber-700 transition-colors">
-              About
-            </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-amber-700 transition-colors">
-              Contact
-            </Link>
+           
             
             {session?.user ? (
               <DropdownMenu>

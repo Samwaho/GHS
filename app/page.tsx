@@ -92,7 +92,7 @@ export default async function Home() {
               </Link>
             ) : (
               <Link href="/auth/register">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-amber-800 px-8 py-3 text-lg">
+                <Button size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-amber-800 px-8 py-3 text-lg">
                   Create Client Account
                 </Button>
               </Link>
@@ -224,7 +224,7 @@ export default async function Home() {
                   <MapPin className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Address</h3>
-                    <p className="text-gray-600">Riverside Square, Westlands, Nairobi</p>
+                    <p className="text-gray-600">KILIMANI-Swiss lenana mount hotel(4th floor)</p>
                   </div>
                 </div>
 
@@ -232,7 +232,7 @@ export default async function Home() {
                   <Phone className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Phone</h3>
-                    <p className="text-gray-600">+254 711 123 456</p>
+                    <p className="text-gray-600">0719369088 </p>
                   </div>
                 </div>
 
@@ -240,7 +240,7 @@ export default async function Home() {
                   <Mail className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-600">concierge@goldenhandsspa.co.ke</p>
+                    <p className="text-gray-600">info@ghwellnessafrica.com</p>
                   </div>
                 </div>
 
@@ -248,7 +248,7 @@ export default async function Home() {
                   <Clock className="h-6 w-6 text-amber-600 mr-4" />
                   <div>
                     <h3 className="font-semibold">Hours</h3>
-                    <p className="text-gray-600">Daily: 08:00 - 21:00</p>
+                    <p className="text-gray-600">Daily: 09:00 - 21:00</p>
                   </div>
                 </div>
               </div>
