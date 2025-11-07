@@ -222,8 +222,7 @@ const experiencePerks = [
               </blockquote>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
-                  <p className="font-semibold text-gray-900">Malaika Njoroge</p>
-                  <p className="text-sm text-gray-500">Founder & lead somatic therapist</p>
+                  <p className="font-semibold text-gray-900">Golden Hands Spa</p>
                 </div>
                 <div className="h-px flex-1 bg-amber-200 sm:ml-6"></div>
               </div>
