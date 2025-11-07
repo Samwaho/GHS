@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar, Clock, MapPin, DollarSign, Gift } from 'lucide-react';
+import { Calendar, Clock, MapPin, DollarSign, Gift, Info } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, addDays } from 'date-fns';
 import { UploadcareUploader } from '@/components/ui/uploadcare-uploader';
@@ -71,6 +71,7 @@ export default function BookingModal({
   const currentService = branchServicesList.find((branchService: BranchService) => branchService.service.id === serviceId);
   const displayedDuration = currentService?.service?.duration ?? serviceDuration;
   const showServiceUnavailable = selectedBranch && !branchServicesLoading && !currentService;
+  const activeBranch = branchesList.find((branch: Branch) => branch.id === selectedBranch);
   const availableSlots = useMemo(
     () => availabilityData?.availableSlots ?? [],
     [availabilityData]
@@ -172,146 +173,231 @@ export default function BookingModal({
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-xl max-h-[90vh] sm:max-h-[85vh] overflow-y-auto">
-        <DialogHeader>
+        <DialogHeader className="space-y-1.5">
           <DialogTitle className="text-xl font-semibold">
             Book {serviceTitle}
           </DialogTitle>
+          <p className="text-sm text-muted-foreground">
+            {session?.user?.name ? `Hi ${session.user.name}, choose where and when you'd like to enjoy this experience.` : 'Choose your preferred branch, day, and time to continue.'}
+          </p>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-3 py-2">
-          <div className="space-y-2">
-            <Label htmlFor="branch">Select Branch *</Label>
-            <Select value={selectedBranch} onValueChange={setSelectedBranch}>
-              <SelectTrigger>
-                <SelectValue placeholder="Choose a location" />
-              </SelectTrigger>
-              <SelectContent>
-                {branchesList.map((branch: Branch) => (
-                  <SelectItem key={branch.id} value={branch.id}>
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-2" />
-                      {branch.name}
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {showServiceUnavailable && (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-              This treatment is not currently offered at the selected branch. Please choose a different branch.
+        <form onSubmit={handleSubmit} className="space-y-5 py-2">
+          <div className="rounded-2xl border border-amber-100 bg-amber-50/70 p-4 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-gray-500">Service</p>
+                <p className="text-lg font-semibold text-gray-900">{serviceTitle}</p>
+              </div>
+              {currentService && (
+                <div className="flex items-center gap-4 text-amber-800">
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold">
+                    <DollarSign className="h-4 w-4" />
+                    {formatKES(currentService.price)}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold">
+                    <Clock className="h-4 w-4" />
+                    {displayedDuration} min
+                  </span>
+                </div>
+              )}
             </div>
-          )}
-
-          {currentService && (
-            <div className="bg-amber-50 p-3 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center text-amber-800">
-                  <DollarSign className="h-4 w-4 mr-1" />
-                  <span className="font-semibold">{formatKES(currentService.price)}</span>
-                </div>
-                <div className="flex items-center text-amber-700">
-                  <Clock className="h-4 w-4 mr-1" />
-                  <span>{displayedDuration} minutes</span>
-                </div>
+            <div className="grid sm:grid-cols-2 gap-3 text-sm text-gray-700">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-gray-500">Branch selected</p>
+                <p>{activeBranch ? activeBranch.name : 'Not selected'}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-gray-500">Appointment time</p>
+                <p>{selectedDate && selectedTime ? `${format(new Date(selectedDate), 'EEE, MMM d')} at ${selectedTime}` : 'Not selected'}</p>
               </div>
             </div>
-          )}
-
-          {/* Gift Voucher Section */}
-          <div className="space-y-2">
-            <Label htmlFor="giftVoucher" className="flex items-center gap-2">
-              <Gift className="h-4 w-4" />
-              Gift Voucher Code (Optional)
-            </Label>
-            <Input
-              id="giftVoucher"
-              type="text"
-              value={giftVoucherCode}
-              onChange={(e) => setGiftVoucherCode(e.target.value)}
-              placeholder="Enter gift voucher code"
-            />
+            <p className="text-xs text-amber-900">
+              Pricing shown before gift vouchers or add-ons. All times displayed in Kenya Time (EAT).
+            </p>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="date">Select Date *</Label>
-            <Select value={selectedDate} onValueChange={setSelectedDate}>
-              <SelectTrigger>
-                <SelectValue placeholder="Choose a date" />
-              </SelectTrigger>
-              <SelectContent>
-                {availableDates.map((date) => (
-                  <SelectItem key={date.value} value={date.value}>
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-2" />
-                      {date.label}
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <div className="rounded-2xl border bg-white p-4 space-y-4">
+            <div>
+              <p className="text-xs uppercase tracking-[0.35em] text-amber-600 mb-1">Step 1</p>
+              <p className="text-base font-semibold text-gray-900">Choose location & schedule</p>
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="time">Select Time *</Label>
-            <Select value={selectedTime} onValueChange={setSelectedTime}>
-              <SelectTrigger disabled={!selectedBranch || !selectedDate}>
-                <SelectValue placeholder={!selectedBranch || !selectedDate ? 'Select branch & date first' : 'Choose a time'} />
-              </SelectTrigger>
-              <SelectContent>
-                {!selectedBranch || !selectedDate ? (
-                  <SelectItem value="placeholder" disabled>
-                    Select a branch and date to view availability
-                  </SelectItem>
-                ) : availabilityLoading ? (
-                  <SelectItem value="loading" disabled>
-                    Checking availability...
-                  </SelectItem>
-                ) : availableSlots.length === 0 ? (
-                  <SelectItem value="unavailable" disabled>
-                    {fullyBooked ? 'All appointments are booked for this day' : 'No available slots found'}
-                  </SelectItem>
-                ) : (
-                  availableSlots.map((time) => (
-                    <SelectItem key={time} value={time}>
-                      <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-2" />
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="branch">Select Branch *</Label>
+                <Select value={selectedBranch} onValueChange={setSelectedBranch}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose a location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {branchesList.map((branch: Branch) => (
+                      <SelectItem key={branch.id} value={branch.id}>
+                        <div className="flex items-center">
+                          <MapPin className="h-4 w-4 mr-2" />
+                          {branch.name}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {activeBranch && (
+                <div className="rounded-xl border border-amber-100 bg-amber-50/60 p-3 text-sm text-amber-900 space-y-1.5">
+                  <p className="font-semibold">{activeBranch.name}</p>
+                  {activeBranch.address && <p className="text-amber-800">{activeBranch.address}</p>}
+                  {activeBranch.phone && <p className="text-amber-800">Contact: {activeBranch.phone}</p>}
+                </div>
+              )}
+
+              {showServiceUnavailable && (
+                <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                  This treatment is not currently offered at the selected branch. Please choose a different branch.
+                </div>
+              )}
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="date">Select Date *</Label>
+                  <Select value={selectedDate} onValueChange={setSelectedDate}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choose a date" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableDates.map((date) => (
+                        <SelectItem key={date.value} value={date.value}>
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 mr-2" />
+                            {date.label}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="time">Select Time *</Label>
+                  <Select value={selectedTime} onValueChange={setSelectedTime}>
+                    <SelectTrigger disabled={!selectedBranch || !selectedDate}>
+                      <SelectValue placeholder={!selectedBranch || !selectedDate ? 'Select branch & date first' : 'Choose a time'} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {!selectedBranch || !selectedDate ? (
+                        <SelectItem value="placeholder" disabled>
+                          Select a branch and date to view availability
+                        </SelectItem>
+                      ) : availabilityLoading ? (
+                        <SelectItem value="loading" disabled>
+                          Checking availability...
+                        </SelectItem>
+                      ) : availableSlots.length === 0 ? (
+                        <SelectItem value="unavailable" disabled>
+                          {fullyBooked ? 'All appointments are booked for this day' : 'No available slots found'}
+                        </SelectItem>
+                      ) : (
+                        availableSlots.map((time) => (
+                          <SelectItem key={time} value={time}>
+                            <div className="flex items-center">
+                              <Clock className="h-4 w-4 mr-2" />
+                              {time}
+                            </div>
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    Appointments must be booked at least {BOOKING_MIN_LEAD_TIME_MINUTES / 60} hours in advance.
+                  </p>
+                  {fullyBooked && (
+                    <p className="text-xs text-red-600">
+                      Fully booked for this day. Please pick another date or <a href="tel:0719369088" className="underline">call our team</a>.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {availableSlots.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-xs uppercase tracking-[0.35em] text-gray-500">Quick select</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {availableSlots.map((time) => (
+                      <button
+                        type="button"
+                        key={time}
+                        onClick={() => setSelectedTime(time)}
+                        className={`rounded-lg border px-3 py-2 text-sm font-medium transition ${
+                          selectedTime === time
+                            ? 'border-amber-600 bg-amber-50 text-amber-700'
+                            : 'border-gray-200 text-gray-600 hover:border-amber-200 hover:text-amber-700'
+                        }`}
+                      >
                         {time}
-                      </div>
-                    </SelectItem>
-                  ))
-                )}
-              </SelectContent>
-            </Select>
-            <p className="text-xs text-muted-foreground">
-              Appointments must be booked at least {BOOKING_MIN_LEAD_TIME_MINUTES / 60} hours in advance.
-            </p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="notes">Special Requests (Optional)</Label>
-            <Textarea
-              id="notes"
-              placeholder="Any special requests or notes..."
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              rows={2}
-              className="resize-none"
-            />
+          <div className="rounded-2xl border bg-white p-4 space-y-4">
+            <div>
+              <p className="text-xs uppercase tracking-[0.35em] text-amber-600 mb-1">Step 2</p>
+              <p className="text-base font-semibold text-gray-900">Extras & notes</p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="giftVoucher" className="flex items-center gap-2">
+                <Gift className="h-4 w-4" />
+                Gift Voucher Code (Optional)
+              </Label>
+              <Input
+                id="giftVoucher"
+                type="text"
+                value={giftVoucherCode}
+                onChange={(e) => setGiftVoucherCode(e.target.value)}
+                placeholder="Enter gift voucher code"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="notes">Special Requests (Optional)</Label>
+              <Textarea
+                id="notes"
+                placeholder="Any special requests or notes..."
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                rows={3}
+                className="resize-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Reference Image/Document (Optional)</Label>
+              <p className="text-xs text-gray-500">
+                Upload a reference image or document to help us understand your requirements better.
+              </p>
+              <UploadcareUploader
+                onUpload={handleFileUpload}
+                preview={attachmentUrl}
+                maxSize={5}
+                compact={true}
+              />
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label>Reference Image/Document (Optional)</Label>
-            <p className="text-xs text-gray-500">
-              Upload a reference image or document to help us understand your requirements better.
+          <div className="rounded-2xl border border-dashed border-amber-200 bg-amber-50/40 p-4 text-sm text-amber-900 flex items-start gap-3">
+            <Info className="h-4 w-4 mt-0.5 text-amber-600" />
+            <p>
+              Arrive 15 minutes early for tea and sensory calibration. Need a custom slot? Call us at{' '}
+              <a className="font-semibold underline" href="tel:0719369088">
+                0719 369 088
+              </a>
+              .
             </p>
-            <UploadcareUploader
-              onUpload={handleFileUpload}
-              preview={attachmentUrl}
-              maxSize={5}
-              compact={true}
-            />
           </div>
 
           <div className="flex space-x-3 pt-3 border-t mt-4">
@@ -328,7 +414,7 @@ export default function BookingModal({
               disabled={createBookingMutation.isPending || !canSubmit}
               className="flex-1 bg-amber-600 hover:bg-amber-700 disabled:opacity-60"
             >
-              {createBookingMutation.isPending ? 'Booking...' : 'Book Now'}
+              {createBookingMutation.isPending ? 'Booking...' : 'Confirm Booking'}
             </Button>
           </div>
         </form>

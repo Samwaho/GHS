@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTRPC } from '@/trpc/client';
 import { Button } from '@/components/ui/button';
@@ -29,10 +29,12 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
     currentUsageCount?: number | null;
   } | null>(null);
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
+  const [typeFilter, setTypeFilter] = useState<'ALL' | 'FIXED_AMOUNT' | 'PERCENTAGE' | 'SERVICE_SPECIFIC'>('ALL');
   const router = useRouter();
   const t = useTRPC();
 
   const templatesQuery = useQuery(t.user.getAvailableGiftVoucherTemplates.queryOptions());
+  const templates = useMemo(() => templatesQuery.data ?? [], [templatesQuery.data]);
 
   const handlePurchase = (template: {
     id: string;
@@ -104,6 +106,37 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
     return formatKES(template.price);
   };
 
+  const filteredTemplates = useMemo(() => {
+    if (typeFilter === 'ALL') return templates;
+    return templates.filter((template) => template.type === typeFilter);
+  }, [templates, typeFilter]);
+
+  const templateStats = useMemo(() => {
+    if (templates.length === 0) {
+      return { total: 0, bestValue: 0, percentageCount: 0 };
+    }
+    const bestValue = Math.max(...templates.map((template) => template.value || 0));
+    const percentageCount = templates.filter((template) => template.type === 'PERCENTAGE').length;
+    return {
+      total: templates.length,
+      bestValue,
+      percentageCount
+    };
+  }, [templates]);
+
+  const filterChips = [
+    { label: 'All', value: 'ALL' as const },
+    { label: 'Fixed Amount', value: 'FIXED_AMOUNT' as const },
+    { label: 'Percentage', value: 'PERCENTAGE' as const },
+    { label: 'Service Specific', value: 'SERVICE_SPECIFIC' as const }
+  ];
+
+  const giftingSteps = [
+    { title: 'Choose a template', detail: 'Pick a fixed amount, percentage, or service-specific voucher.' },
+    { title: 'Personalize the note', detail: 'Add heartfelt words plus optional team follow-up for the recipient.' },
+    { title: 'Send instantly', detail: 'Deliver via email or request a printed card for local drop-off.' }
+  ];
+
   if (templatesQuery.isLoading) {
     return (
       <div className="flex justify-center items-center py-12">
@@ -112,7 +145,7 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
     );
   }
 
-  if (!templatesQuery.data || templatesQuery.data.length === 0) {
+  if (templates.length === 0) {
     return (
       <div className="text-center py-12">
         <Gift className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -123,10 +156,52 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
   }
 
   return (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {templatesQuery.data.map((template) => (
-          <Card key={template.id} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <div className="space-y-10">
+      <div className="grid sm:grid-cols-3 gap-4">
+        <div className="rounded-2xl border border-amber-100 bg-white p-5">
+          <p className="text-xs uppercase tracking-[0.35em] text-amber-600 mb-2">Templates</p>
+          <p className="text-3xl font-semibold text-gray-900">{templateStats.total}</p>
+          <p className="text-sm text-gray-500 mt-1">Available gifting options</p>
+        </div>
+        <div className="rounded-2xl border border-gray-100 bg-white p-5">
+          <p className="text-xs uppercase tracking-[0.35em] text-gray-500 mb-2">Best value</p>
+          <p className="text-3xl font-semibold text-gray-900">
+            {templateStats.bestValue ? formatKES(templateStats.bestValue) : '—'}
+          </p>
+          <p className="text-sm text-gray-500 mt-1">Highest denomination available</p>
+        </div>
+        <div className="rounded-2xl border border-gray-100 bg-white p-5">
+          <p className="text-xs uppercase tracking-[0.35em] text-gray-500 mb-2">Percentage picks</p>
+          <p className="text-3xl font-semibold text-gray-900">{templateStats.percentageCount}</p>
+          <p className="text-sm text-gray-500 mt-1">Flexible discount vouchers</p>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-3">
+        {filterChips.map((chip) => (
+          <button
+            key={chip.value}
+            onClick={() => setTypeFilter(chip.value)}
+            className={`px-4 py-2 rounded-full border text-sm transition ${
+              typeFilter === chip.value
+                ? 'bg-amber-600 text-white border-amber-600'
+                : 'bg-white text-gray-600 border-gray-200 hover:border-amber-200 hover:text-amber-700'
+            }`}
+          >
+            {chip.label}
+          </button>
+        ))}
+      </div>
+
+      {filteredTemplates.length === 0 ? (
+        <div className="rounded-3xl border border-dashed border-amber-200 bg-white/70 p-10 text-center">
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">No vouchers in this category</h3>
+          <p className="text-gray-600">Try a different filter or check back soon for new designs.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredTemplates.map((template) => (
+            <Card key={template.id} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             {template.imageUrl && (
               <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: `url(${template.imageUrl})` }}>
                 <div className="absolute inset-0 bg-black/20"></div>
@@ -151,7 +226,7 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
                 )}
               </div>
             </CardHeader>
-            <CardContent className="pt-0">
+            <CardContent className="pt-0 flex flex-col gap-4">
               <div className="space-y-4">
                 <div className="text-center bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg">
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">
@@ -184,7 +259,7 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
                 </div>
 
                 <Button 
-                  className="w-full h-12 text-base font-medium" 
+                  className="w-full h-12 text-base font-medium mt-auto" 
                   onClick={() => handlePurchase(template)}
                   disabled={!!(template.maxUsageCount && template.currentUsageCount >= template.maxUsageCount)}
                 >
@@ -198,7 +273,8 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
             </CardContent>
           </Card>
         ))}
-      </div>
+        </div>
+      )}
 
       {/* Features Section */}
       <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 sm:p-8 mt-12 border border-gray-100">
@@ -226,6 +302,18 @@ export default function GiftVouchersClient({ session }: GiftVouchersClientProps)
             <p className="text-gray-600 text-sm leading-relaxed">Use vouchers for any of our services at your convenience.</p>
           </div>
         </div>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6">
+        {giftingSteps.map((step, index) => (
+          <div key={step.title} className="rounded-2xl border border-amber-100 bg-white p-6">
+            <div className="text-sm uppercase tracking-[0.35em] text-amber-600 mb-2">
+              Step {index + 1}
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900">{step.title}</h3>
+            <p className="text-sm text-gray-600 mt-2">{step.detail}</p>
+          </div>
+        ))}
       </div>
 
       {showPurchaseForm && selectedTemplate && (

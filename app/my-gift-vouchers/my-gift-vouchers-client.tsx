@@ -113,6 +113,12 @@ export default function MyGiftVouchersClient() {
   const expiredVouchers = vouchersQuery.data.filter(v => v.status === 'EXPIRED' || isExpired(v.expiresAt));
   const cancelledVouchers = vouchersQuery.data.filter(v => v.status === 'CANCELLED');
 
+  const totalRemainingValue = vouchersQuery.data.reduce((sum, voucher) => sum + voucher.remainingValue, 0);
+  const expiringSoonCount = vouchersQuery.data.filter(
+    (voucher) => voucher.status === 'ACTIVE' && isExpiringSoon(voucher.expiresAt)
+  ).length;
+  const giftedCount = vouchersQuery.data.filter((voucher) => Boolean(voucher.recipientName)).length;
+
   const renderVoucherCard = (voucher: Voucher) => (
     <Card key={voucher.id} className="relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
       <CardHeader className="pb-3">
@@ -233,7 +239,7 @@ export default function MyGiftVouchersClient() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold">Your Gift Vouchers</h2>
@@ -245,6 +251,24 @@ export default function MyGiftVouchersClient() {
             Buy More Vouchers
           </Button>
         </Link>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        <div className="rounded-2xl border border-amber-100 bg-white p-5 shadow-sm">
+          <p className="text-xs uppercase tracking-[0.35em] text-amber-600 mb-2">Remaining value</p>
+          <p className="text-3xl font-semibold text-gray-900">{formatKES(totalRemainingValue)}</p>
+          <p className="text-sm text-gray-500 mt-1">Across all active vouchers</p>
+        </div>
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p className="text-xs uppercase tracking-[0.35em] text-gray-500 mb-2">Expiring soon</p>
+          <p className="text-3xl font-semibold text-gray-900">{expiringSoonCount}</p>
+          <p className="text-sm text-gray-500 mt-1">Within the next 30 days</p>
+        </div>
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <p className="text-xs uppercase tracking-[0.35em] text-gray-500 mb-2">Gifted to others</p>
+          <p className="text-3xl font-semibold text-gray-900">{giftedCount}</p>
+          <p className="text-sm text-gray-500 mt-1">Personal transfers or surprises</p>
+        </div>
       </div>
 
       <Tabs defaultValue="active" className="w-full">
