@@ -88,6 +88,11 @@ export type GiftVoucher = $Result.DefaultSelection<Prisma.$GiftVoucherPayload>
  * 
  */
 export type GiftVoucherUsage = $Result.DefaultSelection<Prisma.$GiftVoucherUsagePayload>
+/**
+ * Model HomeContent
+ * 
+ */
+export type HomeContent = $Result.DefaultSelection<Prisma.$HomeContentPayload>
 
 /**
  * Enums
@@ -433,6 +438,16 @@ export class PrismaClient<
     * ```
     */
   get giftVoucherUsage(): Prisma.GiftVoucherUsageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.homeContent`: Exposes CRUD operations for the **HomeContent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HomeContents
+    * const homeContents = await prisma.homeContent.findMany()
+    * ```
+    */
+  get homeContent(): Prisma.HomeContentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -887,7 +902,8 @@ export namespace Prisma {
     Gallery: 'Gallery',
     GiftVoucherTemplate: 'GiftVoucherTemplate',
     GiftVoucher: 'GiftVoucher',
-    GiftVoucherUsage: 'GiftVoucherUsage'
+    GiftVoucherUsage: 'GiftVoucherUsage',
+    HomeContent: 'HomeContent'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -906,7 +922,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "verificationToken" | "passwordResetToken" | "twoFactorToken" | "twoFactorConfirmation" | "category" | "branch" | "service" | "branchService" | "booking" | "gallery" | "giftVoucherTemplate" | "giftVoucher" | "giftVoucherUsage"
+      modelProps: "user" | "account" | "verificationToken" | "passwordResetToken" | "twoFactorToken" | "twoFactorConfirmation" | "category" | "branch" | "service" | "branchService" | "booking" | "gallery" | "giftVoucherTemplate" | "giftVoucher" | "giftVoucherUsage" | "homeContent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2020,6 +2036,80 @@ export namespace Prisma {
           }
         }
       }
+      HomeContent: {
+        payload: Prisma.$HomeContentPayload<ExtArgs>
+        fields: Prisma.HomeContentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HomeContentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HomeContentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>
+          }
+          findFirst: {
+            args: Prisma.HomeContentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HomeContentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>
+          }
+          findMany: {
+            args: Prisma.HomeContentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>[]
+          }
+          create: {
+            args: Prisma.HomeContentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>
+          }
+          createMany: {
+            args: Prisma.HomeContentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HomeContentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>[]
+          }
+          delete: {
+            args: Prisma.HomeContentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>
+          }
+          update: {
+            args: Prisma.HomeContentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>
+          }
+          deleteMany: {
+            args: Prisma.HomeContentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HomeContentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HomeContentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>[]
+          }
+          upsert: {
+            args: Prisma.HomeContentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HomeContentPayload>
+          }
+          aggregate: {
+            args: Prisma.HomeContentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHomeContent>
+          }
+          groupBy: {
+            args: Prisma.HomeContentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HomeContentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HomeContentCountArgs<ExtArgs>
+            result: $Utils.Optional<HomeContentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2127,6 +2217,7 @@ export namespace Prisma {
     giftVoucherTemplate?: GiftVoucherTemplateOmit
     giftVoucher?: GiftVoucherOmit
     giftVoucherUsage?: GiftVoucherUsageOmit
+    homeContent?: HomeContentOmit
   }
 
   /* Types for Logging */
@@ -19754,6 +19845,997 @@ export namespace Prisma {
 
 
   /**
+   * Model HomeContent
+   */
+
+  export type AggregateHomeContent = {
+    _count: HomeContentCountAggregateOutputType | null
+    _min: HomeContentMinAggregateOutputType | null
+    _max: HomeContentMaxAggregateOutputType | null
+  }
+
+  export type HomeContentMinAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HomeContentMaxAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HomeContentCountAggregateOutputType = {
+    id: number
+    slug: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HomeContentMinAggregateInputType = {
+    id?: true
+    slug?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HomeContentMaxAggregateInputType = {
+    id?: true
+    slug?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HomeContentCountAggregateInputType = {
+    id?: true
+    slug?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HomeContentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HomeContent to aggregate.
+     */
+    where?: HomeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomeContents to fetch.
+     */
+    orderBy?: HomeContentOrderByWithRelationInput | HomeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HomeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomeContents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HomeContents
+    **/
+    _count?: true | HomeContentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HomeContentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HomeContentMaxAggregateInputType
+  }
+
+  export type GetHomeContentAggregateType<T extends HomeContentAggregateArgs> = {
+        [P in keyof T & keyof AggregateHomeContent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHomeContent[P]>
+      : GetScalarType<T[P], AggregateHomeContent[P]>
+  }
+
+
+
+
+  export type HomeContentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HomeContentWhereInput
+    orderBy?: HomeContentOrderByWithAggregationInput | HomeContentOrderByWithAggregationInput[]
+    by: HomeContentScalarFieldEnum[] | HomeContentScalarFieldEnum
+    having?: HomeContentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HomeContentCountAggregateInputType | true
+    _min?: HomeContentMinAggregateInputType
+    _max?: HomeContentMaxAggregateInputType
+  }
+
+  export type HomeContentGroupByOutputType = {
+    id: string
+    slug: string
+    content: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: HomeContentCountAggregateOutputType | null
+    _min: HomeContentMinAggregateOutputType | null
+    _max: HomeContentMaxAggregateOutputType | null
+  }
+
+  type GetHomeContentGroupByPayload<T extends HomeContentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HomeContentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HomeContentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HomeContentGroupByOutputType[P]>
+            : GetScalarType<T[P], HomeContentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HomeContentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["homeContent"]>
+
+  export type HomeContentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["homeContent"]>
+
+  export type HomeContentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["homeContent"]>
+
+  export type HomeContentSelectScalar = {
+    id?: boolean
+    slug?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HomeContentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["homeContent"]>
+
+  export type $HomeContentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HomeContent"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      slug: string
+      content: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["homeContent"]>
+    composites: {}
+  }
+
+  type HomeContentGetPayload<S extends boolean | null | undefined | HomeContentDefaultArgs> = $Result.GetResult<Prisma.$HomeContentPayload, S>
+
+  type HomeContentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HomeContentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HomeContentCountAggregateInputType | true
+    }
+
+  export interface HomeContentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HomeContent'], meta: { name: 'HomeContent' } }
+    /**
+     * Find zero or one HomeContent that matches the filter.
+     * @param {HomeContentFindUniqueArgs} args - Arguments to find a HomeContent
+     * @example
+     * // Get one HomeContent
+     * const homeContent = await prisma.homeContent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HomeContentFindUniqueArgs>(args: SelectSubset<T, HomeContentFindUniqueArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one HomeContent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HomeContentFindUniqueOrThrowArgs} args - Arguments to find a HomeContent
+     * @example
+     * // Get one HomeContent
+     * const homeContent = await prisma.homeContent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HomeContentFindUniqueOrThrowArgs>(args: SelectSubset<T, HomeContentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HomeContent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomeContentFindFirstArgs} args - Arguments to find a HomeContent
+     * @example
+     * // Get one HomeContent
+     * const homeContent = await prisma.homeContent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HomeContentFindFirstArgs>(args?: SelectSubset<T, HomeContentFindFirstArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HomeContent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomeContentFindFirstOrThrowArgs} args - Arguments to find a HomeContent
+     * @example
+     * // Get one HomeContent
+     * const homeContent = await prisma.homeContent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HomeContentFindFirstOrThrowArgs>(args?: SelectSubset<T, HomeContentFindFirstOrThrowArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HomeContents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomeContentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HomeContents
+     * const homeContents = await prisma.homeContent.findMany()
+     * 
+     * // Get first 10 HomeContents
+     * const homeContents = await prisma.homeContent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const homeContentWithIdOnly = await prisma.homeContent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HomeContentFindManyArgs>(args?: SelectSubset<T, HomeContentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a HomeContent.
+     * @param {HomeContentCreateArgs} args - Arguments to create a HomeContent.
+     * @example
+     * // Create one HomeContent
+     * const HomeContent = await prisma.homeContent.create({
+     *   data: {
+     *     // ... data to create a HomeContent
+     *   }
+     * })
+     * 
+     */
+    create<T extends HomeContentCreateArgs>(args: SelectSubset<T, HomeContentCreateArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many HomeContents.
+     * @param {HomeContentCreateManyArgs} args - Arguments to create many HomeContents.
+     * @example
+     * // Create many HomeContents
+     * const homeContent = await prisma.homeContent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HomeContentCreateManyArgs>(args?: SelectSubset<T, HomeContentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HomeContents and returns the data saved in the database.
+     * @param {HomeContentCreateManyAndReturnArgs} args - Arguments to create many HomeContents.
+     * @example
+     * // Create many HomeContents
+     * const homeContent = await prisma.homeContent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HomeContents and only return the `id`
+     * const homeContentWithIdOnly = await prisma.homeContent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HomeContentCreateManyAndReturnArgs>(args?: SelectSubset<T, HomeContentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a HomeContent.
+     * @param {HomeContentDeleteArgs} args - Arguments to delete one HomeContent.
+     * @example
+     * // Delete one HomeContent
+     * const HomeContent = await prisma.homeContent.delete({
+     *   where: {
+     *     // ... filter to delete one HomeContent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HomeContentDeleteArgs>(args: SelectSubset<T, HomeContentDeleteArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one HomeContent.
+     * @param {HomeContentUpdateArgs} args - Arguments to update one HomeContent.
+     * @example
+     * // Update one HomeContent
+     * const homeContent = await prisma.homeContent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HomeContentUpdateArgs>(args: SelectSubset<T, HomeContentUpdateArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more HomeContents.
+     * @param {HomeContentDeleteManyArgs} args - Arguments to filter HomeContents to delete.
+     * @example
+     * // Delete a few HomeContents
+     * const { count } = await prisma.homeContent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HomeContentDeleteManyArgs>(args?: SelectSubset<T, HomeContentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HomeContents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomeContentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HomeContents
+     * const homeContent = await prisma.homeContent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HomeContentUpdateManyArgs>(args: SelectSubset<T, HomeContentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HomeContents and returns the data updated in the database.
+     * @param {HomeContentUpdateManyAndReturnArgs} args - Arguments to update many HomeContents.
+     * @example
+     * // Update many HomeContents
+     * const homeContent = await prisma.homeContent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more HomeContents and only return the `id`
+     * const homeContentWithIdOnly = await prisma.homeContent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HomeContentUpdateManyAndReturnArgs>(args: SelectSubset<T, HomeContentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one HomeContent.
+     * @param {HomeContentUpsertArgs} args - Arguments to update or create a HomeContent.
+     * @example
+     * // Update or create a HomeContent
+     * const homeContent = await prisma.homeContent.upsert({
+     *   create: {
+     *     // ... data to create a HomeContent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HomeContent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HomeContentUpsertArgs>(args: SelectSubset<T, HomeContentUpsertArgs<ExtArgs>>): Prisma__HomeContentClient<$Result.GetResult<Prisma.$HomeContentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of HomeContents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomeContentCountArgs} args - Arguments to filter HomeContents to count.
+     * @example
+     * // Count the number of HomeContents
+     * const count = await prisma.homeContent.count({
+     *   where: {
+     *     // ... the filter for the HomeContents we want to count
+     *   }
+     * })
+    **/
+    count<T extends HomeContentCountArgs>(
+      args?: Subset<T, HomeContentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HomeContentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HomeContent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomeContentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HomeContentAggregateArgs>(args: Subset<T, HomeContentAggregateArgs>): Prisma.PrismaPromise<GetHomeContentAggregateType<T>>
+
+    /**
+     * Group by HomeContent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HomeContentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HomeContentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HomeContentGroupByArgs['orderBy'] }
+        : { orderBy?: HomeContentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HomeContentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHomeContentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HomeContent model
+   */
+  readonly fields: HomeContentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HomeContent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HomeContentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HomeContent model
+   */
+  interface HomeContentFieldRefs {
+    readonly id: FieldRef<"HomeContent", 'String'>
+    readonly slug: FieldRef<"HomeContent", 'String'>
+    readonly content: FieldRef<"HomeContent", 'Json'>
+    readonly createdAt: FieldRef<"HomeContent", 'DateTime'>
+    readonly updatedAt: FieldRef<"HomeContent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HomeContent findUnique
+   */
+  export type HomeContentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * Filter, which HomeContent to fetch.
+     */
+    where: HomeContentWhereUniqueInput
+  }
+
+  /**
+   * HomeContent findUniqueOrThrow
+   */
+  export type HomeContentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * Filter, which HomeContent to fetch.
+     */
+    where: HomeContentWhereUniqueInput
+  }
+
+  /**
+   * HomeContent findFirst
+   */
+  export type HomeContentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * Filter, which HomeContent to fetch.
+     */
+    where?: HomeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomeContents to fetch.
+     */
+    orderBy?: HomeContentOrderByWithRelationInput | HomeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HomeContents.
+     */
+    cursor?: HomeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomeContents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HomeContents.
+     */
+    distinct?: HomeContentScalarFieldEnum | HomeContentScalarFieldEnum[]
+  }
+
+  /**
+   * HomeContent findFirstOrThrow
+   */
+  export type HomeContentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * Filter, which HomeContent to fetch.
+     */
+    where?: HomeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomeContents to fetch.
+     */
+    orderBy?: HomeContentOrderByWithRelationInput | HomeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HomeContents.
+     */
+    cursor?: HomeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomeContents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HomeContents.
+     */
+    distinct?: HomeContentScalarFieldEnum | HomeContentScalarFieldEnum[]
+  }
+
+  /**
+   * HomeContent findMany
+   */
+  export type HomeContentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * Filter, which HomeContents to fetch.
+     */
+    where?: HomeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HomeContents to fetch.
+     */
+    orderBy?: HomeContentOrderByWithRelationInput | HomeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HomeContents.
+     */
+    cursor?: HomeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HomeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HomeContents.
+     */
+    skip?: number
+    distinct?: HomeContentScalarFieldEnum | HomeContentScalarFieldEnum[]
+  }
+
+  /**
+   * HomeContent create
+   */
+  export type HomeContentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * The data needed to create a HomeContent.
+     */
+    data: XOR<HomeContentCreateInput, HomeContentUncheckedCreateInput>
+  }
+
+  /**
+   * HomeContent createMany
+   */
+  export type HomeContentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HomeContents.
+     */
+    data: HomeContentCreateManyInput | HomeContentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HomeContent createManyAndReturn
+   */
+  export type HomeContentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * The data used to create many HomeContents.
+     */
+    data: HomeContentCreateManyInput | HomeContentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HomeContent update
+   */
+  export type HomeContentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * The data needed to update a HomeContent.
+     */
+    data: XOR<HomeContentUpdateInput, HomeContentUncheckedUpdateInput>
+    /**
+     * Choose, which HomeContent to update.
+     */
+    where: HomeContentWhereUniqueInput
+  }
+
+  /**
+   * HomeContent updateMany
+   */
+  export type HomeContentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HomeContents.
+     */
+    data: XOR<HomeContentUpdateManyMutationInput, HomeContentUncheckedUpdateManyInput>
+    /**
+     * Filter which HomeContents to update
+     */
+    where?: HomeContentWhereInput
+    /**
+     * Limit how many HomeContents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HomeContent updateManyAndReturn
+   */
+  export type HomeContentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * The data used to update HomeContents.
+     */
+    data: XOR<HomeContentUpdateManyMutationInput, HomeContentUncheckedUpdateManyInput>
+    /**
+     * Filter which HomeContents to update
+     */
+    where?: HomeContentWhereInput
+    /**
+     * Limit how many HomeContents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HomeContent upsert
+   */
+  export type HomeContentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * The filter to search for the HomeContent to update in case it exists.
+     */
+    where: HomeContentWhereUniqueInput
+    /**
+     * In case the HomeContent found by the `where` argument doesn't exist, create a new HomeContent with this data.
+     */
+    create: XOR<HomeContentCreateInput, HomeContentUncheckedCreateInput>
+    /**
+     * In case the HomeContent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HomeContentUpdateInput, HomeContentUncheckedUpdateInput>
+  }
+
+  /**
+   * HomeContent delete
+   */
+  export type HomeContentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+    /**
+     * Filter which HomeContent to delete.
+     */
+    where: HomeContentWhereUniqueInput
+  }
+
+  /**
+   * HomeContent deleteMany
+   */
+  export type HomeContentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HomeContents to delete
+     */
+    where?: HomeContentWhereInput
+    /**
+     * Limit how many HomeContents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * HomeContent without action
+   */
+  export type HomeContentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HomeContent
+     */
+    select?: HomeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HomeContent
+     */
+    omit?: HomeContentOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19988,12 +21070,30 @@ export namespace Prisma {
   export type GiftVoucherUsageScalarFieldEnum = (typeof GiftVoucherUsageScalarFieldEnum)[keyof typeof GiftVoucherUsageScalarFieldEnum]
 
 
+  export const HomeContentScalarFieldEnum: {
+    id: 'id',
+    slug: 'slug',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HomeContentScalarFieldEnum = (typeof HomeContentScalarFieldEnum)[keyof typeof HomeContentScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -20010,6 +21110,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -20147,6 +21256,20 @@ export namespace Prisma {
    * Reference to a field of type 'GiftVoucherStatus[]'
    */
   export type ListEnumGiftVoucherStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GiftVoucherStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
   /**
    * Deep Input Types
@@ -21334,6 +22457,58 @@ export namespace Prisma {
     amountUsed?: FloatWithAggregatesFilter<"GiftVoucherUsage"> | number
     usedAt?: DateTimeWithAggregatesFilter<"GiftVoucherUsage"> | Date | string
     notes?: StringNullableWithAggregatesFilter<"GiftVoucherUsage"> | string | null
+  }
+
+  export type HomeContentWhereInput = {
+    AND?: HomeContentWhereInput | HomeContentWhereInput[]
+    OR?: HomeContentWhereInput[]
+    NOT?: HomeContentWhereInput | HomeContentWhereInput[]
+    id?: StringFilter<"HomeContent"> | string
+    slug?: StringFilter<"HomeContent"> | string
+    content?: JsonFilter<"HomeContent">
+    createdAt?: DateTimeFilter<"HomeContent"> | Date | string
+    updatedAt?: DateTimeFilter<"HomeContent"> | Date | string
+  }
+
+  export type HomeContentOrderByWithRelationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomeContentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: HomeContentWhereInput | HomeContentWhereInput[]
+    OR?: HomeContentWhereInput[]
+    NOT?: HomeContentWhereInput | HomeContentWhereInput[]
+    content?: JsonFilter<"HomeContent">
+    createdAt?: DateTimeFilter<"HomeContent"> | Date | string
+    updatedAt?: DateTimeFilter<"HomeContent"> | Date | string
+  }, "id" | "slug">
+
+  export type HomeContentOrderByWithAggregationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HomeContentCountOrderByAggregateInput
+    _max?: HomeContentMaxOrderByAggregateInput
+    _min?: HomeContentMinOrderByAggregateInput
+  }
+
+  export type HomeContentScalarWhereWithAggregatesInput = {
+    AND?: HomeContentScalarWhereWithAggregatesInput | HomeContentScalarWhereWithAggregatesInput[]
+    OR?: HomeContentScalarWhereWithAggregatesInput[]
+    NOT?: HomeContentScalarWhereWithAggregatesInput | HomeContentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HomeContent"> | string
+    slug?: StringWithAggregatesFilter<"HomeContent"> | string
+    content?: JsonWithAggregatesFilter<"HomeContent">
+    createdAt?: DateTimeWithAggregatesFilter<"HomeContent"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HomeContent"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -22619,6 +23794,62 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type HomeContentCreateInput = {
+    id?: string
+    slug: string
+    content: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomeContentUncheckedCreateInput = {
+    id?: string
+    slug: string
+    content: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomeContentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomeContentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomeContentCreateManyInput = {
+    id?: string
+    slug: string
+    content: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HomeContentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HomeContentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23673,6 +24904,77 @@ export namespace Prisma {
 
   export type GiftVoucherUsageSumOrderByAggregateInput = {
     amountUsed?: SortOrder
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type HomeContentCountOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomeContentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomeContentMinOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -24987,6 +26289,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGiftVoucherStatusFilter<$PrismaModel>
     _max?: NestedEnumGiftVoucherStatusFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type AccountCreateWithoutUserInput = {

@@ -10,7 +10,9 @@ import BookingsManager from './BookingsManager';
 import UsersManager from './UsersManager';
 import GalleryManager from './GalleryManager';
 import GiftVouchersManager from './GiftVouchersManager';
+import HomeContentManager from './HomeContentManager';
 import {
+  Home,
   Layers,
   Sparkles,
   Building,
@@ -22,6 +24,14 @@ import {
 } from 'lucide-react';
 
 const adminTabs = [
+  {
+    value: 'home',
+    label: 'Home',
+    description: 'Edit hero copy, imagery, and homepage highlights.',
+    icon: Home,
+    component: <HomeContentManager />,
+    title: 'Home Page Content'
+  },
   {
     value: 'categories',
     label: 'Categories',
@@ -91,7 +101,7 @@ const adminTabs = [
 export default function AdminDashboard() {
   return (
     <div className="space-y-6">
-      <Tabs defaultValue="categories" className="space-y-6">
+      <Tabs defaultValue="home" className="space-y-6">
         <div className="w-full overflow-x-auto">
           <TabsList className="flex w-full min-w-max gap-2 py-1 pr-2 flex-nowrap sm:min-w-0 sm:flex-wrap sm:justify-center lg:flex-nowrap lg:justify-start">
             {adminTabs.map((tab) => {

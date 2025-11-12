@@ -7,6 +7,8 @@ import {
   sendBookingStatusUpdateEmail,
   sendUserRoleChangeEmail,
 } from "@/lib/mail";
+import { homeContentSchema } from "@/schemas/home-content";
+import { getHomeContentData, saveHomeContentData } from "@/lib/home-content";
 
 // Schemas for validation
 const categorySchema = z.object({
@@ -466,4 +468,15 @@ export const adminRouter = createTRPCRouter({
       orderBy: { usedAt: 'desc' },
     });
   }),
+
+  // Home Page Content Management
+  getHomeContent: adminProcedure.query(async () => {
+    return await getHomeContentData();
+  }),
+
+  updateHomeContent: adminProcedure
+    .input(homeContentSchema)
+    .mutation(async ({ input }) => {
+      return await saveHomeContentData(input);
+    }),
 });

@@ -317,3 +317,13 @@ model GiftVoucherUsage {
 
   @@map("gift_voucher_usages")
 }
+
+model HomeContent {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("home_content")
+}

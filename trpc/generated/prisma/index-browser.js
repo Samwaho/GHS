@@ -296,9 +296,21 @@ exports.Prisma.GiftVoucherUsageScalarFieldEnum = {
   notes: 'notes'
 };
 
+exports.Prisma.HomeContentScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -309,6 +321,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
@@ -355,7 +373,8 @@ exports.Prisma.ModelName = {
   Gallery: 'Gallery',
   GiftVoucherTemplate: 'GiftVoucherTemplate',
   GiftVoucher: 'GiftVoucher',
-  GiftVoucherUsage: 'GiftVoucherUsage'
+  GiftVoucherUsage: 'GiftVoucherUsage',
+  HomeContent: 'HomeContent'
 };
 
 /**

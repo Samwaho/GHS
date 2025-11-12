@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 
 interface UploadcareUploaderProps {
   onUpload: (result: { cdnUrl: string; uuid: string }) => void;
+  onRemove?: () => void;
   preview?: string;
   disabled?: boolean;
   className?: string;
@@ -16,6 +17,7 @@ interface UploadcareUploaderProps {
 
 export function UploadcareUploader({
   onUpload,
+  onRemove,
   preview,
   disabled = false,
   className,
@@ -59,7 +61,7 @@ export function UploadcareUploader({
 
   const handleFileRemove = () => {
     setCurrentPreview(undefined);
-    // You might want to call a callback here to notify parent component
+    onRemove?.();
   };
 
   return (

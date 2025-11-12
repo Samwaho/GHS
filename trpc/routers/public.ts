@@ -17,6 +17,7 @@ import {
   setMinutes,
   startOfDay,
 } from "date-fns";
+import { getHomeContentData } from "@/lib/home-content";
 
 export const publicRouter = createTRPCRouter({
   // Get all active services with categories
@@ -281,5 +282,9 @@ export const publicRouter = createTRPCRouter({
       where: { isActive: true },
       orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
     });
+  }),
+
+  getHomeContent: baseProcedure.query(async () => {
+    return await getHomeContentData();
   }),
 });
